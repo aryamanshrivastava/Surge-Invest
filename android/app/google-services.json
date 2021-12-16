@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "258351809852",
+    "project_id": "surge-f46dc",
+    "storage_bucket": "surge-f46dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258351809852:android:9a6f299530c59dcc7f4a39",
+        "android_client_info": {
+          "package_name": "co.avitt.surge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258351809852-f34ti53o2bal3f250dfnk12sb318eold.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.avitt.surge",
+            "certificate_hash": "7902c7f1e0f733aa88f681d4d9d8d9b567a29735"
+          }
+        },
+        {
+          "client_id": "258351809852-41g7ibghvtt0q4im7i7eosjtt4en3fr3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrv3iLBqhpyvRyO6Tx1tNltBkRn4_PSmk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258351809852-41g7ibghvtt0q4im7i7eosjtt4en3fr3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
