@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:testings/screens/auth/register.dart';
 import 'package:testings/services/auth.dart';
+import 'package:testings/services/messaging.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -13,6 +14,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final _auth = AuthService();
+
+  @override
+  void initState() {
+    MessagingService().getPermissions();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
