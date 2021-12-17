@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:telephony/telephony.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import 'main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,25 +15,25 @@ List<String> messages = [];
 bool _isLoading = true;
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    _isLoading = true;
-    getPermissions();
-    getMessages();
-    super.initState();
-    telephony.listenIncomingSms(onNewMessage: (SmsMessage message) async {
-          if(message.body.toString().contains(new RegExp(r'([Rr]s\.)|([Ss]ent)|([Ff]rom)|([Pp]aid)|([Dd]ebited)')) && !(message.body.toString().contains(new RegExp(r'([Ff]ailed)|([Cc]redited)|([Rr]received)')))){
-            if(RegExp(r'(?<=(Rs\.))[0-9]*\.?[0-9]*').firstMatch(message.body.toString())?.group(0) != null){
-              await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.phoneNumber).collection('messages').doc().set({
-                'amount': RegExp(r'(?<=(Rs\.))[0-9]*\.?[0-9]*').firstMatch(message.body.toString())?.group(0),
-                'time': Timestamp.now()
-              });
-            }
-          }
-        },
-        onBackgroundMessage: backgroundMessageHandler
-    );
-  }
+  // @override
+  // void initState() {
+  //   _isLoading = true;
+  //   getPermissions();
+  //   getMessages();
+  //   super.initState();
+  //   telephony.listenIncomingSms(onNewMessage: (SmsMessage message) async {
+  //         if(message.body.toString().contains(new RegExp(r'([Rr]s\.)|([Ss]ent)|([Ff]rom)|([Pp]aid)|([Dd]ebited)')) && !(message.body.toString().contains(new RegExp(r'([Ff]ailed)|([Cc]redited)|([Rr]received)')))){
+  //           if(RegExp(r'(?<=(Rs\.))[0-9]*\.?[0-9]*').firstMatch(message.body.toString())?.group(0) != null){
+  //             await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.phoneNumber).collection('messages').doc().set({
+  //               'amount': RegExp(r'(?<=(Rs\.))[0-9]*\.?[0-9]*').firstMatch(message.body.toString())?.group(0),
+  //               'time': Timestamp.now()
+  //             });
+  //           }
+  //         }
+  //       },
+  //       onBackgroundMessage: backgroundMessageHandler
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
