@@ -11,8 +11,11 @@ class Db {
     }).catchError((e) => print(e));
   }
 
-  addMessages(String uid, int amount) async =>
-      await users.doc(uid).update(MessagingService().transations(amount));
+  addMessages(String uid, int amount) async => await users
+      .doc(uid)
+      .collection('messages')
+      .doc()
+      .set(MessagingService().transations(amount));
 
   Stream<QuerySnapshot> listenToDb() => users.snapshots();
 }

@@ -17,12 +17,8 @@ class MessagingService {
 
   Map<String, dynamic> transations(int amount) {
     return {
-      'transactions': FieldValue.arrayUnion([
-        {
-          'time': DateTime.now(),
-          'amount': amount,
-        },
-      ]),
+      'time': DateTime.now(),
+      'amount': amount,
     };
   }
 
@@ -32,11 +28,14 @@ class MessagingService {
             r'([Rr]s\.)|([Ss]ent)|([Ff]rom)|([Pp]aid)|([Dd]ebited)')) &&
         !(message.body.toString().contains(
             new RegExp(r'([Ff]ailed)|([Cc]redited)|([Rr]received)')))) {
-      
-        int amount = int.parse(
-            RegExp(r'Rs\s*\d+').firstMatch(message.body.toString())?.group(0) ??
-                '0');
-        print("got $amount");
+      if (RegExp(r'(?<=(Rs\.))[0-9]*\.?[0-9]*')
+              .firstMatch(message.body.toString())
+              ?.group(0) !=
+          null) {
+        int amount = int.parse(RegExp(r'(?<=(Rs\.))[0-9]*')
+                .firstMatch(message.body.toString())
+                ?.group(0) ??
+            '0');
         return await Db()
             .addMessages(FirebaseAuth.instance.currentUser!.uid, amount);
       }
