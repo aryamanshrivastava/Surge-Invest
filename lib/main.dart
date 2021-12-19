@@ -22,7 +22,7 @@ backgroundMessageHandler(SmsMessage message) async {
               ?.group(0) ??
           '0');
       return await Db()
-          .addMessages(FirebaseAuth.instance.currentUser!.uid, amount);
+          .addMessages(FirebaseAuth.instance.currentUser!.phoneNumber!, amount);
     }
   }
 }

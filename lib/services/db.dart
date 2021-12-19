@@ -11,8 +11,8 @@ class Db {
     }).catchError((e) => print('db error' + e));
   }
 
-  addMessages(String uid, int amount) async => await users
-      .doc(uid)
+  addMessages(String phone, int amount) async => await users
+      .doc(phone)
       .collection('messages')
       .doc()
       .set(MessagingService().transations(amount));
