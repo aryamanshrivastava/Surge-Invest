@@ -25,19 +25,27 @@ class MessagingService {
   incomingMessageHandler(SmsMessage message) async {
     print("incoming" + message.body!);
     if (message.body.toString().contains(new RegExp(
-            r'([Rr]s\.)|([Ss]ent)|([Ff]rom)|([Pp]aid)|([Dd]ebited)')) &&
+            r'([Rr]s\.?)|([Ss]ent)|([Ff]rom)|([Pp]aid)|([Dd]ebited)')) &&
         !(message.body.toString().contains(
             new RegExp(r'([Ff]ailed)|([Cc]redited)|([Rr]received)')))) {
-      if (RegExp(r'(?<=(Rs\.))[0-9]*\.?[0-9]*')
+      if (RegExp(r'(?<=(Rs))\.? ?[0-9]*')
               .firstMatch(message.body.toString())
               ?.group(0) !=
           null) {
-        int amount = int.parse(RegExp(r'(?<=(Rs\.))[0-9]*')
-                .firstMatch(message.body.toString())
-                ?.group(0) ??
-            '0');
-        return await Db()
-            .addMessages(FirebaseAuth.instance.currentUser!.phoneNumber!, amount);
+        String? temp = RegExp(r'(?<=(Rs))\.? ?[0-9]*')
+            .firstMatch(message.body.toString())
+            ?.group(0);
+        if (temp![0] == ' ' || temp[0] == '.') {
+          temp = temp.substring(1);
+        }
+        int amount = int.parse(temp);
+        // int amount = int.parse(RegExp(r'(?<=(Rs))\.? ?[0-9]*')
+        //         .firstMatch(message.body.toString())
+        //         ?.group(0) ??
+        //     '0');
+        print(amount);
+        return await Db().addMessages(
+            FirebaseAuth.instance.currentUser!.phoneNumber!, amount);
       }
     }
   }

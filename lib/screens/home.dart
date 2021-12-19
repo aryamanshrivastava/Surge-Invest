@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:telephony/telephony.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:testings/main.dart';
+import 'package:testings/services/db.dart';
 import 'package:testings/services/messaging.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //Stream<QuerySnapshot>? message =
+    //Provider.of<Stream<QuerySnapshot>>(context);
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -35,7 +40,60 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [],
+              children: [
+                Text(
+                  'Recent Transactions ',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                StreamBuilder(
+                  stream: Db().listenToMessages,
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Text('data');
+                    } else {
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            var doc = snapshot.data!.docs[index];
+                            Timestamp time = doc['time'];
+                            var parsedDT = time.toDate();
+                            var date = DateFormat.yMMMd().format(parsedDT);
+                            var tim = DateFormat.jm().format(parsedDT);
+                            int amount = doc['amount'];
+                            int rounded, invested;
+                            if (amount < 100) {
+                              if (amount % 5 == 0) {
+                                invested = 5;
+                              } else {
+                                rounded = (amount / 5).ceil() * 5;
+                                invested = rounded - amount;
+                              }
+                            } else {
+                              rounded = (amount / 10).ceil() * 10;
+                              invested = rounded - amount;
+                            }
+
+                            return ListTile(
+                              title: Text('Rs.' + amount.toString()),
+                              subtitle:
+                                  Text(date.toString() + " " + tim.toString()),
+                              trailing:
+                                  Text("Invested Rs." + invested.toString()),
+                            );
+                          },
+                        ),
+                      );
+                    }
+                  },
+                )
+              ],
             ),
           )),
     );

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:testings/services/messaging.dart';
 
 class Db {
@@ -17,5 +18,11 @@ class Db {
       .doc()
       .set(MessagingService().transations(amount));
 
-  Stream<QuerySnapshot> listenToDb() => users.snapshots();
+  Stream<QuerySnapshot> get listenToDb => users.snapshots();
+
+  Stream<QuerySnapshot> get listenToMessages => users
+      .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+      .collection('messages')
+      .orderBy('time', descending: true)
+      .snapshots();
 }

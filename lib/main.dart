@@ -13,11 +13,11 @@ backgroundMessageHandler(SmsMessage message) async {
       !(message.body
           .toString()
           .contains(new RegExp(r'([Ff]ailed)|([Cc]redited)|([Rr]received)')))) {
-    if (RegExp(r'(?<=(Rs\.))[0-9]*\.?[0-9]*')
+    if (RegExp(r'(?<=(Rs)\.* *)[0-9]*')
             .firstMatch(message.body.toString())
             ?.group(0) !=
         null) {
-      int amount = int.parse(RegExp(r'(?<=(Rs\.))[0-9]*')
+      int amount = int.parse(RegExp(r'(?<=(Rs)\.* *)[0-9]*')
               .firstMatch(message.body.toString())
               ?.group(0) ??
           '0');
