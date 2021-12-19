@@ -17,6 +17,7 @@ class SurgeApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Surge',
         home: AuthWrapper(),
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

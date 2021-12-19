@@ -76,16 +76,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                 invested = rounded - amount;
                               }
                             } else {
-                              rounded = (amount / 10).ceil() * 10;
-                              invested = rounded - amount;
+                              if (amount % 10 == 0) {
+                                invested = 10;
+                              } else {
+                                rounded = (amount / 10).ceil() * 10;
+                                invested = rounded - amount;
+                              }
                             }
-
                             return ListTile(
-                              title: Text('Rs.' + amount.toString()),
+                              title: Text('You spent ₹' + amount.toString()),
                               subtitle:
                                   Text(date.toString() + " " + tim.toString()),
                               trailing:
-                                  Text("Invested Rs." + invested.toString()),
+                                  Text("Invested ₹" + invested.toString()),
                             );
                           },
                         ),
