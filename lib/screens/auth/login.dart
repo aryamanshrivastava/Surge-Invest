@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:testings/screens/auth/otp.dart';
 import 'package:testings/screens/auth/register.dart';
 import 'package:testings/services/auth.dart';
 import 'package:testings/services/messaging.dart';
@@ -11,8 +13,7 @@ class LoginScreen extends StatefulWidget {
 const themeColor = const Color(0xff063970);
 
 class _LoginScreenState extends State<LoginScreen> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final phoneController = TextEditingController();
   final _auth = AuthService();
 
   @override
@@ -33,31 +34,13 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
-                controller: emailController,
+                controller: phoneController,
                 style: TextStyle(
                   letterSpacing: 2,
                   fontSize: 20,
                 ),
                 decoration: InputDecoration(
-                    hintText: 'Email',
-                    hintStyle: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
-                        color: Colors.grey),
-                    border: InputBorder.none,
-                    counterText: ''),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: TextField(
-                controller: passwordController,
-                style: TextStyle(
-                  letterSpacing: 2,
-                  fontSize: 20,
-                ),
-                decoration: InputDecoration(
-                    hintText: 'Password',
+                    hintText: 'Phone no.',
                     hintStyle: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
@@ -71,35 +54,27 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
-                await _auth
-                    .signIn(emailController.text.trim(),
-                        passwordController.text.trim())
-                    .catchError((err) {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("ERROR"),
-                          content: Text(err.message),
-                          actions: [
-                            TextButton(
-                              child: Text(
-                                "OK",
-                                style: new TextStyle(color: Colors.white),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.blue),
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            )
-                          ],
-                        );
-                      });
-                });
+                var doc = await FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(phoneController.text)
+                    .get();
+                if (doc.exists) {
+                  _auth.logInWIthPhone(phone: phoneController.text);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OtpScreen(
+                                phoneNumber: phoneController.text,
+                                registered: true,
+                                auth: _auth,
+                              )));
+                } else {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              RegisterScreen(phoneController.text)));
+                }
               },
               child: Text(
                 'LOGIN',
@@ -118,7 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RegisterScreen()),
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          RegisterScreen(phoneController.text)),
                 );
               },
             )

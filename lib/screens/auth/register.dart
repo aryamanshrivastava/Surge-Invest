@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:testings/screens/auth/otp.dart';
 import 'package:testings/services/auth.dart';
 
 class RegisterScreen extends StatefulWidget {
+  RegisterScreen(this.phone);
+
+  final String? phone;
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
@@ -12,6 +16,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final phController = TextEditingController();
   final _auth = AuthService();
 
   @override
@@ -62,13 +67,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
-                controller: passwordController,
+                keyboardType: TextInputType.number,
+                
+                controller: phController,
                 style: TextStyle(
                   letterSpacing: 2,
                   fontSize: 20,
                 ),
                 decoration: InputDecoration(
-                    hintText: 'Password',
+                    hintText: 'Phone no.',
                     hintStyle: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
@@ -82,35 +89,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
-                await _auth
-                    .signUp(emailController.text.trim(),
-                        passwordController.text.trim(), nameController.text)
-                    .catchError((err) {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("ERROR"),
-                          content: Text(err.message),
-                          actions: [
-                            TextButton(
-                              child: Text(
-                                "OK",
-                                style: new TextStyle(color: Colors.white),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.blue),
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            )
-                          ],
-                        );
-                      });
-                });
+                await _auth.logInWIthPhone(phone: phController.text);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OtpScreen(
+                              phoneNumber: phController.text,
+                              name: nameController.text,
+                              email: emailController.text,
+                              registered: false,
+                              auth: _auth,
+                            )));
               },
               child: Text(
                 'Register',

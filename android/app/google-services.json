@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "258351809852-f34ti53o2bal3f250dfnk12sb318eold.apps.googleusercontent.com",
+          "client_id": "258351809852-vucd8da04ghe03tihf8avn742batnhei.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "co.avitt.surge",
-            "certificate_hash": "7902c7f1e0f733aa88f681d4d9d8d9b567a29735"
+            "certificate_hash": "5c1767e63aa203e662ed587a0014a60dc2eaf518"
           }
         },
         {

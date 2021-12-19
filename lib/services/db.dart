@@ -4,11 +4,11 @@ import 'package:testings/services/messaging.dart';
 class Db {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
-  addUser(String uid, String email, String name) async {
-    return await users.doc(uid).set({
+  addUser(String email, String name, String phone) async {
+    return await users.doc(phone).set({
       'email': email,
       'name': name,
-    }).catchError((e) => print(e));
+    }).catchError((e) => print('db error' + e));
   }
 
   addMessages(String uid, int amount) async => await users
