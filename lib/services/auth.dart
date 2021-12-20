@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:testings/models/users.dart';
+import 'package:testings/screens/auth/auth_wrapper.dart';
 import 'package:testings/services/db.dart';
 
 class AuthService {
@@ -66,6 +67,8 @@ class AuthService {
         verificationId: sentCode!,
         smsCode: enteredCode,
       ));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AuthWrapper()));
     } catch (e) {
       print(e);
       FocusScope.of(context).unfocus();

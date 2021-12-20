@@ -21,7 +21,7 @@ class Db {
   Stream<QuerySnapshot> get listenToDb => users.snapshots();
 
   Stream<QuerySnapshot> get listenToMessages => users
-      .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+      .doc(FirebaseAuth.instance.currentUser?.phoneNumber)
       .collection('messages')
       .orderBy('time', descending: true)
       .snapshots();
