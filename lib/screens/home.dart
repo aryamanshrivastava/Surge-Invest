@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:telephony/telephony.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:testings/main.dart';
+import 'package:testings/models/change.dart';
+import 'package:testings/models/razorpay.dart';
 import 'package:testings/services/db.dart';
 import 'package:testings/services/messaging.dart';
+import 'package:testings/services/razorpay.dart';
+import 'package:testings/services/razorpay_post.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -17,6 +22,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final telephony = Telephony.instance;
+  final ready = BoolChange();
+  late RP _razorpay;
+
+  // bool _isOrderReady = false;
 
   @override
   void initState() {
@@ -24,13 +33,20 @@ class _HomeScreenState extends State<HomeScreen> {
       onNewMessage: MessagingService().incomingMessageHandler,
       onBackgroundMessage: backgroundMessageHandler,
     );
+    
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    //Stream<QuerySnapshot>? message =
-    //Provider.of<Stream<QuerySnapshot>>(context);
+    _razorpay = Provider.of<RP>(context);
+    _razorpay.razorpay
+        .on(Razorpay.EVENT_PAYMENT_SUCCESS, RP().handlePaymentSuccess);
+    _razorpay.razorpay
+        .on(Razorpay.EVENT_PAYMENT_ERROR, RP().handlePaymentError);
+    _razorpay.razorpay
+        .on(Razorpay.EVENT_EXTERNAL_WALLET, RP().handleExternalWallet);
+    RPpost? order;
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -51,6 +67,35 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 20,
                 ),
+                Expanded(
+                    flex: 1,
+                    child: !Provider.of<BoolChange>(context).isReady
+                        ? Column(
+                            children: [
+                              ElevatedButton(
+                                child: Text('RP'),
+                                onPressed: () async {
+                                  // order = await RazorPayCreateOrder()
+                                  //     .createOrder(
+                                  //         name: 'Test',
+                                  //         email: 'test@gmail.om',
+                                  //         phone: '8210375471',
+                                  //         receipt: '3475');
+                                  // Provider.of<RPpost>(context, listen: false)
+                                  //     .setOrderId = order!.orderId;
+                                  // Provider.of<BoolChange>(context,
+                                  //         listen: false)
+                                  //     .ready();
+                                  _razorpay.checkout('Test', '123456789',
+                                      'test@gmail.om', 'order_Ia7ItJ1ttRmp7M');
+                                },
+                              ),
+                            ],
+                          )
+                        : Center(
+                            child: Text(
+                                Provider.of<RPpost>(context).orderId ?? 'err'),
+                          )),
                 StreamBuilder(
                   stream: Db().listenToMessages,
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -58,6 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Text('data');
                     } else {
                       return Expanded(
+                        flex: 1,
                         child: ListView.builder(
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
@@ -101,19 +147,4 @@ class _HomeScreenState extends State<HomeScreen> {
           )),
     );
   }
-
-//   getMessages() async {
-//     FirebaseFirestore.instance
-//         .collection('users')
-//         .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
-//         .collection('messages')
-//         .get()
-//         .then((QuerySnapshot querySnapshot) {
-//       querySnapshot.docs.forEach((doc) {
-//         setState(() {
-//           messages.add(doc["amount"]);
-//         });
-//       });
-//     }).whenComplete(() => _isLoading = false);
-//   }
 }
