@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   // Provider.of<BoolChange>(context,
                                   //         listen: false)
                                   //     .ready();
-                                  _razorpay.checkout('Test', '123456789',
+                                  _razorpay.checkout('Test', '9811130906',
                                       'test@gmail.om', 'order_Ia7ItJ1ttRmp7M');
                                 },
                               ),

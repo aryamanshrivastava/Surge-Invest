@@ -24,7 +24,10 @@ class RP {
       'order_id': orderId, // Generate order_id using Orders API
       'description': 'Fine T-Shirt',
       'timeout': 60, // in seconds
-      'prefill': {'contact': phone, 'email': email}
+      'prefill': {'contact': phone, 'email': email},
+      "external" : {
+        "wallets" : ["paytm",]
+      }
     };
     razorpay.open(options);
   }
