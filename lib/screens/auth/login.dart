@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () async {
                 var doc = await FirebaseFirestore.instance
                     .collection('users')
-                    .doc(phoneController.text)
+                    .doc('+91' + phoneController.text)
                     .get();
                 if (doc.exists) {
                   _auth.logInWIthPhone(phone: phoneController.text);

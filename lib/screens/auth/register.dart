@@ -68,7 +68,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               padding: const EdgeInsets.all(10.0),
               child: TextField(
                 keyboardType: TextInputType.number,
-                
                 controller: phController,
                 style: TextStyle(
                   letterSpacing: 2,
@@ -94,7 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => OtpScreen(
-                              phoneNumber: phController.text,
+                              phoneNumber: '+91' + phController.text,
                               name: nameController.text,
                               email: emailController.text,
                               registered: false,

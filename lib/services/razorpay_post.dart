@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:testings/models/constants.dart';
 import 'package:testings/models/razorpay.dart';
 
-class RazorPayCreateOrder {
-  final url = Uri.parse(
-      'https://api.razorpay.com/v1/subscription_registration/auth_links');
+class RazorPayAPIpost {
+  final url = Uri.parse('https://api.razorpay.com/v1/customers');
 
   Future<RPpost> createOrder({
     required String name,
@@ -50,6 +50,33 @@ class RazorPayCreateOrder {
     } else {
       print(response.body);
       throw Exception('Failed to load user');
+    }
+  }
+
+  Future<RPCreateCust> createCustomer(
+      String name, String phone, String email) async {
+    var postBody = jsonEncode(<String, dynamic>{
+      "name": name,
+      "email": email,
+      "contact": phone,
+      "fail_existing": "0",
+      "notes": {"note_key_1": "September", "note_key_2": "Make it so."}
+    });
+    final response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        HttpHeaders.authorizationHeader:
+            'Basic cnpwX2xpdmVfTU0ydHU5Mzd4SHhoS2I6dk9jcnhmMFJDMWpVemM1ZUM2djNMNGQ4',
+      },
+      body: postBody,
+    );
+    if (response.statusCode == 200) {
+      print(response.body);
+      return RPCreateCust.fromJson(jsonDecode(response.body));
+    } else {
+      print(response.body);
+      throw Exception('Failed to create customer');
     }
   }
 }

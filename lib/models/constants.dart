@@ -1,3 +1,6 @@
-const apiKeyId = 'rzp_test_eYa8rC2ZH1KzuQ';
-const apiClientSec = '8h3OqHqvSps7Di7OgT9zbCCb';
+import 'dart:convert';
+
+const apiKeyId = 'rzp_live_MM2tu937xHxhKb';
+const apiClientSec = 'vOcrxf0RC1jUzc5eC6v3L4d8';
 const apiKey = apiKeyId + ':' + apiClientSec;
+final String basicAuth = 'Basic ' + base64Encode(utf8.encode(apiKey));

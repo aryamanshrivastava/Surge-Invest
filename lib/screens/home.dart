@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onNewMessage: MessagingService().incomingMessageHandler,
       onBackgroundMessage: backgroundMessageHandler,
     );
-    
+
     super.initState();
   }
 
@@ -86,8 +86,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                   // Provider.of<BoolChange>(context,
                                   //         listen: false)
                                   //     .ready();
-                                  _razorpay.checkout('Test', '9811130906',
-                                      'test@gmail.om', 'order_Ia7ItJ1ttRmp7M');
+                                  // _razorpay.checkout('Test', '9811130906',
+                                  //     'test@gmail.om', 'order_Ia7ItJ1ttRmp7M');
+                                  var cust = await RazorPayAPIpost()
+                                      .createCustomer(
+                                          'test',
+                                          FirebaseAuth.instance.currentUser!
+                                              .phoneNumber!,
+                                          'test@gmail.com');
+                                  Db().addCustomerId(cust.custId!);
                                 },
                               ),
                             ],
