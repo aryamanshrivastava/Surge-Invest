@@ -45,7 +45,8 @@ class MessagingService {
         //     '0');
         print(amount);
         return await Db().addMessages(
-            FirebaseAuth.instance.currentUser!.phoneNumber!, amount);
+            FirebaseAuth.instance.currentUser!.phoneNumber!.substring(3),
+            amount);
       }
     }
   }
