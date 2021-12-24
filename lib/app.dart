@@ -18,8 +18,7 @@ class SurgeApp extends StatelessWidget {
         StreamProvider.value(value: AuthService().user, initialData: null),
         StreamProvider.value(value: Db().listenToMessages, initialData: null),
         ChangeNotifierProvider(create: (_) => BoolChange()),
-        ProxyProvider0<RPpost>(update: (_, __) => RPpost('orderid')),
-        ProxyProvider0<RP>(update: (_,__) => RP()),
+        ProxyProvider0<RP>(update: (_, __) => RP(context)),
       ],
       child: MaterialApp(
         title: 'Surge',

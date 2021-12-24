@@ -1,14 +1,14 @@
-class RPpost {
+class RPCreateAuthOrder {
   String? orderId;
 
-  RPpost(this.orderId);
+  RPCreateAuthOrder(this.orderId);
 
   set setOrderId(String? id) {
     this.orderId = id;
   }
 
-  factory RPpost.fromJson(Map<String, dynamic> json) {
-    return RPpost(json['order_id']);
+  factory RPCreateAuthOrder.fromJson(Map<String, dynamic> json) {
+    return RPCreateAuthOrder(json['id']);
   }
 }
 
@@ -19,5 +19,15 @@ class RPCreateCust {
 
   factory RPCreateCust.fromJson(Map<String, dynamic> json) {
     return RPCreateCust(json['id']);
+  }
+}
+
+class RPFetchToken {
+  String? token;
+
+  RPFetchToken(this.token);
+
+  factory RPFetchToken.fromJson(Map<String, dynamic> json) {
+    return RPFetchToken(json['id']);
   }
 }

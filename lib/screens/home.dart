@@ -24,6 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final telephony = Telephony.instance;
   final ready = BoolChange();
   late RP _razorpay;
+  String phone = FirebaseAuth.instance.currentUser!.phoneNumber!;
+  Db db = Db();
+  final Stream _usersStream =
+      FirebaseFirestore.instance.collection('users').doc().snapshots();
 
   // bool _isOrderReady = false;
 
@@ -41,12 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     _razorpay = Provider.of<RP>(context);
     _razorpay.razorpay
-        .on(Razorpay.EVENT_PAYMENT_SUCCESS, RP().handlePaymentSuccess);
+        .on(Razorpay.EVENT_PAYMENT_SUCCESS, RP(context).handlePaymentSuccess);
     _razorpay.razorpay
-        .on(Razorpay.EVENT_PAYMENT_ERROR, RP().handlePaymentError);
+        .on(Razorpay.EVENT_PAYMENT_ERROR, RP(context).handlePaymentError);
     _razorpay.razorpay
-        .on(Razorpay.EVENT_EXTERNAL_WALLET, RP().handleExternalWallet);
-    RPpost? order;
+        .on(Razorpay.EVENT_EXTERNAL_WALLET, RP(context).handleExternalWallet);
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -57,6 +60,64 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Row(
+                  children: [
+                    Card(
+                      child: StreamBuilder<DocumentSnapshot>(
+                        stream: db.listenToDb,
+                        builder: (context,
+                            AsyncSnapshot<DocumentSnapshot> snapshot) {
+                          if (snapshot.hasData) {
+                            return Text(
+                                'Invested ${snapshot.data!['amount'] ?? '0'} BTC');
+                          } else {
+                            return SizedBox();
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  flex: 1,
+                  child: StreamBuilder<DocumentSnapshot>(
+                    stream: db.listenToDb,
+                    builder:
+                        (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.hasData) {
+                        if (!snapshot.data!['rp_authorized']) {
+                          return Column(
+                            children: [
+                              ElevatedButton(
+                                child: Text('RP'),
+                                onPressed: () async {
+                                  var cust = await RazorPayAPIpost()
+                                      .createCustomer(
+                                          await db.name, phone, await db.email);
+                                  Db().addCustomerId(cust.custId!);
+                                  var order = await RazorPayAPIpost()
+                                      .createAuthOrder(cust.custId!, '1');
+                                  print(order.orderId);
+
+                                  _razorpay.checkout(
+                                      await db.name,
+                                      phone,
+                                      await db.email,
+                                      order.orderId!,
+                                      cust.custId!);
+                                },
+                              ),
+                            ],
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      } else {
+                        return SizedBox();
+                      }
+                    },
+                  ),
+                ),
                 Text(
                   'Recent Transactions ',
                   style: TextStyle(
@@ -67,42 +128,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                Expanded(
-                    flex: 1,
-                    child: !Provider.of<BoolChange>(context).isReady
-                        ? Column(
-                            children: [
-                              ElevatedButton(
-                                child: Text('RP'),
-                                onPressed: () async {
-                                  // order = await RazorPayCreateOrder()
-                                  //     .createOrder(
-                                  //         name: 'Test',
-                                  //         email: 'test@gmail.om',
-                                  //         phone: '8210375471',
-                                  //         receipt: '3475');
-                                  // Provider.of<RPpost>(context, listen: false)
-                                  //     .setOrderId = order!.orderId;
-                                  // Provider.of<BoolChange>(context,
-                                  //         listen: false)
-                                  //     .ready();
-                                  // _razorpay.checkout('Test', '9811130906',
-                                  //     'test@gmail.om', 'order_Ia7ItJ1ttRmp7M');
-                                  var cust = await RazorPayAPIpost()
-                                      .createCustomer(
-                                          'test',
-                                          FirebaseAuth.instance.currentUser!
-                                              .phoneNumber!,
-                                          'test@gmail.com');
-                                  Db().addCustomerId(cust.custId!);
-                                },
-                              ),
-                            ],
-                          )
-                        : Center(
-                            child: Text(
-                                Provider.of<RPpost>(context).orderId ?? 'err'),
-                          )),
                 StreamBuilder(
                   stream: Db().listenToMessages,
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {

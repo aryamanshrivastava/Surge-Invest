@@ -10,6 +10,7 @@ class Db {
     return await users.doc(phone).set({
       'email': email,
       'name': name,
+      'amount': '0',
     }).catchError((e) => print('db error' + e));
   }
 
@@ -19,7 +20,8 @@ class Db {
       .doc()
       .set(MessagingService().transations(amount));
 
-  Stream<QuerySnapshot> get listenToDb => users.snapshots();
+  Stream<DocumentSnapshot> get listenToDb =>
+      users.doc(phoneCurrUser).snapshots();
 
   Stream<QuerySnapshot> get listenToMessages => users
       .doc(FirebaseAuth.instance.currentUser?.phoneNumber)
@@ -28,7 +30,27 @@ class Db {
       .snapshots();
 
   addCustomerId(String customerId) async =>
-      await users.doc(phoneCurrUser).update({
-        'cust_id': customerId,
-      });
+      await users.doc(phoneCurrUser).update({'cust_id': customerId});
+
+  addToken(String token) async {
+    await users.doc(phoneCurrUser).update({
+      'rp_authorized': true,
+      'token': token,
+    });
+  }
+
+  Future<String> get email async {
+    DocumentSnapshot snapshot = await users.doc(phoneCurrUser).get();
+    return snapshot.get('email');
+  }
+
+  Future<String> get name async {
+    DocumentSnapshot snapshot = await users.doc(phoneCurrUser).get();
+    return snapshot.get('name');
+  }
+
+  Future<bool> get auth async {
+    DocumentSnapshot snapshot = await users.doc(phoneCurrUser).get();
+    return snapshot.get('rp_authorized');
+  }
 }

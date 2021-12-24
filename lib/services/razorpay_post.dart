@@ -7,51 +7,7 @@ import 'package:testings/models/razorpay.dart';
 
 class RazorPayAPIpost {
   final url = Uri.parse('https://api.razorpay.com/v1/customers');
-
-  Future<RPpost> createOrder({
-    required String name,
-    required String email,
-    required String phone,
-    required String receipt,
-  }) async {
-    var postBody = jsonEncode(<String, dynamic>{
-      "customer": {"name": name, "email": email, "contact": phone},
-      "type": "link",
-      "amount": "100",
-      "currency": "INR",
-      "description": "Surge will debit upto Rs.500 in a month.",
-      "subscription_registration": {
-        "method": "upi",
-        "max_amount": "500000",
-        "expire_at": 4102444799,
-        "frequency": "as_presented"
-      },
-      "receipt": "Receipt No. $receipt",
-      "email_notify": 1,
-      "sms_notify": 1,
-      "expire_by": 4102444799,
-      "notes": {
-        "note_key 1": "Beam me up Scotty",
-        "note_key 2": "Tea. Earl Gray. Hot."
-      }
-    });
-    final response = await http.post(
-      url,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        HttpHeaders.authorizationHeader:
-            'Basic cnpwX3Rlc3RfZVlhOHJDMlpIMUt6dVE6OGgzT3FIcXZTcHM3RGk3T2dUOXpiQ0Ni'
-      },
-      body: postBody,
-    );
-    if (response.statusCode == 200) {
-      print(response.body);
-      return RPpost.fromJson(jsonDecode(response.body));
-    } else {
-      print(response.body);
-      throw Exception('Failed to load user');
-    }
-  }
+  final authOrderUrl = Uri.parse('https://api.razorpay.com/v1/orders');
 
   Future<RPCreateCust> createCustomer(
       String name, String phone, String email) async {
@@ -67,7 +23,7 @@ class RazorPayAPIpost {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         HttpHeaders.authorizationHeader:
-            'Basic cnpwX2xpdmVfTU0ydHU5Mzd4SHhoS2I6dk9jcnhmMFJDMWpVemM1ZUM2djNMNGQ4',
+            'Basic cnpwX3Rlc3RfWXByY3pnUDVjVEtEaU46OFFiOFN0enNHVkN4cGdSWjRleXVvOXZv',
       },
       body: postBody,
     );
@@ -77,6 +33,60 @@ class RazorPayAPIpost {
     } else {
       print(response.body);
       throw Exception('Failed to create customer');
+    }
+  }
+
+  Future<RPCreateAuthOrder> createAuthOrder(
+      String customerId, String receipt) async {
+    var postBody = jsonEncode(<String, dynamic>{
+      "amount": 100,
+      "currency": "INR",
+      "customer_id": customerId,
+      "method": "upi",
+      "token": {
+        "max_amount": 200000,
+        "expire_at": 2709971120,
+        "frequency": "monthly"
+      },
+      "receipt": receipt,
+      "notes": {
+        "notes_key_1": "Tea, Earl Grey, Hot",
+        "notes_key_2": "Tea, Earl Grey… decaf."
+      }
+    });
+    final response = await http.post(
+      authOrderUrl,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        HttpHeaders.authorizationHeader:
+            'Basic cnpwX3Rlc3RfWXByY3pnUDVjVEtEaU46OFFiOFN0enNHVkN4cGdSWjRleXVvOXZv',
+      },
+      body: postBody,
+    );
+    if (response.statusCode == 200) {
+      print(response.body);
+      return RPCreateAuthOrder.fromJson(jsonDecode(response.body));
+    } else {
+      print(response.body);
+      throw Exception('Failed to create order');
+    }
+  }
+
+  Future<RPFetchToken> fetchToken(String paymentId) async {
+    final response = await http.get(
+      Uri.parse('https://api.razorpay.com/v1/payments/$paymentId'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        HttpHeaders.authorizationHeader:
+            'Basic cnpwX3Rlc3RfWXByY3pnUDVjVEtEaU46OFFiOFN0enNHVkN4cGdSWjRleXVvOXZv',
+      },
+    );
+    if (response.statusCode == 200) {
+      print(response.body);
+      return RPFetchToken.fromJson(jsonDecode(response.body));
+    } else {
+      print(response.body);
+      throw Exception('Failed to fetch token');
     }
   }
 }
