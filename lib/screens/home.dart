@@ -7,7 +7,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:testings/main.dart';
 import 'package:testings/models/change.dart';
-import 'package:testings/models/razorpay.dart';
 import 'package:testings/services/db.dart';
 import 'package:testings/services/helpers.dart';
 import 'package:testings/services/messaging.dart';
@@ -27,8 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
   late RP _razorpay;
   String phone = FirebaseAuth.instance.currentUser!.phoneNumber!;
   Db db = Db();
-  final Stream _usersStream =
-      FirebaseFirestore.instance.collection('users').doc().snapshots();
 
   // bool _isOrderReady = false;
 

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,7 +6,6 @@ import 'package:testings/app.dart';
 import 'package:testings/services/db.dart';
 import 'package:testings/services/helpers.dart';
 import 'package:testings/services/razorpay.dart';
-import 'package:testings/services/razorpay_post.dart';
 
 backgroundMessageHandler(SmsMessage message) async {
   print("incoming" + message.body!);
