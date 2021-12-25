@@ -9,6 +9,7 @@ import 'package:testings/main.dart';
 import 'package:testings/models/change.dart';
 import 'package:testings/models/razorpay.dart';
 import 'package:testings/services/db.dart';
+import 'package:testings/services/helpers.dart';
 import 'package:testings/services/messaging.dart';
 import 'package:testings/services/razorpay.dart';
 import 'package:testings/services/razorpay_post.dart';
@@ -145,22 +146,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             var date = DateFormat.yMMMd().format(parsedDT);
                             var tim = DateFormat.jm().format(parsedDT);
                             int amount = doc['amount'];
-                            int rounded, invested;
-                            if (amount < 100) {
-                              if (amount % 5 == 0) {
-                                invested = 5;
-                              } else {
-                                rounded = (amount / 5).ceil() * 5;
-                                invested = rounded - amount;
-                              }
-                            } else {
-                              if (amount % 10 == 0) {
-                                invested = 10;
-                              } else {
-                                rounded = (amount / 10).ceil() * 10;
-                                invested = rounded - amount;
-                              }
-                            }
+
+                            int invested = Helpers().invested(amount);
                             return ListTile(
                               title: Text('You spent ₹' + amount.toString()),
                               subtitle:

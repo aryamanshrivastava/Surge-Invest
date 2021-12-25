@@ -3,12 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:testings/models/change.dart';
 import 'package:testings/models/constants.dart';
+import 'package:testings/models/razorpay.dart';
 import 'package:testings/services/db.dart';
 import 'package:testings/services/razorpay_post.dart';
 
 class RP {
   final BuildContext context;
   final razorpay = Razorpay();
+  final db = Db();
 
   RP(this.context);
 
@@ -54,5 +56,17 @@ class RP {
       "recurring": "1",
     };
     razorpay.open(options);
+  }
+
+  
+}
+
+class SubsequentPayment{
+  final db = Db();
+  subsequentPayment(int amt) async {
+    RPCreateOrder order =
+        await RazorPayAPIpost().createOrder(await db.custId, amt);
+    RazorPayAPIpost().pay(await db.email, db.phoneCurrUser!, await db.custId,
+        await db.token, order.orderId!, amt);
   }
 }

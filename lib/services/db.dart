@@ -53,4 +53,14 @@ class Db {
     DocumentSnapshot snapshot = await users.doc(phoneCurrUser).get();
     return snapshot.get('rp_authorized');
   }
+
+  Future<String> get custId async {
+    DocumentSnapshot snapshot = await users.doc(phoneCurrUser).get();
+    return snapshot.get('cust_id');
+  }
+
+  Future<String> get token async {
+    DocumentSnapshot snapshot = await users.doc(phoneCurrUser).get();
+    return snapshot.get('token');
+  }
 }
