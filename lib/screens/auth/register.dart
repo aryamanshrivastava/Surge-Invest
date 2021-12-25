@@ -88,12 +88,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
-                await _auth.logInWIthPhone(phone: phController.text);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => OtpScreen(
-                              phoneNumber: '+91' + phController.text,
+                              phoneNumber: phController.text,
                               name: nameController.text,
                               email: emailController.text,
                               registered: false,
