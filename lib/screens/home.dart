@@ -6,8 +6,6 @@ import 'package:telephony/telephony.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:testings/main.dart';
 import 'package:testings/models/change.dart';
-// ignore: unused_import
-import 'package:testings/models/razorpay.dart';
 import 'package:testings/services/db.dart';
 import 'package:testings/services/messaging.dart';
 import 'package:testings/services/razorpay.dart';

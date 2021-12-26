@@ -1,4 +1,3 @@
-//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:testings/services/auth.dart';
 import 'package:otp_text_field/otp_field.dart';
@@ -27,7 +26,6 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   String? sentCode;
   String? enteredOTP = '';
-  // ignore: unused_field
   final _auth = AuthService();
 
   @override

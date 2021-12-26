@@ -28,6 +28,26 @@ class RPFetchToken {
   RPFetchToken(this.token);
 
   factory RPFetchToken.fromJson(Map<String, dynamic> json) {
-    return RPFetchToken(json['id']);
+    return RPFetchToken(json['token_id']);
   }
 }
+
+class RPCreateOrder {
+  String? orderId;
+
+  RPCreateOrder(this.orderId);
+
+  factory RPCreateOrder.fromJson(Map<String, dynamic> json) {
+    return RPCreateOrder(json['id']);
+  }
+}
+
+// class RPPayment {
+//   String? orderId;
+
+//   RPCreateOrder(this.orderId);
+
+//   factory RPCreateOrder.fromJson(Map<String, dynamic> json) {
+//     return RPCreateOrder(json['id']);
+//   }
+// }

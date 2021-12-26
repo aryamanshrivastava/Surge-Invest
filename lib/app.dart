@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testings/models/change.dart';
-// ignore: unused_import
-import 'package:testings/models/razorpay.dart';
-//import 'package:testings/repositories/razorpay_post.dart';
 import 'package:testings/screens/auth/auth_wrapper.dart';
 import 'package:testings/services/auth.dart';
 import 'package:testings/services/db.dart';

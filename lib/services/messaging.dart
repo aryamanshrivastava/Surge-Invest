@@ -1,7 +1,8 @@
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:telephony/telephony.dart';
 import 'package:testings/services/db.dart';
+import 'package:testings/services/helpers.dart';
+import 'package:testings/services/razorpay.dart';
 
 class MessagingService {
   final Telephony telephony = Telephony.instance;
@@ -44,9 +45,9 @@ class MessagingService {
         //         ?.group(0) ??
         //     '0');
         print(amount);
+        SubsequentPayment().subsequentPayment(Helpers().invested(amount)*100);
         return await Db().addMessages(
-            FirebaseAuth.instance.currentUser!.phoneNumber!,
-            amount);
+            FirebaseAuth.instance.currentUser!.phoneNumber!, amount);
       }
     }
   }
