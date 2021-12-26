@@ -11,6 +11,7 @@ class Db {
       'email': email,
       'name': name,
       'amount': '0',
+      'rp_authorized': false,
     }).catchError((e) => print('db error' + e));
   }
 
