@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:testings/services/auth.dart';
 import 'package:otp_text_field/otp_field.dart';
@@ -27,6 +27,7 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   String? sentCode;
   String? enteredOTP = '';
+  // ignore: unused_field
   final _auth = AuthService();
 
   @override
@@ -39,21 +40,20 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.deepPurple,
           body: Column(
         children: <Widget>[
-          SizedBox(
-            height: 40,
-          ),
-          Container(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: IconButton(
-                icon: Icon(Icons.arrow_back),
-                iconSize: 30,
-                onPressed: () => Navigator.pop(context),
-              ),
+          Padding(
+            padding: EdgeInsets.only(right: 350, bottom: 120),
+            child: IconButton(
+              color: Colors.white,
+              icon: Icon(Icons.arrow_back),
+              iconSize: 30,
+              onPressed: () => Navigator.pop(context),
             ),
+          ),
+          SizedBox(
+            height: 20,
           ),
           Center(
               child: Container(
@@ -61,9 +61,9 @@ class _OtpScreenState extends State<OtpScreen> {
               children: <Widget>[
                 SizedBox(height: 50),
                 Text(
-                  'Verify Phone',
+                  'Verify Phone No.',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontWeight: FontWeight.w900,
                     fontSize: 25,
                   ),
@@ -75,7 +75,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   'Code is sent to ${widget.phoneNumber}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Colors.white38,
                     fontWeight: FontWeight.w400,
                     fontSize: 20,
                   ),
@@ -89,7 +89,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     length: 6,
                     width: MediaQuery.of(context).size.width,
                     fieldWidth: 16,
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20,color: Colors.white),
                     textFieldAlignment: MainAxisAlignment.spaceAround,
                     onCompleted: (pin) {
                       enteredOTP = pin;
@@ -110,7 +110,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              content: Text('Please fill the OTP'),
+                              content: Text('Invalid OTP'),
                             );
                           });
                     } else {
@@ -125,12 +125,17 @@ class _OtpScreenState extends State<OtpScreen> {
                     }
                   },
                   child: Text(
-                    'VERIFY AND CONTINUE',
+                    'VERIFY',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                    padding: EdgeInsets.only(
+                        left: 130, right: 130, top: 15, bottom: 15),
                   ),
                 )
               ],

@@ -23,26 +23,55 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.deepPurple,
           body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
+              padding: const EdgeInsets.only(bottom: 80,left: 40),
+              child: Row(
+                children: [
+                  RichText(
+                            text: TextSpan(
+                              text: "Let's ",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 50,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              text: 'SURGE',
+                              style: TextStyle(
+                                  fontSize: 48,
+                                  color: Colors.yellowAccent,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                ],
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
                 controller: nameController,
                 style: TextStyle(
-                  letterSpacing: 2,
+                  //letterSpacing: 2,
                   fontSize: 20,
                 ),
                 decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  border:OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
                     hintText: 'Name',
                     hintStyle: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
-                        color: Colors.grey),
-                    border: InputBorder.none,
+                        color: Colors.black26),
+                    //border: InputBorder.none,
                     counterText: ''),
               ),
             ),
@@ -51,16 +80,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: TextField(
                 controller: emailController,
                 style: TextStyle(
-                  letterSpacing: 2,
+                  //letterSpacing: 2,
                   fontSize: 20,
                 ),
                 decoration: InputDecoration(
-                    hintText: 'Email',
+                  fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                    hintText: 'Email Id',
                     hintStyle: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
-                        color: Colors.grey),
-                    border: InputBorder.none,
+                        color: Colors.black26),
+                    //border: InputBorder.none,
                     counterText: ''),
               ),
             ),
@@ -70,21 +104,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 keyboardType: TextInputType.number,
                 controller: phController,
                 style: TextStyle(
-                  letterSpacing: 2,
+                  //letterSpacing: 2,
                   fontSize: 20,
                 ),
                 decoration: InputDecoration(
-                    hintText: 'Phone no.',
+                  fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                    hintText: 'Phone No.',
                     hintStyle: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
-                        color: Colors.grey),
-                    border: InputBorder.none,
+                        color: Colors.black26),
+                    //border: InputBorder.none,
                     counterText: ''),
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             ElevatedButton(
               onPressed: () async {
@@ -101,13 +140,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             )));
               },
               child: Text(
-                'Register',
+                'Create Account',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20.0,
+                  fontSize: 22.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.black,
+                    padding: EdgeInsets.only(
+                        left: 100, right: 100, top: 15, bottom: 15),
+                  ),
             ),
           ],
         ),
