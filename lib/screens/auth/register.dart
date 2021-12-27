@@ -23,7 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Color.fromRGBO(30, 27, 44, 0),
+          backgroundColor: Color(0xff272239),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -37,7 +37,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         text: TextSpan(
                           text: "Let's ",
                           style: TextStyle(
-                              //fontFamily: 'IslandMoments',
                               color: Colors.white,
                               fontSize: 50,
                               fontWeight: FontWeight.w900),
@@ -47,7 +46,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         text: TextSpan(
                           text: 'SURGE',
                           style: TextStyle(
-                              //fontFamily: 'IslandMoments',
                               fontSize: 48,
                               color: Colors.yellowAccent,
                               fontWeight: FontWeight.w900),
@@ -61,7 +59,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: TextField(
                     controller: nameController,
                     style: TextStyle(
-                      //letterSpacing: 2,
                       fontSize: 20,
                     ),
                     decoration: InputDecoration(
@@ -75,7 +72,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
                             color: Colors.black26),
-                        //border: InputBorder.none,
                         counterText: ''),
                   ),
                 ),

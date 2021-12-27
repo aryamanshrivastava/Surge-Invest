@@ -50,41 +50,45 @@ class _HomeScreenState extends State<HomeScreen> {
         .on(Razorpay.EVENT_EXTERNAL_WALLET, RP(context).handleExternalWallet);
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Color.fromRGBO(30, 27, 44, 0),
+          backgroundColor: Color(0xff272239),
           body: Padding(
             padding: const EdgeInsets.all(0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 250, top: 25),
-                  child: CircleAvatar(
-                    radius: 45,
-                    backgroundImage: NetworkImage(
-                        'https://www.w3schools.com/w3images/avatar2.png'),
-                  ),
-                ),
-
-                // Padding(
-                //   padding: const EdgeInsets.only(right: 170, bottom: 10),
-                //   child: IconButton(
-                //     iconSize: 20,
-                //     icon: Icon(Icons.border_color),
-                //     color: Colors.white,
-                //     onPressed: () {},
-                //   ),
-                // ),
-                Center(
-                  child: RichText(
-                    text: TextSpan(
-                      text: 'Hi,Invester',
-                      style: TextStyle(
-                          //fontFamily: 'IslandMoments',
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CircleAvatar(
+                        radius: 45,
+                        backgroundImage: NetworkImage(
+                            'https://www.w3schools.com/w3images/avatar2.png'),
+                      ),
                     ),
-                  ),
+
+                    // Padding(
+                    //   padding: const EdgeInsets.only(right: 170, bottom: 10),
+                    //   child: IconButton(
+                    //     iconSize: 20,
+                    //     icon: Icon(Icons.border_color),
+                    //     color: Colors.white,
+                    //     onPressed: () {},
+                    //   ),
+                    // ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 50),
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'Hi, Invester',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10, top: 5, right: 10),
@@ -329,7 +333,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   child: ListTile(
                                     title: Text(
-                                      'You spent ₹' + amount.toString(),
+                                      'Spent ₹' + amount.toString(),
                                       style: TextStyle(fontSize: 20.0),
                                     ),
                                     subtitle: Text(

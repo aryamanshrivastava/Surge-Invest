@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Color.fromRGBO(30, 27, 44, 0),
+      backgroundColor: Color(0xff272239),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: TextSpan(
                         text: "Let's ",
                         style: TextStyle(
-                          fontFamily: 'IslandMoments',
+                          //fontFamily: 'IslandMoments',
                             color: Colors.white,
                             fontSize: 50,
                             fontWeight: FontWeight.w900),
@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: TextSpan( 
                         text: 'SURGE',
                         style: TextStyle(
-                          fontFamily: 'IslandMoments',
+                          //fontFamily: 'IslandMoments',
                             fontSize: 48,
                             color: Colors.yellowAccent,
                             fontWeight: FontWeight.w900),
