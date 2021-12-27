@@ -74,39 +74,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 //     onPressed: () {},
                 //   ),
                 // ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 200, top: 10),
-                  child: RichText(
-                    text: TextSpan(
-                      text: 'Hi,Invester',
-                      style: TextStyle(
-                          fontFamily: 'IslandMoments',
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500),
+                 Center(
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Hi,Invester',
+                        style: TextStyle(
+                            //fontFamily: 'IslandMoments',
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
-                ),
                 Padding(
                   padding: EdgeInsets.only(left: 10, top: 5, right: 10),
                   child: Card(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                     color: Color.fromRGBO(90, 20, 190, 2),
                     child: StreamBuilder<DocumentSnapshot>(
                       stream: db.listenToDb,
                       builder:
                           (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                         if (snapshot.hasData) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                bottom: 50, top: 50, right: 100, left: 100),
-                            child: Text(
-                              'Invested ${snapshot.data!['amount'] ?? '0'} BTC',
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          );
+                          return  Center(
+                            heightFactor: 4,
+                              child: Text(
+                                'Invested ${snapshot.data!['amount'] ?? '0'} BTC',
+                                style: TextStyle(
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            );
                         } else {
                           return SizedBox();
                         }
@@ -120,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: Card(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                     child: StreamBuilder<DocumentSnapshot>(
                       stream: db.listenToDb,
                       builder:
@@ -228,8 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 9, bottom: 15, left: 13, right: 13),
+                                  padding: const EdgeInsets.only(bottom: 20,top: 10),
                                   child: ElevatedButton(
                                     onPressed: () async {
                                       var cust = await RazorPayAPIpost()
@@ -270,12 +269,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                Text(
-                  'Recent Transactions ',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: Text(
+                    'Recent Transactions',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 StreamBuilder(
@@ -314,11 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }
                               }
                               return Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 10,
-                                    bottom: 10.0,
-                                    right: 10.0,
-                                    left: 10.0),
+                                padding: const EdgeInsets.all(10),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
@@ -338,8 +338,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: Colors.orange,
                                           borderRadius:
                                               BorderRadius.circular(10)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
+                                      child: Center(
                                         child: Text(
                                           "Invested ₹" + invested.toString(),
                                           textAlign: TextAlign.center,

@@ -74,7 +74,7 @@ flutter:
   fonts:
     - family: IslandMoments
       fonts:
-        - asset: assets\IslandMoments-Regular.ttf
+        - asset: assets/IslandMoments-Regular.ttf
     # - family: Trajan Pro
     #   fonts:
     #     - asset: fonts/TrajanPro.ttf
