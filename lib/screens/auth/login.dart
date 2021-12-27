@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Colors.deepPurple,
+      backgroundColor: Color.fromRGBO(30, 27, 44, 0),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -40,18 +40,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: TextSpan(
                         text: "Let's ",
                         style: TextStyle(
+                          fontFamily: 'IslandMoments',
                             color: Colors.white,
                             fontSize: 50,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.w900),
                       ),
                     ),
                     RichText(
-                      text: TextSpan(
+                      text: TextSpan( 
                         text: 'SURGE',
                         style: TextStyle(
+                          fontFamily: 'IslandMoments',
                             fontSize: 48,
                             color: Colors.yellowAccent,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.w900),
                       ),
                     ),
                   ],
@@ -114,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 style: ElevatedButton.styleFrom(
                   elevation: 20,
-                  primary: Colors.black,
+                  primary: Colors.purple[900],
                   padding: EdgeInsets.only(
                       left: 130, right: 130, top: 15, bottom: 15),
                 ),

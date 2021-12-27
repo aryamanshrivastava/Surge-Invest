@@ -23,7 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Color.fromRGBO(30, 27, 44, 0),
           body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -37,18 +37,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             text: TextSpan(
                               text: "Let's ",
                               style: TextStyle(
+                                fontFamily: 'IslandMoments',
                                   color: Colors.white,
                                   fontSize: 50,
-                                  fontWeight: FontWeight.w500),
+                                  fontWeight: FontWeight.w900),
                             ),
                           ),
                           RichText(
                             text: TextSpan(
                               text: 'SURGE',
                               style: TextStyle(
+                                fontFamily: 'IslandMoments',
                                   fontSize: 48,
                                   color: Colors.yellowAccent,
-                                  fontWeight: FontWeight.w500),
+                                  fontWeight: FontWeight.w900),
                             ),
                           ),
                 ],
@@ -147,7 +149,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                primary: Colors.black,
+                primary: Colors.purple[900],
                     padding: EdgeInsets.only(
                         left: 100, right: 100, top: 15, bottom: 15),
                   ),

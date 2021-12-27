@@ -38,7 +38,7 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Color.fromRGBO(30, 27, 44, 0),
           body: Column(
         children: <Widget>[
           Padding(
@@ -131,7 +131,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
+                    primary: Colors.purple[900],
                     padding: EdgeInsets.only(
                         left: 130, right: 130, top: 15, bottom: 15),
                   ),
