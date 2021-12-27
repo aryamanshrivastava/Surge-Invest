@@ -125,32 +125,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => OtpScreen(
-                                  phoneNumber: phController.text,
-                                  name: nameController.text,
-                                  email: emailController.text,
-                                  registered: false,
-                                  auth: _auth,
-                                )));
-                  },
-                  child: Center(
-                    child: Text(
-                      'Create Account',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.bold,
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OtpScreen(
+                                    phoneNumber: phController.text,
+                                    name: nameController.text,
+                                    email: emailController.text,
+                                    registered: false,
+                                    auth: _auth,
+                                  )));
+                    },
+                    child: Center(
+                      child: Text(
+                        'Create Account',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.purple[900],
-                    padding: EdgeInsets.only(top: 15, bottom: 15),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.purple[900],
+                      padding: EdgeInsets.all(15),
+                    ),
                   ),
                 ),
               ],

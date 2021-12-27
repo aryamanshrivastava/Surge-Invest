@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -93,9 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: EdgeInsets.only(left: 10, top: 5, right: 10),
                   child: Card(
+                    elevation: 2,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    color: Color.fromRGBO(90, 20, 190, 2),
+                        borderRadius: BorderRadius.circular(15)),
+                    color: Color(0xff0a2fff),
                     child: StreamBuilder<DocumentSnapshot>(
                       stream: db.listenToDb,
                       builder:
@@ -124,6 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: Card(
+                    color: Color(0xff2d2942),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     child: StreamBuilder<DocumentSnapshot>(
@@ -138,6 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   padding: const EdgeInsets.only(top: 10),
                                   child: Text('Setup Auto-Invest',
                                       style: TextStyle(
+                                          color: Colors.white,
                                           fontSize: 25,
                                           fontWeight: FontWeight.bold)),
                                 ),
@@ -149,7 +154,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Card(
-                                        color: Colors.grey[400],
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        color: Colors.white,
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 9,
@@ -173,7 +181,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       Card(
-                                        color: Colors.grey[400],
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        color: Colors.white,
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 9,
@@ -202,7 +213,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       Card(
-                                        color: Colors.grey[400],
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        color: Colors.white,
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 9,
@@ -252,7 +266,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           order.orderId!,
                                           cust.custId!);
                                     },
-                                    child: Text('Setup Auto Pay'),
+                                    child: Text(
+                                      'Setup Auto-Pay',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
                                     style: ElevatedButton.styleFrom(
                                       elevation: 20,
                                       primary: Colors.purple[900],
@@ -329,20 +348,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    color: Colors.white,
+                                    color: Color(0xff403965),
                                   ),
                                   child: ListTile(
                                     title: Text(
                                       'Spent ₹' + amount.toString(),
-                                      style: TextStyle(fontSize: 20.0),
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     subtitle: Text(
-                                        date.toString() + " " + tim.toString()),
+                                      date.toString() + " " + tim.toString(),
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                     trailing: Container(
                                       height: 30,
                                       width: 90,
                                       decoration: BoxDecoration(
-                                          color: Colors.orange,
+                                          color: Colors.lightGreen,
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                       child: Center(
