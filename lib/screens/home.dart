@@ -14,6 +14,8 @@ import 'package:testings/services/messaging.dart';
 import 'package:testings/services/razorpay.dart';
 import 'package:testings/services/razorpay_post.dart';
 
+import 'auth/login.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -90,6 +92,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 70,left: 55),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
+                        },
+                        child: Text(
+                          'Logout',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                  
+                          primary: Colors.purple[900],
+                          padding: EdgeInsets.all(10),
+                        ),
+                      ),
+                    )
                   ],
                 ),
                 Padding(
