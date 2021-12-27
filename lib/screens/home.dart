@@ -74,38 +74,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 //     onPressed: () {},
                 //   ),
                 // ),
-                 Center(
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Hi,Invester',
-                        style: TextStyle(
-                            //fontFamily: 'IslandMoments',
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold),
-                      ),
+                Center(
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Hi,Invester',
+                      style: TextStyle(
+                          //fontFamily: 'IslandMoments',
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
+                ),
                 Padding(
                   padding: EdgeInsets.only(left: 10, top: 5, right: 10),
                   child: Card(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
                     color: Color.fromRGBO(90, 20, 190, 2),
                     child: StreamBuilder<DocumentSnapshot>(
                       stream: db.listenToDb,
                       builder:
                           (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                         if (snapshot.hasData) {
-                          return  Center(
+                          return Center(
                             heightFactor: 4,
-                              child: Text(
-                                'Invested ${snapshot.data!['amount'] ?? '0'} BTC',
-                                style: TextStyle(
-                                    fontSize: 30,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            );
+                            child: Text(
+                              'Invested ${snapshot.data!['amount'] ?? '0'} BTC',
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          );
                         } else {
                           return SizedBox();
                         }
@@ -119,7 +120,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: Card(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
                     child: StreamBuilder<DocumentSnapshot>(
                       stream: db.listenToDb,
                       builder:
@@ -228,7 +230,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(bottom: 20,top: 10),
+                                  padding: const EdgeInsets.only(
+                                      bottom: 20, top: 10),
                                   child: ElevatedButton(
                                     onPressed: () async {
                                       var cust = await RazorPayAPIpost()
