@@ -15,11 +15,15 @@ class Db {
     }).catchError((e) => print('db error' + e));
   }
 
-  addMessages(String phone, int amount) async => await users
-      .doc(phone)
-      .collection('messages')
-      .doc()
-      .set(MessagingService().transations(amount));
+  addMessages(String phone, int amount) async {
+    if (await rpAuth) {
+      await users
+          .doc(phone)
+          .collection('messages')
+          .doc()
+          .set(MessagingService().transations(amount));
+    }
+  }
 
   Stream<DocumentSnapshot> get listenToDb =>
       users.doc(phoneCurrUser).snapshots();
@@ -63,5 +67,10 @@ class Db {
   Future<String> get token async {
     DocumentSnapshot snapshot = await users.doc(phoneCurrUser).get();
     return snapshot.get('token');
+  }
+
+  Future<bool> get rpAuth async {
+    DocumentSnapshot snapshot = await users.doc(phoneCurrUser).get();
+    return snapshot.get('rp_authorized');
   }
 }
