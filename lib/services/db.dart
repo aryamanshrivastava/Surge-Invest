@@ -7,7 +7,7 @@ class Db {
   String? phoneCurrUser = FirebaseAuth.instance.currentUser?.phoneNumber;
 
   addUser(String email, String name, String phone) async {
-    return await users.doc(phone).set({
+    return await users.doc('+91' + phone).set({
       'email': email,
       'name': name,
       'amount': '0',
