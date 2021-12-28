@@ -31,6 +31,14 @@ class RP {
 
   void handlePaymentError(PaymentFailureResponse response) {
     print(response.message);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Authrorization failed!'),
+        );
+      },
+    );
   }
 
   void handleExternalWallet(ExternalWalletResponse response) {
@@ -57,11 +65,9 @@ class RP {
     };
     razorpay.open(options);
   }
-
-  
 }
 
-class SubsequentPayment{
+class SubsequentPayment {
   final db = Db();
   subsequentPayment(int amt) async {
     RPCreateOrder order =
