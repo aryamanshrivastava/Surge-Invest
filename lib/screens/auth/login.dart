@@ -40,17 +40,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: TextSpan(
                         text: "Let's ",
                         style: TextStyle(
-                          //fontFamily: 'IslandMoments',
+                            //fontFamily: 'IslandMoments',
                             color: Colors.white,
                             fontSize: 50,
                             fontWeight: FontWeight.w900),
                       ),
                     ),
                     RichText(
-                      text: TextSpan( 
+                      text: TextSpan(
                         text: 'SURGE',
                         style: TextStyle(
-                          //fontFamily: 'IslandMoments',
+                            //fontFamily: 'IslandMoments',
                             fontSize: 48,
                             color: Colors.yellowAccent,
                             fontWeight: FontWeight.w900),
@@ -65,7 +65,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.number,
                   controller: phoneController,
                   style: TextStyle(
-                    //letterSpacing: 2,
                     fontSize: 20,
                   ),
                   decoration: InputDecoration(
@@ -78,7 +77,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
                           color: Colors.black26),
-                      //border: InputBorder.none,
                       counterText: ''),
                 ),
               ),

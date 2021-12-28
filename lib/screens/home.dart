@@ -14,7 +14,6 @@ import 'package:testings/services/messaging.dart';
 import 'package:testings/services/razorpay.dart';
 import 'package:testings/services/razorpay_post.dart';
 
-import 'auth/login.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -29,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
   late RP _razorpay;
   String phone = FirebaseAuth.instance.currentUser!.phoneNumber!;
   Db db = Db();
-  // ignore: unused_field
   final Stream _usersStream =
       FirebaseFirestore.instance.collection('users').doc().snapshots();
 
@@ -41,6 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     super.initState();
+  }
+  void _signOut(){
+    FirebaseAuth.instance.signOut();
   }
 
   @override
@@ -99,12 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Spacer(),
                       IconButton(
                           alignment: Alignment.topRight,
-                          onPressed: () async {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreen()));
-                          },
+                          onPressed: _signOut,
                           icon: Icon(
                             Icons.logout_rounded,
                             color: Colors.white,
@@ -400,7 +396,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ),  
                                 ),
                               );
                             },

@@ -70,7 +70,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   height: 10,
                 ),
                 Text(
-                  'Code is sent to ${widget.phoneNumber}',
+                  'Code is sent to +91 ${widget.phoneNumber}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white38,
