@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:testings/models/constants.dart';
 import 'package:testings/models/razorpay.dart';
 
 class RazorPayAPIpost {
@@ -21,8 +22,7 @@ class RazorPayAPIpost {
       url,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        HttpHeaders.authorizationHeader:
-            'Basic cnpwX3Rlc3RfWXByY3pnUDVjVEtEaU46OFFiOFN0enNHVkN4cGdSWjRleXVvOXZv',
+        HttpHeaders.authorizationHeader: basicAuthPM,
       },
       body: postBody,
     );
@@ -57,8 +57,7 @@ class RazorPayAPIpost {
       authOrderUrl,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        HttpHeaders.authorizationHeader:
-            'Basic cnpwX3Rlc3RfWXByY3pnUDVjVEtEaU46OFFiOFN0enNHVkN4cGdSWjRleXVvOXZv',
+        HttpHeaders.authorizationHeader: basicAuthPM,
       },
       body: postBody,
     );
@@ -76,8 +75,7 @@ class RazorPayAPIpost {
       Uri.parse('https://api.razorpay.com/v1/payments/$paymentId'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        HttpHeaders.authorizationHeader:
-            'Basic cnpwX3Rlc3RfWXByY3pnUDVjVEtEaU46OFFiOFN0enNHVkN4cGdSWjRleXVvOXZv',
+        HttpHeaders.authorizationHeader: basicAuthPM,
       },
     );
     if (response.statusCode == 200) {
@@ -107,8 +105,7 @@ class RazorPayAPIpost {
       Uri.parse('https://api.razorpay.com/v1/orders'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        HttpHeaders.authorizationHeader:
-            'Basic cnpwX3Rlc3RfWXByY3pnUDVjVEtEaU46OFFiOFN0enNHVkN4cGdSWjRleXVvOXZv',
+        HttpHeaders.authorizationHeader: basicAuthPM,
       },
       body: postBody,
     );
@@ -121,8 +118,8 @@ class RazorPayAPIpost {
     }
   }
 
-  pay(String email, String phone, String custId, String token,
-      String orderId, int amt) async {
+  pay(String email, String phone, String custId, String token, String orderId,
+      int amt) async {
     var postBody = jsonEncode(<String, dynamic>{
       "email": email,
       "contact": phone,
@@ -141,8 +138,7 @@ class RazorPayAPIpost {
       Uri.parse('https://api.razorpay.com/v1/payments/create/recurring'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        HttpHeaders.authorizationHeader:
-            'Basic cnpwX3Rlc3RfWXByY3pnUDVjVEtEaU46OFFiOFN0enNHVkN4cGdSWjRleXVvOXZv',
+        HttpHeaders.authorizationHeader: basicAuthPM,
       },
       body: postBody,
     );
