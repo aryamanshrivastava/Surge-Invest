@@ -60,63 +60,57 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: CircleAvatar(
-                        radius: 45,
-                        backgroundImage: NetworkImage(
-                            'https://www.w3schools.com/w3images/avatar2.png'),
-                      ),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                       Padding(
+                         padding: const EdgeInsets.only(right: 16),
+                         child: CircleAvatar(
+                            radius: 45,
+                            backgroundImage: NetworkImage(
+                                'https://www.w3schools.com/w3images/avatar2.png'),
+                          ),
+                       ),
+                  
 
-                    // Padding(
-                    //   padding: const EdgeInsets.only(right: 170, bottom: 10),
-                    //   child: IconButton(
-                    //     iconSize: 20,
-                    //     icon: Icon(Icons.border_color),
-                    //     color: Colors.white,
-                    //     onPressed: () {},
-                    //   ),
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 50),
-                      child: RichText(
-                        text: TextSpan(
-                          text: 'Hi, Invester',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 70, left: 55),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
-                        },
-                        child: Text(
-                          'Logout',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w500,
+                      // Padding(
+                      //   padding: const EdgeInsets.only(right: 170, bottom: 10),
+                      //   child: IconButton(
+                      //     iconSize: 20,
+                      //     icon: Icon(Icons.border_color),
+                      //     color: Colors.white,
+                      //     onPressed: () {},
+                      //   ),
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 50),
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'Hi, Investor',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.purple[900],
-                          padding: EdgeInsets.all(10),
-                        ),
                       ),
-                    )
-                  ],
+                      Spacer(),
+                      IconButton(
+                          alignment: Alignment.topRight,
+                          onPressed: () async {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()));
+                          },
+                          icon: Icon(
+                            Icons.logout_rounded,
+                            color: Colors.white,
+                          )),
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10, top: 5, right: 10),
@@ -133,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Center(
                             heightFactor: 4,
                             child: Text(
-                              'Invested ${snapshot.data!['amount'] ?? '0'} BTC',
+                              'You Own ${snapshot.data!['amount'] ?? '0'} BTC',
                               style: TextStyle(
                                   fontSize: 30,
                                   color: Color(0xffceff1a),
@@ -400,8 +394,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Text(
                                           "Invested ₹" + invested.toString(),
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w400),
-                                          
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w400),
                                         ),
                                       ),
                                     ),
