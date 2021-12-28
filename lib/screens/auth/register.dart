@@ -80,7 +80,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: TextField(
                     controller: emailController,
                     style: TextStyle(
-                      //letterSpacing: 2,
                       fontSize: 20,
                     ),
                     decoration: InputDecoration(
@@ -118,7 +117,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
                             color: Colors.black26),
-                        //border: InputBorder.none,
                         counterText: ''),
                   ),
                 ),
