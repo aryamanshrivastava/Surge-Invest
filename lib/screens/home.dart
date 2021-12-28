@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 70,left: 55),
+                      padding: const EdgeInsets.only(bottom: 70, left: 55),
                       child: ElevatedButton(
                         onPressed: () async {
                           Navigator.push(
@@ -111,7 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                  
                           primary: Colors.purple[900],
                           padding: EdgeInsets.all(10),
                         ),
@@ -125,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     elevation: 2,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
-                    color: Color(0xff0a2fff),
+                    color: Color(0xff403965),
                     child: StreamBuilder<DocumentSnapshot>(
                       stream: db.listenToDb,
                       builder:
@@ -137,8 +136,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               'Invested ${snapshot.data!['amount'] ?? '0'} BTC',
                               style: TextStyle(
                                   fontSize: 30,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600),
+                                  color: Color(0xffceff1a),
+                                  fontWeight: FontWeight.bold),
                             ),
                           );
                         } else {
@@ -149,11 +148,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: Card(
+                    elevation: 10,
                     color: Color(0xff2d2942),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -400,7 +400,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Text(
                                           "Invested ₹" + invested.toString(),
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(fontSize: 18.0),
+                                          style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w400),
+                                          
                                         ),
                                       ),
                                     ),
