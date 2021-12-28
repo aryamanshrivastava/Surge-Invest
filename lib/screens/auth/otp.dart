@@ -38,7 +38,7 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(30, 27, 44, 0),
+        backgroundColor: Color(0xff272239),
           body: Column(
         children: <Widget>[
           Padding(
@@ -84,6 +84,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50.0),
                   child: OTPTextField(
+                    //otpFieldStyle: ,
                     length: 6,
                     width: MediaQuery.of(context).size.width,
                     fieldWidth: 16,

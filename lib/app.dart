@@ -19,6 +19,7 @@ class SurgeApp extends StatelessWidget {
         ProxyProvider0<RP>(update: (_, __) => RP(context)),
       ],
       child: MaterialApp(
+        
         title: 'Surge',
         home: AuthWrapper(),
         debugShowCheckedModeBanner: false,

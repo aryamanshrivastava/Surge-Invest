@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +13,8 @@ import 'package:testings/services/db.dart';
 import 'package:testings/services/messaging.dart';
 import 'package:testings/services/razorpay.dart';
 import 'package:testings/services/razorpay_post.dart';
+
+import 'auth/login.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -50,61 +54,84 @@ class _HomeScreenState extends State<HomeScreen> {
         .on(Razorpay.EVENT_EXTERNAL_WALLET, RP(context).handleExternalWallet);
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Color.fromRGBO(30, 27, 44, 0),
+          backgroundColor: Color(0xff272239),
           body: Padding(
             padding: const EdgeInsets.all(0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 250, top: 25),
-                  child: CircleAvatar(
-                    radius: 45,
-                    backgroundImage: NetworkImage(
-                        'https://www.w3schools.com/w3images/avatar2.png'),
-                  ),
-                ),
+                  padding: const EdgeInsets.all(20.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                       Padding(
+                         padding: const EdgeInsets.only(right: 16),
+                         child: CircleAvatar(
+                            radius: 45,
+                            backgroundImage: NetworkImage(
+                                'https://www.w3schools.com/w3images/avatar2.png'),
+                          ),
+                       ),
+                  
 
-                // Padding(
-                //   padding: const EdgeInsets.only(right: 170, bottom: 10),
-                //   child: IconButton(
-                //     iconSize: 20,
-                //     icon: Icon(Icons.border_color),
-                //     color: Colors.white,
-                //     onPressed: () {},
-                //   ),
-                // ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 200, top: 10),
-                  child: RichText(
-                    text: TextSpan(
-                      text: 'Hi,Invester',
-                      style: TextStyle(
-                          fontFamily: 'IslandMoments',
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500),
-                    ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(right: 170, bottom: 10),
+                      //   child: IconButton(
+                      //     iconSize: 20,
+                      //     icon: Icon(Icons.border_color),
+                      //     color: Colors.white,
+                      //     onPressed: () {},
+                      //   ),
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 50),
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'Hi, Investor',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Spacer(),
+                      IconButton(
+                          alignment: Alignment.topRight,
+                          onPressed: () async {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()));
+                          },
+                          icon: Icon(
+                            Icons.logout_rounded,
+                            color: Colors.white,
+                          )),
+                    ],
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10, top: 5, right: 10),
                   child: Card(
-                    color: Color.fromRGBO(90, 20, 190, 2),
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    color: Color(0xff403965),
                     child: StreamBuilder<DocumentSnapshot>(
                       stream: db.listenToDb,
                       builder:
                           (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                         if (snapshot.hasData) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                bottom: 50, top: 50, right: 100, left: 100),
+                          return Center(
+                            heightFactor: 4,
                             child: Text(
-                              'Invested ${snapshot.data!['amount'] ?? '0'} BTC',
+                              'You Own ${snapshot.data!['amount'] ?? '0'} BTC',
                               style: TextStyle(
                                   fontSize: 30,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600),
+                                  color: Color(0xffceff1a),
+                                  fontWeight: FontWeight.bold),
                             ),
                           );
                         } else {
@@ -115,11 +142,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: Card(
+                    elevation: 10,
+                    color: Color(0xff2d2942),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
                     child: StreamBuilder<DocumentSnapshot>(
                       stream: db.listenToDb,
                       builder:
@@ -132,6 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   padding: const EdgeInsets.only(top: 10),
                                   child: Text('Setup Auto-Invest',
                                       style: TextStyle(
+                                          color: Colors.white,
                                           fontSize: 25,
                                           fontWeight: FontWeight.bold)),
                                 ),
@@ -143,7 +175,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Card(
-                                        color: Colors.grey[400],
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        color: Colors.white,
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 9,
@@ -167,7 +202,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       Card(
-                                        color: Colors.grey[400],
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        color: Colors.white,
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 9,
@@ -196,7 +234,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       Card(
-                                        color: Colors.grey[400],
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        color: Colors.white,
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 9,
@@ -229,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      top: 9, bottom: 15, left: 13, right: 13),
+                                      bottom: 20, top: 10),
                                   child: ElevatedButton(
                                     onPressed: () async {
                                       var cust = await RazorPayAPIpost()
@@ -246,7 +287,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           order.orderId!,
                                           cust.custId!);
                                     },
-                                    child: Text('Setup Auto Pay'),
+                                    child: Text(
+                                      'Setup Auto-Pay',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
                                     style: ElevatedButton.styleFrom(
                                       elevation: 20,
                                       primary: Colors.purple[900],
@@ -270,12 +316,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                Text(
-                  'Recent Transactions ',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: Text(
+                    'Recent Transactions',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 StreamBuilder(
@@ -314,36 +365,38 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }
                               }
                               return Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 10,
-                                    bottom: 10.0,
-                                    right: 10.0,
-                                    left: 10.0),
+                                padding: const EdgeInsets.all(10),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    color: Colors.white,
+                                    color: Color(0xff403965),
                                   ),
                                   child: ListTile(
                                     title: Text(
-                                      'You spent ₹' + amount.toString(),
-                                      style: TextStyle(fontSize: 20.0),
+                                      'Spent ₹' + amount.toString(),
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     subtitle: Text(
-                                        date.toString() + " " + tim.toString()),
+                                      date.toString() + " " + tim.toString(),
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                     trailing: Container(
                                       height: 30,
                                       width: 90,
                                       decoration: BoxDecoration(
-                                          color: Colors.orange,
+                                          color: Colors.lightGreen,
                                           borderRadius:
                                               BorderRadius.circular(10)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
+                                      child: Center(
                                         child: Text(
                                           "Invested ₹" + invested.toString(),
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(fontSize: 18.0),
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w400),
                                         ),
                                       ),
                                     ),
