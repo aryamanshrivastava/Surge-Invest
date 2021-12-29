@@ -26,38 +26,25 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Color(0xff272239),
+      backgroundColor: Color(0xff120758),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(bottom: 80, left: 40),
-                child: Row(
-                  children: [
+                padding: EdgeInsets.only(bottom: 70),
+                child: 
                     RichText(
                       text: TextSpan(
-                        text: "Let's ",
+                        text: "Welcome",
                         style: TextStyle(
                             //fontFamily: 'IslandMoments',
                             color: Colors.white,
                             fontSize: 50,
-                            fontWeight: FontWeight.w900),
+                            fontWeight: FontWeight.w700),
                       ),
                     ),
-                    RichText(
-                      text: TextSpan(
-                        text: 'SURGE',
-                        style: TextStyle(
-                            //fontFamily: 'IslandMoments',
-                            fontSize: 48,
-                            color: Colors.yellowAccent,
-                            fontWeight: FontWeight.w900),
-                      ),
-                    ),
-                  ],
-                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 20, left: 10, right: 10),
@@ -113,10 +100,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  elevation: 20,
-                  primary: Colors.purple[900],
-                  padding: EdgeInsets.only(
-                      left: 130, right: 130, top: 15, bottom: 15),
+                  elevation: 50,
+                  primary: Color(0xfff75c03),
+                  padding: EdgeInsets.symmetric(horizontal: 100,vertical: 15),
                 ),
               ),
             ],

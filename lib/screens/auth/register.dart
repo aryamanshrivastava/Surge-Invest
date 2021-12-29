@@ -23,35 +23,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Color(0xff272239),
+          backgroundColor: Color(0xff120758),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 80, left: 40),
-                  child: Row(
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          text: "Let's ",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 50,
-                              fontWeight: FontWeight.w900),
-                        ),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: 'SURGE',
-                          style: TextStyle(
-                              fontSize: 48,
-                              color: Colors.yellowAccent,
-                              fontWeight: FontWeight.w900),
-                        ),
-                      ),
-                    ],
+                  padding: const EdgeInsets.only(bottom: 70),
+                  child: RichText(
+                    text: TextSpan(
+                      text: " Register ",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 50,
+                          fontWeight: FontWeight.w700),
+                    ),
                   ),
                 ),
                 Padding(
@@ -124,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 20,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(13.0),
                   child: ElevatedButton(
                     onPressed: () async {
                       Navigator.push(
@@ -149,7 +136,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.purple[900],
+                      primary: Color(0xfff75c03),
                       padding: EdgeInsets.all(15),
                     ),
                   ),

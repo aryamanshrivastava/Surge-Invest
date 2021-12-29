@@ -14,7 +14,6 @@ import 'package:testings/services/messaging.dart';
 import 'package:testings/services/razorpay.dart';
 import 'package:testings/services/razorpay_post.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -40,7 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     super.initState();
   }
-  void _signOut(){
+
+  void _signOut() {
     FirebaseAuth.instance.signOut();
   }
 
@@ -66,16 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                       Padding(
-                         padding: const EdgeInsets.only(right: 16),
-                         child: CircleAvatar(
-                            radius: 45,
-                            backgroundImage: NetworkImage(
-                                'https://www.w3schools.com/w3images/avatar2.png'),
-                          ),
-                       ),
-                  
-
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: CircleAvatar(
+                          radius: 45,
+                          backgroundImage: NetworkImage(
+                              'https://www.w3schools.com/w3images/avatar2.png'),
+                        ),
+                      ),
                       // Padding(
                       //   padding: const EdgeInsets.only(right: 170, bottom: 10),
                       //   child: IconButton(
@@ -396,7 +394,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                     ),
-                                  ),  
+                                  ),
                                 ),
                               );
                             },
