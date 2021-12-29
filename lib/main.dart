@@ -9,7 +9,8 @@ import 'package:testings/services/helpers.dart';
 import 'package:testings/services/razorpay.dart';
 
 backgroundMessageHandler(SmsMessage message) async {
-  print("incoming" + message.body!);
+  await Firebase.initializeApp();
+  print("incoming bg" + message.body!);
   if (message.body.toString().contains(new RegExp(
           r'([Rr]s\.)|([Ss]ent)|([Ff]rom)|([Pp]aid)|([Dd]ebited)')) &&
       !(message.body
@@ -19,11 +20,13 @@ backgroundMessageHandler(SmsMessage message) async {
             .firstMatch(message.body.toString())
             ?.group(0) !=
         null) {
-      int amount = int.parse(RegExp(r'(?<=(Rs)\.* *)[0-9]*')
-              .firstMatch(message.body.toString())
-              ?.group(0) ??
-          '0');
-      SubsequentPayment().subsequentPayment(Helpers().invested(amount)*100);
+      String? temp = RegExp(r'(?<=(Rs))\.? ?[0-9]*')
+          .firstMatch(message.body.toString())
+          ?.group(0);
+      if (temp![0] == ' ' || temp[0] == '.') {
+        temp = temp.substring(1);
+      }
+      int amount = int.parse(temp);
       return await Db()
           .addMessages(FirebaseAuth.instance.currentUser!.phoneNumber!, amount);
     }
