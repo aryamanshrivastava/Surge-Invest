@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .on(Razorpay.EVENT_EXTERNAL_WALLET, RP(context).handleExternalWallet);
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Color(0xff272239),
+           backgroundColor: Color(0xff190F25),
           body: Padding(
             padding: const EdgeInsets.all(0),
             child: Column(
@@ -289,7 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     style: ElevatedButton.styleFrom(
                                       elevation: 20,
-                                      primary: Colors.purple[900],
+                                      primary: Color(0xff8A00FF),
                                       padding: EdgeInsets.only(
                                           left: 100,
                                           right: 100,

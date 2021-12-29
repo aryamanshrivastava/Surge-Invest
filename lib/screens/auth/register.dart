@@ -23,7 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Color(0xff120758),
+          backgroundColor: Color(0xff190F25),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -53,7 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         filled: true,
                         border: OutlineInputBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(5))),
                         hintText: 'Name',
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.w600,
@@ -74,7 +74,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         filled: true,
                         border: OutlineInputBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(5))),
                         hintText: 'Email Id',
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.w600,
@@ -90,7 +90,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     keyboardType: TextInputType.number,
                     controller: phController,
                     style: TextStyle(
-                      //letterSpacing: 2,
                       fontSize: 20,
                     ),
                     decoration: InputDecoration(
@@ -98,7 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         filled: true,
                         border: OutlineInputBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(5))),
                         hintText: 'Phone No.',
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.w600,
@@ -111,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 20,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(13.0),
+                  padding: const EdgeInsets.all(14.0),
                   child: ElevatedButton(
                     onPressed: () async {
                       Navigator.push(
@@ -136,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: Color(0xfff75c03),
+                      primary: Color(0xff8A00FF),
                       padding: EdgeInsets.all(15),
                     ),
                   ),
