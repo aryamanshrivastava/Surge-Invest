@@ -70,9 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.only(right: 16),
                         child: CircleAvatar(
                           radius: 45,
-                          backgroundColor: Colors.purpleAccent,
+                          backgroundColor: Colors.blue[200],
                           child: CircleAvatar(
-                            radius: 42,
+                            radius: 43,
                             backgroundImage: NetworkImage(
                                 'https://www.w3schools.com/w3images/avatar2.png'),
                           ),
@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       //   ),
                       // ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 20),
+                        padding: const EdgeInsets.only(top: 30),
                         child: RichText(
                           text: TextSpan(
                             text: 'Hi, Investor',
@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Center(
                             heightFactor: 4,
                             child: Text(
-                              'You Own ${snapshot.data!['amount'] ?? '0'} BTC',
+                              '${snapshot.data!['amount'] ?? '0'} BTC',
                               style: TextStyle(
                                   fontSize: 30,
                                   color: Color(0xffffffff),

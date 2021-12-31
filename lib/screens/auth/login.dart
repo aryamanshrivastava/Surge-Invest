@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Color(0xff190F25),
+      backgroundColor: Color(0xff0D104E),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -38,7 +38,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: TextSpan(
                     text: "Welcome",
                     style: TextStyle(
-                        //fontFamily: 'IslandMoments',
                         color: Colors.white,
                         fontSize: 50,
                         fontWeight: FontWeight.w700),
@@ -56,9 +55,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderSide:
+                              BorderSide(color: Colors.blue, width: 3.0)),
                       hintText: 'Phone No.',
+                      prefixIcon: const Icon(Icons.call, color: Colors.purpleAccent,),
                       hintStyle: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
@@ -101,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: ElevatedButton.styleFrom(
                   elevation: 50,
                   primary: Color(0xff8A00FF),
-                  padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
                 ),
               ),
             ],

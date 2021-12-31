@@ -23,7 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Color(0xff190F25),
+          backgroundColor: Color(0xff0D104E),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -51,10 +51,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5))),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderSide:
+                              BorderSide(color: Colors.deepPurple, width: 3.0)),
                         hintText: 'Name',
+                        prefixIcon: const Icon(Icons.person, color: Colors.purpleAccent,),
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
@@ -72,15 +74,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5))),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderSide:
+                              BorderSide(color: Colors.deepPurple, width: 3.0)),
                         hintText: 'Email Id',
+                        prefixIcon: const Icon(Icons.email, color: Colors.purpleAccent,),
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
                             color: Colors.black26),
-                        //border: InputBorder.none,
                         counterText: ''),
                   ),
                 ),
@@ -95,10 +98,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5))),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderSide:
+                              BorderSide(color: Colors.deepPurple, width: 3.0)),
                         hintText: 'Phone No.',
+                        prefixIcon: const Icon(Icons.call, color: Colors.purpleAccent,),
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
@@ -107,10 +112,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(14.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: ElevatedButton(
                     onPressed: () async {
                       Navigator.push(
@@ -135,8 +140,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
+                      elevation: 50,
                       primary: Color(0xff8A00FF),
-                      padding: EdgeInsets.all(15),
+                      padding: EdgeInsets.symmetric(vertical: 15),
                     ),
                   ),
                 ),
