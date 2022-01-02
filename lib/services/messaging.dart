@@ -34,7 +34,7 @@ class MessagingService {
               .firstMatch(message.body.toString())
               ?.group(0) !=
           null) {
-        String? temp = RegExp(r'(?<=(Rs))\.? ?[0-9]*')
+        String? temp = RegExp(r'(?<=([Rr]s))\.? ?[0-9]*')
             .firstMatch(message.body.toString())
             ?.group(0);
         if (temp![0] == ' ' || temp[0] == '.') {
