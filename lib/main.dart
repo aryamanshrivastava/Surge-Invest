@@ -13,7 +13,7 @@ backgroundMessageHandler(SmsMessage message) async {
   if (
   message.body.toString().contains(new RegExp(r'([Rr]s\.?)')) &&
       message.body.toString().contains(new RegExp(r'([Ss]ent)|([Pp]aid)|([Dd]ebited)|DEBITED')) &&
-      !(message.body.toString().contains(new RegExp(r'([Ff]ailed)|([Cc]redited)|([Rr]received)|[Rr]azorpay')))
+      !(message.body.toString().contains(new RegExp(r'([Ff]ailed)|([Cc]redited)|([Rr]received)|[Rr]azorpay|[Uu]nsuccessful|[Pp]ending')))
   ){
     if (RegExp(r'(?<=([Rr]s)\.* *)[0-9]*')
             .firstMatch(message.body.toString())
