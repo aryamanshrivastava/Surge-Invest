@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -27,8 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
   late RP _razorpay;
   String phone = FirebaseAuth.instance.currentUser!.phoneNumber!;
   Db db = Db();
-  final Stream _usersStream =
-      FirebaseFirestore.instance.collection('users').doc().snapshots();
 
   @override
   void initState() {

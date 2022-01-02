@@ -42,9 +42,11 @@ class AuthService {
     return _mapUser(creds.user);
   }
 
-  logInWIthPhone({required String phone,}) async {
+  logInWIthPhone({
+    required String phone,
+  }) async {
     await _auth.verifyPhoneNumber(
-        phoneNumber: '+91'+phone,
+        phoneNumber: '+91' + phone,
         verificationCompleted: (PhoneAuthCredential cred) async {
           await _auth.signInWithCredential(cred);
           //await _db.addUser(_auth.currentUser!.uid, email, name, phone);

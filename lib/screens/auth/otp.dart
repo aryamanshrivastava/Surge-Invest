@@ -26,7 +26,6 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   String? sentCode;
   String? enteredOTP = '';
-  final _auth = AuthService();
 
   @override
   void initState() {

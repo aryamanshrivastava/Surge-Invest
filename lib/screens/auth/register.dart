@@ -16,7 +16,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  // TextEditingController phController = TextEditingController();
   final _auth = AuthService();
 
   @override
