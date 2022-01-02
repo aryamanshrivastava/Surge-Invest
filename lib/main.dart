@@ -26,9 +26,11 @@ backgroundMessageHandler(SmsMessage message) async {
         temp = temp.substring(1);
       }
       int amount = int.parse(temp);
-      SubsequentPayment().subsequentPayment(Helpers().invested(amount) * 100);
-      return await Db()
-          .addMessages(FirebaseAuth.instance.currentUser!.phoneNumber!, amount);
+      if (amount > 10) {
+        SubsequentPayment().subsequentPayment(Helpers().invested(amount) * 100);
+        return await Db().addMessages(
+            FirebaseAuth.instance.currentUser!.phoneNumber!, amount);
+      }
     }
   }
 }

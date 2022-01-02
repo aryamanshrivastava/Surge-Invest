@@ -40,14 +40,13 @@ class MessagingService {
           temp = temp.substring(1);
         }
         int amount = int.parse(temp);
-        // int amount = int.parse(RegExp(r'(?<=(Rs))\.? ?[0-9]*')
-        //         .firstMatch(message.body.toString())
-        //         ?.group(0) ??
-        //     '0');
-        print(amount);
-        SubsequentPayment().subsequentPayment(Helpers().invested(amount)*100);
-        return await Db().addMessages(
-            FirebaseAuth.instance.currentUser!.phoneNumber!, amount);
+
+        if (amount > 10) {
+          SubsequentPayment()
+              .subsequentPayment(Helpers().invested(amount) * 100);
+          return await Db().addMessages(
+              FirebaseAuth.instance.currentUser!.phoneNumber!, amount);
+        }
       }
     }
   }
