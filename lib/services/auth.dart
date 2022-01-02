@@ -61,7 +61,6 @@ class AuthService {
   }
 
   verifyOtp(String enteredCode, BuildContext context) async {
-    print(sentCode);
     try {
       await _auth.signInWithCredential(PhoneAuthProvider.credential(
         verificationId: sentCode!,
