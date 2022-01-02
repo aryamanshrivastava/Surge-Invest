@@ -44,7 +44,7 @@ class AuthService {
 
   logInWIthPhone({required String phone,}) async {
     await _auth.verifyPhoneNumber(
-        phoneNumber: phone,
+        phoneNumber: '+91'+phone,
         verificationCompleted: (PhoneAuthCredential cred) async {
           await _auth.signInWithCredential(cred);
           //await _db.addUser(_auth.currentUser!.uid, email, name, phone);
