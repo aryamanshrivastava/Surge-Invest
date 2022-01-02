@@ -288,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               await db.email);
                                       Db().addCustomerId(cust.custId!);
                                       var order = await RazorPayAPIpost()
-                                          .createAuthOrder(cust.custId!, '1');
+                                          .createAuthOrder(cust.custId!);
                                       print(order.orderId);
                                       _razorpay.checkout(
                                           await db.name,
