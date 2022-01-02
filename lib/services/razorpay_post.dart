@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
 import 'package:testings/models/constants.dart';
@@ -36,18 +37,18 @@ class RazorPayAPIpost {
   }
 
   Future<RPCreateAuthOrder> createAuthOrder(
-      String customerId, String receipt) async {
+      String customerId) async {
     var postBody = jsonEncode(<String, dynamic>{
       "amount": 100,
       "currency": "INR",
       "customer_id": customerId,
       "method": "upi",
       "token": {
-        "max_amount": 200000,
+        "max_amount": 50000,
         "expire_at": 2709971120,
         "frequency": "monthly"
       },
-      "receipt": receipt,
+      "receipt": Random().nextInt(100000),
       "notes": {
         "notes_key_1": "Tea, Earl Grey, Hot",
         "notes_key_2": "Tea, Earl Grey… decaf."
@@ -95,7 +96,7 @@ class RazorPayAPIpost {
       "method": "upi",
       "payment_capture": 1,
       "token": {"max_amount": 200000, "expire_at": 2709971120},
-      "receipt": "Receipt No. 1",
+      "receipt": Random().nextInt(100000),
       "notes": {
         "notes_key_1": "Tea, Earl Grey, Hot",
         "notes_key_2": "Tea, Earl Grey… decaf."

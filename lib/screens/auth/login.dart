@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                RegisterScreen(phoneController.text)));
+                                RegisterScreen(phoneController)));
                   }
                 },
                 child: Text(
