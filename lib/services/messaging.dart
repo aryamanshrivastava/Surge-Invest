@@ -25,10 +25,11 @@ class MessagingService {
 
   incomingMessageHandler(SmsMessage message) async {
     print("incoming" + message.body!);
-    if (message.body.toString().contains(new RegExp(
-            r'([Rr]s\.?)|([Ss]ent)|([Ff]rom)|([Pp]aid)|([Dd]ebited)')) &&
-        !(message.body.toString().contains(
-            new RegExp(r'([Ff]ailed)|([Cc]redited)|([Rr]received)')))) {
+    if (
+    message.body.toString().contains(new RegExp(r'([Rr]s\.?)')) &&
+    message.body.toString().contains(new RegExp(r'([Ss]ent)|([Pp]aid)|([Dd]ebited)|DEBITED')) &&
+    !(message.body.toString().contains(new RegExp(r'([Ff]ailed)|([Cc]redited)|([Rr]received)|[Rr]azorpay')))
+    ) {
       if (RegExp(r'(?<=(Rs))\.? ?[0-9]*')
               .firstMatch(message.body.toString())
               ?.group(0) !=
