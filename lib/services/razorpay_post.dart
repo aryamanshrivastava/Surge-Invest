@@ -44,7 +44,7 @@ class RazorPayAPIpost {
       "customer_id": customerId,
       "method": "upi",
       "token": {
-        "max_amount": 200000,
+        "max_amount": 50000,
         "expire_at": 2709971120,
         "frequency": "monthly"
       },
