@@ -177,9 +177,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       Card(
                                         shape: RoundedRectangleBorder(
+                                            side: new BorderSide(
+                                                color: Colors.grey, width: 1),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
-                                        color: Colors.white,
+                                        color: Color(0xff0D104E),
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 9,
@@ -190,11 +192,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             children: [
                                               Icon(
                                                 Icons.security,
-                                                color: Colors.black,
+                                                color: Colors.white70,
                                                 size: 65,
                                               ),
                                               Text('100% Secure',
                                                   style: TextStyle(
+                                                      color: Colors.white,
                                                       fontSize: 10,
                                                       fontWeight:
                                                           FontWeight.bold))
@@ -204,9 +207,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       Card(
                                         shape: RoundedRectangleBorder(
+                                            side: new BorderSide(
+                                                color: Colors.grey, width: 1),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
-                                        color: Colors.white,
+                                        color: Color(0xff0D104E),
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 9,
@@ -217,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             children: [
                                               Icon(
                                                 Icons.change_circle_outlined,
-                                                color: Colors.black,
+                                                color: Colors.white70,
                                                 size: 60,
                                               ),
                                               Text('Spare Change',
@@ -227,6 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           FontWeight.bold)),
                                               Text('Auto Invested',
                                                   style: TextStyle(
+                                                      color: Colors.white,
                                                       fontSize: 10,
                                                       fontWeight:
                                                           FontWeight.bold))
@@ -236,9 +242,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       Card(
                                         shape: RoundedRectangleBorder(
+                                            side: new BorderSide(
+                                                color: Colors.grey, width: 1),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
-                                        color: Colors.white,
+                                        color: Color(0xff0D104E),
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 9,
@@ -249,11 +257,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             children: [
                                               Icon(
                                                 Icons.maps_home_work_sharp,
-                                                color: Colors.black,
+                                                color: Colors.white70,
                                                 size: 60,
                                               ),
                                               Text('Support 13+',
                                                   style: TextStyle(
+                                                      color: Colors.white,
                                                       fontSize: 10,
                                                       fontWeight:
                                                           FontWeight.bold)),
