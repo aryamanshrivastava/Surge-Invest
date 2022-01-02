@@ -383,7 +383,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    color: Color(0xff403965),
+                                    color: Color(0xff000000).withOpacity(0.1),
                                   ),
                                   child: ListTile(
                                     title: Text(
