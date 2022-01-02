@@ -14,7 +14,6 @@ import 'package:testings/services/messaging.dart';
 import 'package:testings/services/razorpay.dart';
 import 'package:testings/services/razorpay_post.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -40,7 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     super.initState();
   }
-  void _signOut(){
+
+  void _signOut() {
     FirebaseAuth.instance.signOut();
   }
 
@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .on(Razorpay.EVENT_EXTERNAL_WALLET, RP(context).handleExternalWallet);
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Color(0xff272239),
+          backgroundColor: Color(0xff0D104E),
           body: Padding(
             padding: const EdgeInsets.all(0),
             child: Column(
@@ -66,16 +66,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                       Padding(
-                         padding: const EdgeInsets.only(right: 16),
-                         child: CircleAvatar(
-                            radius: 45,
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: CircleAvatar(
+                          radius: 45,
+                          backgroundColor: Colors.blue[200],
+                          child: CircleAvatar(
+                            radius: 43,
                             backgroundImage: NetworkImage(
                                 'https://www.w3schools.com/w3images/avatar2.png'),
                           ),
-                       ),
-                  
-
+                        ),
+                      ),
                       // Padding(
                       //   padding: const EdgeInsets.only(right: 170, bottom: 10),
                       //   child: IconButton(
@@ -86,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       //   ),
                       // ),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 50),
+                        padding: const EdgeInsets.only(top: 30),
                         child: RichText(
                           text: TextSpan(
                             text: 'Hi, Investor',
@@ -109,12 +111,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 10, top: 5, right: 10),
+                  padding: EdgeInsets.only(left: 12, top: 5, right: 12),
                   child: Card(
                     elevation: 2,
                     shape: RoundedRectangleBorder(
+                        side: new BorderSide(color: Colors.orange, width: 3.0),
                         borderRadius: BorderRadius.circular(15)),
-                    color: Color(0xff403965),
+                    color: Color(0xff000000).withOpacity(0.1),
                     child: StreamBuilder<DocumentSnapshot>(
                       stream: db.listenToDb,
                       builder:
@@ -123,10 +126,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Center(
                             heightFactor: 4,
                             child: Text(
-                              'You Own ${snapshot.data!['amount'] ?? '0'} BTC',
+                              '${snapshot.data!['amount'] ?? '0'} BTC',
                               style: TextStyle(
                                   fontSize: 30,
-                                  color: Color(0xffceff1a),
+                                  color: Color(0xffffffff),
                                   fontWeight: FontWeight.bold),
                             ),
                           );
@@ -138,14 +141,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 2,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: Card(
-                    elevation: 10,
-                    color: Color(0xff2d2942),
+                    elevation: 5,
+                    color: Color(0xff000000).withOpacity(0.1),
                     shape: RoundedRectangleBorder(
+                        side: new BorderSide(
+                            color: Colors.purpleAccent, width: 2.5),
                         borderRadius: BorderRadius.circular(20)),
                     child: StreamBuilder<DocumentSnapshot>(
                       stream: db.listenToDb,
@@ -172,9 +177,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       Card(
                                         shape: RoundedRectangleBorder(
+                                            side: new BorderSide(
+                                                color: Colors.grey, width: 1),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
-                                        color: Colors.white,
+                                        color: Color(0xff0D104E),
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 9,
@@ -185,11 +192,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             children: [
                                               Icon(
                                                 Icons.security,
-                                                color: Colors.black,
+                                                color: Colors.white70,
                                                 size: 65,
                                               ),
                                               Text('100% Secure',
                                                   style: TextStyle(
+                                                      color: Colors.white,
                                                       fontSize: 10,
                                                       fontWeight:
                                                           FontWeight.bold))
@@ -199,9 +207,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       Card(
                                         shape: RoundedRectangleBorder(
+                                            side: new BorderSide(
+                                                color: Colors.grey, width: 1),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
-                                        color: Colors.white,
+                                        color: Color(0xff0D104E),
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 9,
@@ -212,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             children: [
                                               Icon(
                                                 Icons.change_circle_outlined,
-                                                color: Colors.black,
+                                                color: Colors.white70,
                                                 size: 60,
                                               ),
                                               Text('Spare Change',
@@ -222,6 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           FontWeight.bold)),
                                               Text('Auto Invested',
                                                   style: TextStyle(
+                                                      color: Colors.white,
                                                       fontSize: 10,
                                                       fontWeight:
                                                           FontWeight.bold))
@@ -231,9 +242,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       Card(
                                         shape: RoundedRectangleBorder(
+                                            side: new BorderSide(
+                                                color: Colors.grey, width: 1),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
-                                        color: Colors.white,
+                                        color: Color(0xff0D104E),
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 9,
@@ -244,11 +257,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             children: [
                                               Icon(
                                                 Icons.maps_home_work_sharp,
-                                                color: Colors.black,
+                                                color: Colors.white70,
                                                 size: 60,
                                               ),
                                               Text('Support 13+',
                                                   style: TextStyle(
+                                                      color: Colors.white,
                                                       fontSize: 10,
                                                       fontWeight:
                                                           FontWeight.bold)),
@@ -286,17 +300,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: Text(
                                       'Setup Auto-Pay',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        shadows: <Shadow>[
+                                          Shadow(
+                                            offset: Offset(0.5, 0.5),
+                                            color: Colors.white,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     style: ElevatedButton.styleFrom(
                                       elevation: 20,
-                                      primary: Colors.purple[900],
-                                      padding: EdgeInsets.only(
-                                          left: 100,
-                                          right: 100,
-                                          top: 15,
-                                          bottom: 15),
+                                      primary: Color(0xff8A00FF),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 90, vertical: 15),
                                     ),
                                   ),
                                 ),
@@ -396,7 +414,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                     ),
-                                  ),  
+                                  ),
                                 ),
                               );
                             },
