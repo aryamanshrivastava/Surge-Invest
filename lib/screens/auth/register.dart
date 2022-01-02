@@ -3,9 +3,9 @@ import 'package:testings/screens/auth/otp.dart';
 import 'package:testings/services/auth.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen(this.phone);
+  RegisterScreen(this.phoneController);
 
-  final String? phone;
+  final TextEditingController phoneController;
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
@@ -16,7 +16,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final phController = TextEditingController();
+  // TextEditingController phController = TextEditingController();
   final _auth = AuthService();
 
   @override
@@ -52,11 +52,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         fillColor: Colors.white,
                         filled: true,
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          borderSide:
-                              BorderSide(color: Colors.deepPurple, width: 3.0)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide(
+                                color: Colors.deepPurple, width: 3.0)),
                         hintText: 'Name',
-                        prefixIcon: const Icon(Icons.person, color: Colors.purpleAccent,),
+                        prefixIcon: const Icon(
+                          Icons.person,
+                          color: Colors.purpleAccent,
+                        ),
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
@@ -75,11 +78,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         fillColor: Colors.white,
                         filled: true,
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          borderSide:
-                              BorderSide(color: Colors.deepPurple, width: 3.0)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide(
+                                color: Colors.deepPurple, width: 3.0)),
                         hintText: 'Email Id',
-                        prefixIcon: const Icon(Icons.email, color: Colors.purpleAccent,),
+                        prefixIcon: const Icon(
+                          Icons.email,
+                          color: Colors.purpleAccent,
+                        ),
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
@@ -91,7 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   padding: const EdgeInsets.all(10.0),
                   child: TextField(
                     keyboardType: TextInputType.number,
-                    controller: phController,
+                    controller: widget.phoneController,
                     style: TextStyle(
                       fontSize: 20,
                     ),
@@ -99,11 +105,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         fillColor: Colors.white,
                         filled: true,
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          borderSide:
-                              BorderSide(color: Colors.deepPurple, width: 3.0)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide(
+                                color: Colors.deepPurple, width: 3.0)),
                         hintText: 'Phone No.',
-                        prefixIcon: const Icon(Icons.call, color: Colors.purpleAccent,),
+                        prefixIcon: const Icon(
+                          Icons.call,
+                          color: Colors.purpleAccent,
+                        ),
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
@@ -122,7 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => OtpScreen(
-                                    phoneNumber: phController.text,
+                                    phoneNumber: widget.phoneController.text,
                                     name: nameController.text,
                                     email: emailController.text,
                                     registered: false,
