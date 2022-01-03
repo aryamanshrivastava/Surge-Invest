@@ -36,8 +36,7 @@ class RazorPayAPIpost {
     }
   }
 
-  Future<RPCreateAuthOrder> createAuthOrder(
-      String customerId) async {
+  Future<RPCreateAuthOrder> createAuthOrder(String customerId) async {
     var postBody = jsonEncode(<String, dynamic>{
       "amount": 100,
       "currency": "INR",
@@ -62,6 +61,7 @@ class RazorPayAPIpost {
       },
       body: postBody,
     );
+    print(response);
     if (response.statusCode == 200) {
       print(response.body);
       return RPCreateAuthOrder.fromJson(jsonDecode(response.body));
@@ -79,6 +79,7 @@ class RazorPayAPIpost {
         HttpHeaders.authorizationHeader: basicAuthPM,
       },
     );
+    print(response);
     if (response.statusCode == 200) {
       print(response.body);
       return RPFetchToken.fromJson(jsonDecode(response.body));
@@ -110,6 +111,7 @@ class RazorPayAPIpost {
       },
       body: postBody,
     );
+    print(response);
     if (response.statusCode == 200) {
       print(response.body);
       return RPCreateOrder.fromJson(jsonDecode(response.body));
@@ -143,6 +145,7 @@ class RazorPayAPIpost {
       },
       body: postBody,
     );
+    print(response);
     if (response.statusCode == 200) {
       print(response.body);
     } else {

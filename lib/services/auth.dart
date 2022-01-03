@@ -46,6 +46,7 @@ class AuthService {
     required String phone,
   }) async {
     await _auth.verifyPhoneNumber(
+        timeout: Duration(seconds: 30),
         phoneNumber: '+91' + phone,
         verificationCompleted: (PhoneAuthCredential cred) async {
           await _auth.signInWithCredential(cred);
