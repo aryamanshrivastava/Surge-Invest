@@ -50,379 +50,364 @@ class _HomeScreenState extends State<HomeScreen> {
     _razorpay.razorpay
         .on(Razorpay.EVENT_EXTERNAL_WALLET, RP(context).handleExternalWallet);
     return SafeArea(
-      child: Scaffold(
-          backgroundColor: Color(0xff0D104E),
-          body: Padding(
-            padding: const EdgeInsets.all(0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+        child: Scaffold(
+      backgroundColor: Color(0xff0D104E),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16),
-                        child: CircleAvatar(
-                          radius: 45,
-                          backgroundColor: Colors.blue[200],
-                          child: CircleAvatar(
-                            radius: 43,
-                            backgroundImage: NetworkImage(
-                                'https://www.w3schools.com/w3images/avatar2.png'),
-                          ),
-                        ),
-                      ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(right: 170, bottom: 10),
-                      //   child: IconButton(
-                      //     iconSize: 20,
-                      //     icon: Icon(Icons.border_color),
-                      //     color: Colors.white,
-                      //     onPressed: () {},
-                      //   ),
-                      // ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 30),
-                        child: RichText(
-                          text: TextSpan(
-                            text: 'Hi, Investor',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      Spacer(),
-                      IconButton(
-                          alignment: Alignment.topRight,
-                          onPressed: _signOut,
-                          icon: Icon(
-                            Icons.logout_rounded,
-                            color: Colors.white,
-                          )),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 12, top: 5, right: 12),
-                  child: Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                        side: new BorderSide(color: Colors.orange, width: 3.0),
-                        borderRadius: BorderRadius.circular(15)),
-                    color: Color(0xff000000).withOpacity(0.1),
-                    child: StreamBuilder<DocumentSnapshot>(
-                      stream: db.listenToDb,
-                      builder:
-                          (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-                        if (snapshot.hasData) {
-                          return Center(
-                            heightFactor: 4,
-                            child: Text(
-                              '${snapshot.data!['amount'] ?? '0'} BTC',
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  color: Color(0xffffffff),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          );
-                        } else {
-                          return SizedBox();
-                        }
-                      },
+                  padding: const EdgeInsets.only(right: 16),
+                  child: CircleAvatar(
+                    radius: 45,
+                    backgroundColor: Colors.blue[200],
+                    child: CircleAvatar(
+                      radius: 43,
+                      backgroundImage: NetworkImage(
+                          'https://www.w3schools.com/w3images/avatar2.png'),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 2,
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 170, bottom: 10),
+                //   child: IconButton(
+                //     iconSize: 20,
+                //     icon: Icon(Icons.border_color),
+                //     color: Colors.white,
+                //     onPressed: () {},
+                //   ),
+                // ),
                 Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Card(
-                    elevation: 5,
-                    color: Color(0xff000000).withOpacity(0.1),
-                    shape: RoundedRectangleBorder(
-                        side: new BorderSide(
-                            color: Colors.purpleAccent, width: 2.5),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: StreamBuilder<DocumentSnapshot>(
-                      stream: db.listenToDb,
-                      builder:
-                          (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-                        if (snapshot.hasData) {
-                          if (!snapshot.data!['rp_authorized']) {
-                            return Column(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Hi, Investor',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                Spacer(),
+                IconButton(
+                    alignment: Alignment.topRight,
+                    onPressed: _signOut,
+                    icon: Icon(
+                      Icons.logout_rounded,
+                      color: Colors.white,
+                    )),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 12, top: 5, right: 12),
+            child: Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                  side: new BorderSide(color: Colors.orange, width: 3.0),
+                  borderRadius: BorderRadius.circular(15)),
+              color: Color(0xff000000).withOpacity(0.1),
+              child: StreamBuilder<DocumentSnapshot>(
+                stream: db.listenToDb,
+                builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (snapshot.hasData) {
+                    return Center(
+                      heightFactor: 4,
+                      child: Text(
+                        '${snapshot.data!['amount'] ?? '0'} BTC',
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Color(0xffffffff),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    );
+                  } else {
+                    return SizedBox();
+                  }
+                },
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 2,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Card(
+              elevation: 5,
+              color: Color(0xff000000).withOpacity(0.1),
+              shape: RoundedRectangleBorder(
+                  side: new BorderSide(color: Colors.purpleAccent, width: 2.5),
+                  borderRadius: BorderRadius.circular(20)),
+              child: StreamBuilder<DocumentSnapshot>(
+                stream: db.listenToDb,
+                builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (snapshot.hasData) {
+                    if (!snapshot.data!['rp_authorized']) {
+                      return Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text('Setup Auto-Invest',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: Text('Setup Auto-Invest',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 20, bottom: 20),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Card(
-                                        shape: RoundedRectangleBorder(
-                                            side: new BorderSide(
-                                                color: Colors.grey, width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        color: Color(0xff0D104E),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 9,
-                                              bottom: 13,
-                                              left: 10,
-                                              right: 10),
-                                          child: Column(
-                                            children: [
-                                              Icon(
-                                                Icons.security,
-                                                color: Colors.white70,
-                                                size: 65,
-                                              ),
-                                              Text('100% Secure',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.bold))
-                                            ],
-                                          ),
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                      side: new BorderSide(
+                                          color: Colors.grey, width: 1),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  color: Color(0xff0D104E),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 9,
+                                        bottom: 13,
+                                        left: 10,
+                                        right: 10),
+                                    child: Column(
+                                      children: [
+                                        Icon(
+                                          Icons.security,
+                                          color: Colors.white70,
+                                          size: 65,
                                         ),
-                                      ),
-                                      Card(
-                                        shape: RoundedRectangleBorder(
-                                            side: new BorderSide(
-                                                color: Colors.grey, width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        color: Color(0xff0D104E),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 9,
-                                              bottom: 10,
-                                              left: 13,
-                                              right: 13),
-                                          child: Column(
-                                            children: [
-                                              Icon(
-                                                Icons.change_circle_outlined,
-                                                color: Colors.white70,
-                                                size: 60,
-                                              ),
-                                              Text('Spare Change',
-                                                  style: TextStyle(
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text('Auto Invested',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.bold))
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Card(
-                                        shape: RoundedRectangleBorder(
-                                            side: new BorderSide(
-                                                color: Colors.grey, width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        color: Color(0xff0D104E),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 9,
-                                              bottom: 10,
-                                              left: 13,
-                                              right: 13),
-                                          child: Column(
-                                            children: [
-                                              Icon(
-                                                Icons.maps_home_work_sharp,
-                                                color: Colors.white70,
-                                                size: 60,
-                                              ),
-                                              Text('Support 13+',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text('Banks',
-                                                  style: TextStyle(
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.bold))
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                        Text('100% Secure',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold))
+                                      ],
+                                    ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 20, top: 10),
-                                  child: ElevatedButton(
-                                    onPressed: () async {
-                                      var cust = await RazorPayAPIpost()
-                                          .createCustomer(await db.name, phone,
-                                              await db.email);
-                                      Db().addCustomerId(cust.custId!);
-                                      var order = await RazorPayAPIpost()
-                                          .createAuthOrder(cust.custId!);
-                                      print(order.orderId);
-                                      _razorpay.checkout(
-                                          await db.name,
-                                          phone,
-                                          await db.email,
-                                          order.orderId!,
-                                          cust.custId!);
-                                    },
-                                    child: Text(
-                                      'Setup Auto-Pay',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                        shadows: <Shadow>[
-                                          Shadow(
-                                            offset: Offset(0.5, 0.5),
-                                            color: Colors.white,
-                                          ),
-                                        ],
-                                      ),
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                      side: new BorderSide(
+                                          color: Colors.grey, width: 1),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  color: Color(0xff0D104E),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 9,
+                                        bottom: 10,
+                                        left: 13,
+                                        right: 13),
+                                    child: Column(
+                                      children: [
+                                        Icon(
+                                          Icons.change_circle_outlined,
+                                          color: Colors.white70,
+                                          size: 60,
+                                        ),
+                                        Text('Spare Change',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold)),
+                                        Text('Auto Invested',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold))
+                                      ],
                                     ),
-                                    style: ElevatedButton.styleFrom(
-                                      elevation: 20,
-                                      primary: Color(0xff8A00FF),
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 90, vertical: 15),
+                                  ),
+                                ),
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                      side: new BorderSide(
+                                          color: Colors.grey, width: 1),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  color: Color(0xff0D104E),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 9,
+                                        bottom: 10,
+                                        left: 13,
+                                        right: 13),
+                                    child: Column(
+                                      children: [
+                                        Icon(
+                                          Icons.maps_home_work_sharp,
+                                          color: Colors.white70,
+                                          size: 60,
+                                        ),
+                                        Text('Support 13+',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold)),
+                                        Text('Banks',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold))
+                                      ],
                                     ),
                                   ),
                                 ),
                               ],
-                            );
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 20, top: 10),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                var cust = await RazorPayAPIpost()
+                                    .createCustomer(
+                                        await db.name, phone, await db.email);
+                                Db().addCustomerId(cust.custId!);
+                                var order = await RazorPayAPIpost()
+                                    .createAuthOrder(cust.custId!);
+                                print(order.orderId);
+                                _razorpay.checkout(
+                                    await db.name,
+                                    phone,
+                                    await db.email,
+                                    order.orderId!,
+                                    cust.custId!);
+                              },
+                              child: Text(
+                                'Setup Auto-Pay',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  shadows: <Shadow>[
+                                    Shadow(
+                                      offset: Offset(0.5, 0.5),
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                elevation: 20,
+                                primary: Color(0xff8A00FF),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 90, vertical: 15),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return SizedBox();
+                    }
+                  } else {
+                    return SizedBox();
+                  }
+                },
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Center(
+            child: Text(
+              'Recent Transactions',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          StreamBuilder(
+            stream: Db().listenToMessages,
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (!snapshot.hasData) {
+                return Text('data');
+              } else {
+                return Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        var doc = snapshot.data!.docs[index];
+                        Timestamp time = doc['time'];
+                        var parsedDT = time.toDate();
+                        var date = DateFormat.yMMMd().format(parsedDT);
+                        var tim = DateFormat.jm().format(parsedDT);
+                        int amount = doc['amount'];
+                        int rounded, invested;
+                        if (amount < 100) {
+                          if (amount % 5 == 0) {
+                            invested = 5;
                           } else {
-                            return SizedBox();
+                            rounded = (amount / 5).ceil() * 5;
+                            invested = rounded - amount;
                           }
                         } else {
-                          return SizedBox();
+                          if (amount % 10 == 0) {
+                            invested = 10;
+                          } else {
+                            rounded = (amount / 10).ceil() * 10;
+                            invested = rounded - amount;
+                          }
                         }
+                        return Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.blueAccent),
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color(0xff000000).withOpacity(0.1),
+                            ),
+                            child: ListTile(
+                              title: Text(
+                                'Spent ₹' + amount.toString(),
+                                style: TextStyle(
+                                    fontSize: 20.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              subtitle: Text(
+                                date.toString() + " " + tim.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              trailing: Container(
+                                height: 30,
+                                width: 90,
+                                decoration: BoxDecoration(
+                                    color: Colors.lightGreen,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Center(
+                                  child: Text(
+                                    "Invested ₹" + invested.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
                       },
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  child: Text(
-                    'Recent Transactions',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                StreamBuilder(
-                  stream: Db().listenToMessages,
-                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (!snapshot.hasData) {
-                      return Text('data');
-                    } else {
-                      return Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: ListView.builder(
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              var doc = snapshot.data!.docs[index];
-                              Timestamp time = doc['time'];
-                              var parsedDT = time.toDate();
-                              var date = DateFormat.yMMMd().format(parsedDT);
-                              var tim = DateFormat.jm().format(parsedDT);
-                              int amount = doc['amount'];
-                              int rounded, invested;
-                              if (amount < 100) {
-                                if (amount % 5 == 0) {
-                                  invested = 5;
-                                } else {
-                                  rounded = (amount / 5).ceil() * 5;
-                                  invested = rounded - amount;
-                                }
-                              } else {
-                                if (amount % 10 == 0) {
-                                  invested = 10;
-                                } else {
-                                  rounded = (amount / 10).ceil() * 10;
-                                  invested = rounded - amount;
-                                }
-                              }
-                              return Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Color(0xff403965),
-                                  ),
-                                  child: ListTile(
-                                    title: Text(
-                                      'Spent ₹' + amount.toString(),
-                                      style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    subtitle: Text(
-                                      date.toString() + " " + tim.toString(),
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    trailing: Container(
-                                      height: 30,
-                                      width: 90,
-                                      decoration: BoxDecoration(
-                                          color: Colors.lightGreen,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Center(
-                                        child: Text(
-                                          "Invested ₹" + invested.toString(),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                )
-              ],
-            ),
-          )),
-    );
+                );
+              }
+            },
+          )
+        ],
+      ),
+    ));
   }
 }
