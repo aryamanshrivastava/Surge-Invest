@@ -213,6 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         Text('Spare Change',
                                             style: TextStyle(
+                                                color: Colors.white,
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold)),
                                         Text('Auto Invested',
@@ -250,6 +251,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fontWeight: FontWeight.bold)),
                                         Text('Banks',
                                             style: TextStyle(
+                                                color: Colors.white,
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold))
                                       ],
