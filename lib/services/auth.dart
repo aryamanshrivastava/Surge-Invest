@@ -46,18 +46,20 @@ class AuthService {
     required String phone,
   }) async {
     await _auth.verifyPhoneNumber(
-        phoneNumber: '+91' + phone,
-        verificationCompleted: (PhoneAuthCredential cred) async {
-          await _auth.signInWithCredential(cred);
-          //await _db.addUser(_auth.currentUser!.uid, email, name, phone);
-        },
-        verificationFailed: (FirebaseAuthException e) {
-          print(e.message);
-        },
-        codeSent: (String verificationID, int? resendToken) {
-          this.sentCode = verificationID;
-        },
-        codeAutoRetrievalTimeout: (String verificationId) {});
+      phoneNumber: '+91' + phone,
+      verificationCompleted: (PhoneAuthCredential cred) async {
+        await _auth.signInWithCredential(cred);
+        //await _db.addUser(_auth.currentUser!.uid, email, name, phone);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        print(e.message);
+      },
+      codeSent: (String verificationID, int? resendToken) {
+        this.sentCode = verificationID;
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+      timeout: Duration(seconds: 0),
+    );
   }
 
   verifyOtp(String enteredCode, BuildContext context) async {
