@@ -36,9 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  void _signOut() {
-    FirebaseAuth.instance.signOut();
-  }
+  // void _signOut() {
+  //   FirebaseAuth.instance.signOut();
+  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,55 +56,55 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: CircleAvatar(
-                    radius: 45,
-                    backgroundColor: Colors.blue[200],
-                    child: CircleAvatar(
-                      radius: 43,
-                      backgroundImage: NetworkImage(
-                          'https://www.w3schools.com/w3images/avatar2.png'),
-                    ),
-                  ),
-                ),
-                // Padding(
-                //   padding: const EdgeInsets.only(right: 170, bottom: 10),
-                //   child: IconButton(
-                //     iconSize: 20,
-                //     icon: Icon(Icons.border_color),
-                //     color: Colors.white,
-                //     onPressed: () {},
-                //   ),
-                // ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: RichText(
-                    text: TextSpan(
-                      text: 'Hi, Investor',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-                Spacer(),
-                IconButton(
-                    alignment: Alignment.topRight,
-                    onPressed: _signOut,
-                    icon: Icon(
-                      Icons.logout_rounded,
-                      color: Colors.white,
-                    )),
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(20.0),
+          //   child: Row(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //children: [
+          // Padding(
+          //   padding: const EdgeInsets.only(right: 16),
+          //   child: CircleAvatar(
+          //     radius: 45,
+          //     backgroundColor: Colors.blue[200],
+          //     child: CircleAvatar(
+          //       radius: 43,
+          //       backgroundImage: NetworkImage(
+          //           'https://www.w3schools.com/w3images/avatar2.png'),
+          //     ),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(right: 170, bottom: 10),
+          //   child: IconButton(
+          //     iconSize: 20,
+          //     icon: Icon(Icons.border_color),
+          //     color: Colors.white,
+          //     onPressed: () {},
+          //   ),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 30),
+          //   child: RichText(
+          //     text: TextSpan(
+          //       text: 'Hi, Investor',
+          //       style: TextStyle(
+          //           color: Colors.white,
+          //           fontSize: 25,
+          //           fontWeight: FontWeight.bold),
+          //     ),
+          //   ),
+          // ),
+          // Spacer(),
+          // IconButton(
+          //     alignment: Alignment.topRight,
+          //     onPressed: _signOut,
+          //     icon: Icon(
+          //       Icons.logout_rounded,
+          //       color: Colors.white,
+          //     )),
+          // ],
+          //   ),
+          // ),
           Padding(
             padding: EdgeInsets.only(left: 12, top: 5, right: 12),
             child: Card(
@@ -408,6 +409,7 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
+
     ));
   }
 }

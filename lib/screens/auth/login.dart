@@ -24,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //Size screenSize = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
       backgroundColor: Color(0xff0D104E),
@@ -32,18 +33,32 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(bottom: 70),
-                child: RichText(
-                  text: TextSpan(
-                    text: "Welcome",
+              // Padding(
+              //   padding: EdgeInsets.only(bottom: 70),
+              //   child:
+              Container(
+                width: MediaQuery.of(context).size.width / 1.5,
+                height: MediaQuery.of(context).size.height / 5,
+                child: FittedBox(
+                  child: Text(
+                    'Welcome',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 50,
+                        //fontSize: 50,
                         fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
+              // child: RichText(
+              //   text: TextSpan(
+              //     text: "Welcome",
+              //     style: TextStyle(
+              //         color: Colors.white,
+              //         fontSize: 50,
+              //         fontWeight: FontWeight.w700),
+              //   ),
+              // ),
+              //),
               Padding(
                 padding: const EdgeInsets.only(bottom: 20, left: 10, right: 10),
                 child: TextField(
@@ -60,7 +75,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderSide:
                               BorderSide(color: Colors.blue, width: 3.0)),
                       hintText: 'Phone No.',
-                      prefixIcon: const Icon(Icons.call, color: Colors.purpleAccent,),
+                      prefixIcon: const Icon(
+                        Icons.call,
+                        color: Colors.purpleAccent,
+                      ),
                       hintStyle: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
@@ -68,42 +86,52 @@ class _LoginScreenState extends State<LoginScreen> {
                       counterText: ''),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  var doc = await FirebaseFirestore.instance
-                      .collection('users')
-                      .doc('+91' + phoneController.text)
-                      .get();
-                  if (doc.exists) {
-                    _auth.logInWIthPhone(phone: phoneController.text);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => OtpScreen(
-                                  phoneNumber: phoneController.text,
-                                  registered: true,
-                                  auth: _auth,
-                                )));
-                  } else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                RegisterScreen(phoneController)));
-                  }
-                },
-                child: Text(
-                  'Enter',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    var doc = await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc('+91' + phoneController.text)
+                        .get();
+                    if (doc.exists) {
+                      _auth.logInWIthPhone(phone: phoneController.text);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OtpScreen(
+                                    phoneNumber: phoneController.text,
+                                    registered: true,
+                                    auth: _auth,
+                                  )));
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  RegisterScreen(phoneController)));
+                    }
+                  },
+                  child: Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 7,
+                      child: FittedBox(
+                        child: Text(
+                          'Enter',
+                          style: TextStyle(
+                            color: Colors.white,
+                            //fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  elevation: 50,
-                  primary: Color(0xff8A00FF),
-                  padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 50,
+                    primary: Color(0xff8A00FF),
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                  ),
                 ),
               ),
             ],

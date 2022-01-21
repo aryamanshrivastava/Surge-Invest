@@ -28,18 +28,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 70),
-                  child: RichText(
-                    text: TextSpan(
-                      text: " Register ",
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 70),
+                //   child:
+                Container(
+                  width: MediaQuery.of(context).size.width / 2,
+                  height: MediaQuery.of(context).size.height / 5,
+                  child: FittedBox(
+                    child: Text(
+                      'Register',
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 50,
+                          //fontSize: 50,
                           fontWeight: FontWeight.w700),
                     ),
                   ),
                 ),
+                // child: RichText(
+                //   text: TextSpan(
+                //     text: " Register ",
+
+                // ),
+                // ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextField(
@@ -138,12 +149,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   )));
                     },
                     child: Center(
-                      child: Text(
-                        'Create Account',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.bold,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 3,
+                        child: FittedBox(
+                          child: Text(
+                            'Create Account',
+                            style: TextStyle(
+                              color: Colors.white,
+                              //fontSize: 22.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),
