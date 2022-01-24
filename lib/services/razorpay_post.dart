@@ -45,7 +45,7 @@ class RazorPayAPIpost {
       "token": {
         "max_amount": 50000,
         "expire_at": 2709971120,
-        "frequency": "monthly"
+        "frequency": "as_presented"
       },
       "receipt": Random().nextInt(100000).toString(),
       "notes": {
@@ -96,7 +96,7 @@ class RazorPayAPIpost {
       "customer_id": custId,
       "method": "upi",
       "payment_capture": 1,
-      "token": {"max_amount": 200000, "expire_at": 2709971120},
+      "token": {"max_amount": 50000, "expire_at": 2709971120},
       "receipt": Random().nextInt(100000).toString(),
       "notes": {
         "notes_key_1": "Tea, Earl Grey, Hot",

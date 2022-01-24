@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:258351809852:android:9a6f299530c59dcc7f4a39",
         "android_client_info": {
-          "package_name": "co.avitt.surge"
+          "package_name": "com.surgeapp"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "258351809852-vucd8da04ghe03tihf8avn742batnhei.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "co.avitt.surge",
+            "package_name": "com.surgeapp",
             "certificate_hash": "5c1767e63aa203e662ed587a0014a60dc2eaf518"
           }
         },

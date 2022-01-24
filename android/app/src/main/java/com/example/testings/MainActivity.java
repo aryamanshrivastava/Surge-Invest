@@ -1,4 +1,4 @@
-package co.avitt.surge;
+package com.surgeapp;
 
 import io.flutter.embedding.android.FlutterActivity;
 
