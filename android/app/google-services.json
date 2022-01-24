@@ -9,16 +9,69 @@
       "client_info": {
         "mobilesdk_app_id": "1:258351809852:android:9a6f299530c59dcc7f4a39",
         "android_client_info": {
+          "package_name": "co.avitt.surge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258351809852-c5fv6loq53dndt0i3qi4lfs2k1t0d7md.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.avitt.surge",
+            "certificate_hash": "ccf8a5e4374506df88433334096f2ef601b0f0e1"
+          }
+        },
+        {
+          "client_id": "258351809852-djk0e5ho0gk0vi906kn9lb52i13lq72g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.avitt.surge",
+            "certificate_hash": "7902c7f1e0f733aa88f681d4d9d8d9b567a29735"
+          }
+        },
+        {
+          "client_id": "258351809852-vucd8da04ghe03tihf8avn742batnhei.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.avitt.surge",
+            "certificate_hash": "5c1767e63aa203e662ed587a0014a60dc2eaf518"
+          }
+        },
+        {
+          "client_id": "258351809852-41g7ibghvtt0q4im7i7eosjtt4en3fr3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrv3iLBqhpyvRyO6Tx1tNltBkRn4_PSmk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258351809852-41g7ibghvtt0q4im7i7eosjtt4en3fr3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258351809852:android:0a1c46d8531071537f4a39",
+        "android_client_info": {
           "package_name": "com.surgeapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "258351809852-vucd8da04ghe03tihf8avn742batnhei.apps.googleusercontent.com",
+          "client_id": "258351809852-kl5bjussf54dk97l58q9qdc9b9p5qtqo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.surgeapp",
-            "certificate_hash": "5c1767e63aa203e662ed587a0014a60dc2eaf518"
+            "certificate_hash": "7902c7f1e0f733aa88f681d4d9d8d9b567a29735"
           }
         },
         {
