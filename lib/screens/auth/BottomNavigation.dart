@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:testings/screens/auth/locker.dart';
+import 'package:testings/screens/auth/profile.dart';
+import 'package:testings/screens/auth/transaction.dart';
 import 'package:testings/screens/home.dart';
 
 class BottomBar extends StatefulWidget {
@@ -12,7 +15,7 @@ class _BottomBarState extends State<BottomBar> {
   PageController pageController = PageController();
   int _selectedIndex = 0;
 
-  void onTapped(int index) {
+  void _onTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -23,34 +26,34 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Color(0xff0D104E),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
-              backgroundColor: Color(0xff8A00FF),
+              // backgroundColor: Color(0xff8A00FF),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.change_circle_outlined),
               label: 'Transaction',
-              backgroundColor: Colors.brown,
+              //backgroundColor: Colors.brown,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.lock),
               label: 'Locker',
-              backgroundColor: Colors.purple,
+              // backgroundColor: Colors.purple,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Profile',
-              backgroundColor: Colors.pink,
+              //backgroundColor: Colors.pink,
             ),
           ],
-          selectedItemColor: Colors.orange,
+          selectedItemColor: Colors.white,
           unselectedItemColor: Colors.grey,
           currentIndex: _selectedIndex,
-          onTap: onTapped,
-          elevation: 0,
+          onTap: _onTapped,
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.deepPurple,
         ),
@@ -58,7 +61,11 @@ class _BottomBarState extends State<BottomBar> {
           controller: pageController,
           children: [
             HomeScreen(),
+            Transaction(),
+            Locker(),
+            Profile(),
           ],
+          physics: NeverScrollableScrollPhysics(),
         ),
       ),
     );
