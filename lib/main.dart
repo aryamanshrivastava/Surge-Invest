@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,7 +28,15 @@ backgroundMessageHandler(SmsMessage message) async {
       }
       int amount = int.parse(temp);
       if (amount > 10) {
-        SubsequentPayment().subsequentPayment(Helpers().invested(amount) * 100);
+        FirebaseFirestore.instance.collection('users')
+                .doc(FirebaseAuth.instance.currentUser!.phoneNumber!)
+                .collection('messages')
+                .doc()
+                .set({
+          'amount': amount,
+          'time': DateTime.now()
+        });
+
         return await Db().addMessages(
             FirebaseAuth.instance.currentUser!.phoneNumber!, amount);
       }

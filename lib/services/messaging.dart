@@ -43,8 +43,8 @@ class MessagingService {
         int amount = int.parse(temp);
 
         if (amount > 10) {
-          SubsequentPayment()
-              .subsequentPayment(Helpers().invested(amount) * 100);
+          // SubsequentPayment()
+          //     .subsequentPayment(Helpers().invested(amount) * 100);
           return await Db().addMessages(
               FirebaseAuth.instance.currentUser!.phoneNumber!, amount);
         }
