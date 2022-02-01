@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:otp_text_field/otp_text_field.dart';
+import 'package:otp_text_field/style.dart';
 import 'package:testings/services/auth.dart';
-import 'package:otp_text_field/otp_field.dart';
 import 'package:testings/services/db.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -26,7 +27,6 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   String? sentCode;
   String? enteredOTP = '';
-
   @override
   void initState() {
     widget.auth!.logInWIthPhone(phone: widget.phoneNumber!);
@@ -37,77 +37,124 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Color(0xff0D104E),
-          body: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(right: 350, bottom: 120),
-                  child: IconButton(
-                    color: Colors.white,
-                    icon: Icon(Icons.arrow_back),
-                    iconSize: 30,
-                    onPressed: () => Navigator.pop(context),
+        backgroundColor: Color(0xff0473270),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 45,
+                        height: 45,
+                        decoration: BoxDecoration(
+                            color: Color(0xff0503971),
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5.0),
+                            )),
+                        child: Icon(
+                          Icons.arrow_back_ios_new,
+                          size: 30,
+                          color: Color(0xffD19549),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 65,
+                      ),
+                      Text(
+                        'OTP Verifivation',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 20,
+              ),
+              Center(
+                child: Container(
+                  height: 100.0,
+                  width: 250.0,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/getsurge.png'),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
                 ),
-                Center(
-                  child: Container(
-                    color: Colors.white,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              CircleAvatar(
+                radius: 30,
+                backgroundColor: Color(0xff5A406A),
+                child: Icon(
+                  Icons.message_outlined,
+                  size: 30,
+                  color: Color(0xffE4A951),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Center(
+                child: Text(
+                  'Please enter the OTP',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(height: 5),
+              Center(
+                child: Text(
+                  'sent on +91 ${widget.phoneNumber}',
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 1.78,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(100.0),
+                      ),
+                      color: Color(0xff9E6D60)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
                     child: Column(
-                      children: <Widget>[
-                        SizedBox(height: 30),
-                        Container(
-                          width: MediaQuery.of(context).size.width/2.5,
-                          child: FittedBox(
-                            child: Text(
-                              'Verify Phone No.',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w900,
-                                //fontSize: 25,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width/3,
-                          child: FittedBox(
-                            child: Text(
-                              'Code is sent to +91 ${widget.phoneNumber}',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black38,
-                                fontWeight: FontWeight.w400,
-                                //fontSize: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
+                      children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                          padding: const EdgeInsets.only(top: 70),
                           child: OTPTextField(
                             length: 6,
-                            width: MediaQuery.of(context).size.width,
-                            fieldWidth: 16,
-                            style: TextStyle(fontSize: 20, color: Colors.black),
+                            width: 350,
+                            fieldWidth: 45,
+                            otpFieldStyle: OtpFieldStyle(
+                              backgroundColor: Color(0xff775367),
+                              borderColor: Color(0xff0473270),
+                            ),
+                            style: TextStyle(fontSize: 17),
                             textFieldAlignment: MainAxisAlignment.spaceAround,
+                            fieldStyle: FieldStyle.box,
                             onCompleted: (pin) {
                               enteredOTP = pin;
                             },
                             onChanged: (pin) {},
                           ),
-                        ),
-                        SizedBox(
-                          height: 20,
                         ),
                         SizedBox(
                           height: 40,
@@ -133,34 +180,29 @@ class _OtpScreenState extends State<OtpScreen> {
                               }
                             }
                           },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width/7,
-                            child: FittedBox(
-                              child: Text(
-                                'VERIFY',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                          child: Text(
+                            'VERIFY',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                              primary: Color(0xff8A00FF),
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(20.0),
+                              ),
+                              primary: Color(0xff5C4175),
                               padding: EdgeInsets.symmetric(
                                   horizontal: 90, vertical: 15)),
                         ),
-                        SizedBox(
-                          height: 30,
-                        )
                       ],
                     ),
-                  ),
-                ),
-              ],
-            ),
-          )),
+                  )),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
