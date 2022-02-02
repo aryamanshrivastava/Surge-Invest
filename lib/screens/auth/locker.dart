@@ -1,3 +1,5 @@
+import 'package:coingecko_dart/coingecko_dart.dart';
+import 'package:coingecko_dart/dataClasses/coins/PricedCoin.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,6 +14,17 @@ class Locker extends StatefulWidget {
 
 class _LockerState extends State<Locker> {
   Db db = Db();
+
+  CoinGeckoApi cgApi = CoinGeckoApi();
+
+  getPrice() async {
+    CoinGeckoResult<List<PricedCoin>> result = await cgApi.simplePrice(
+      ids: ["bitcoin"],
+      vs_currencies: ["inr"],
+    );
+    return result.data[0].data["inr"];
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -53,12 +66,23 @@ class _LockerState extends State<Locker> {
                                             color: Color(0xffffffff),
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      Text(
-                                        'Live Price',
-                                        style: TextStyle(
-                                            fontSize: 30,
-                                            color: Color(0xffffffff),
-                                            fontWeight: FontWeight.bold),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      FutureBuilder(
+                                        future: getPrice(),
+                                        builder:
+                                            (context, AsyncSnapshot snapshot) {
+                                          return Text(
+                                            "Rs." +
+                                                snapshot.data.toString() +
+                                                "/BTC",
+                                            style: TextStyle(
+                                              fontSize: 17,
+                                              color: Color(0xffffffff),
+                                            ),
+                                          );
+                                        },
                                       ),
                                     ],
                                   ),
