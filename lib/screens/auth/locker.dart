@@ -26,13 +26,6 @@ class _LockerState extends State<Locker> {
   }
 
   @override
-  void initState() {
-    getPrice();
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
