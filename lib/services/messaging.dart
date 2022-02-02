@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:telephony/telephony.dart';
 import 'package:testings/services/db.dart';
-import 'package:testings/services/helpers.dart';
-import 'package:testings/services/razorpay.dart';
 
 class MessagingService {
   final Telephony telephony = Telephony.instance;
