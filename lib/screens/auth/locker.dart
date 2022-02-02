@@ -1,3 +1,5 @@
+import 'package:coingecko_dart/coingecko_dart.dart';
+import 'package:coingecko_dart/dataClasses/coins/PricedCoin.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:testings/services/db.dart';
@@ -11,6 +13,17 @@ class Locker extends StatefulWidget {
 
 class _LockerState extends State<Locker> {
   Db db = Db();
+
+  CoinGeckoApi cgApi = CoinGeckoApi();
+
+  getPrice() async {
+    CoinGeckoResult<List<PricedCoin>> result = await cgApi.simplePrice(
+      ids: ["bitcoin"],
+      vs_currencies: ["inr"],
+    );
+    return result.data[0].data["inr"];
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
