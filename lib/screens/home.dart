@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telephony/telephony.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:testings/main.dart';
@@ -28,11 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    telephony.listenIncomingSms(
-      onNewMessage: MessagingService().incomingMessageHandler,
-      onBackgroundMessage: backgroundMessageHandler,
-    );
-
+      updateMessages();
     super.initState();
   }
 
@@ -362,4 +359,46 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ));
   }
+
+  updateMessages() async {
+    final prefs = await SharedPreferences.getInstance();
+    int timeStamp = prefs.getInt('timestamp')?? DateTime.now().millisecondsSinceEpoch;
+    List<SmsMessage> messages = await telephony.getInboxSms(
+        columns: [SmsColumn.BODY, SmsColumn.DATE],
+        filter: SmsFilter.where(SmsColumn.DATE).greaterThanOrEqualTo(timeStamp.toString()),
+        sortOrder: [OrderBy(SmsColumn.DATE, sort: Sort.ASC)]
+    );
+    for(var i in messages){
+      if (i.body.toString().contains(new RegExp(r'([Rr]s\.?)')) &&
+          i.body.toString().contains(new RegExp(r'([Ss]ent)|([Pp]aid)|([Dd]ebited)|DEBITED')) &&
+          !(i.body.toString().contains(new RegExp(r'([Ff]ailed)|([Cc]redited)|([Rr]received)|[Rr]azorpay|[Uu]nsuccessful|[Pp]ending')))){
+        if (RegExp(r'(?<=([Rr]s)\.* *)[0-9]*')
+            .firstMatch(i.body.toString())
+            ?.group(0) !=
+            null) {
+          String? temp = RegExp(r'(?<=([Rr]s))\.? ?[0-9]*')
+              .firstMatch(i.body.toString())
+              ?.group(0);
+          if (temp![0] == ' ' || temp[0] == '.') {
+            temp = temp.substring(1);
+          }
+          int amount = int.parse(temp);
+          if (amount > 10) {
+            print(amount);
+            print(i.date);
+            FirebaseFirestore.instance.collection('users')
+                .doc(FirebaseAuth.instance.currentUser!.phoneNumber!)
+                .collection('messages')
+                .doc()
+                .set({
+              'amount': amount,
+              'time': DateTime.fromMicrosecondsSinceEpoch(i.date!)
+            });
+          }
+        }
+      }
+    }
+    prefs.setInt('timestamp', DateTime.now().millisecondsSinceEpoch);
+  }
+
 }

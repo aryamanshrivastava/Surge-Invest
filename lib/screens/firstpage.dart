@@ -8,10 +8,15 @@ class FirstPg extends StatefulWidget {
   _FirstPgState createState() => _FirstPgState();
 }
 
+var _height;
+var _width;
+
 class _FirstPgState extends State<FirstPg> {
   final phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    _height = MediaQuery.of(context).size.height;
+    _width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xff0473270),
       body: Column(
@@ -102,12 +107,10 @@ class _FirstPgState extends State<FirstPg> {
               padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
             ),
           ),
-          SizedBox(
-            height: 116,
-          ),
+          Spacer(),
           Container(
-            height: 210.0,
-            width: 390.0,
+            height: _height/10*2,
+            width: _width,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/waveio.png'),

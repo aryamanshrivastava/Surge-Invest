@@ -28,23 +28,23 @@ class _BottomBarState extends State<BottomBar> {
       child: Scaffold(
         backgroundColor: Color(0xff0D104E),
         bottomNavigationBar: ClipRRect(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0), topRight: Radius.circular(40.0), ),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(50.0), topRight: Radius.circular(50.0), ),
           child: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home,color: Color(0xff473270),),
+                icon: _selectedIndex==0?Icon(Icons.home, color: Color(0xff473270), size: 30,):Icon(Icons.home_outlined,color: Color(0xff473270), size: 25,),
                 label: '',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.change_circle_outlined,color: Color(0xff473270)),
+                icon: _selectedIndex==1?Icon(Icons.change_circle, color: Color(0xff473270), size: 30,):Icon(Icons.change_circle_outlined,color: Color(0xff473270), size: 25,),
+                label: ''
+              ),
+              BottomNavigationBarItem(
+                icon: _selectedIndex==2?Icon(Icons.lock, color: Color(0xff473270),):Icon(Icons.lock_outline,color: Color(0xff473270)),
                 label: '',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.lock,color: Color(0xff473270)),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person,color: Color(0xff473270)),
+                icon: _selectedIndex==3?Icon(Icons.person, color: Color(0xff473270),):Icon(Icons.person_outline,color: Color(0xff473270)),
                 label: '',
               ),
             ],
