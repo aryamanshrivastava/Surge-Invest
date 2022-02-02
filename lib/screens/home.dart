@@ -286,7 +286,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,  
+                      itemCount: snapshot.data!.docs.length > 5
+                          ? 5
+                          : snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
                         var doc = snapshot.data!.docs[index];
                         Timestamp time = doc['time'];

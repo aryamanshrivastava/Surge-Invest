@@ -14,7 +14,7 @@ class _TransactionState extends State<Transaction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff0D104E),
+      backgroundColor: Color(0xff473270),
       body: Column(
         children: [
           SizedBox(
@@ -22,9 +22,9 @@ class _TransactionState extends State<Transaction> {
           ),
           Center(
             child: Text(
-              'Recent Transactions',
+              'All Transactions',
               style: TextStyle(
-                color: Colors.white,
+                color: Color(0xff14EE80),
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
@@ -69,9 +69,8 @@ class _TransactionState extends State<Transaction> {
                           padding: const EdgeInsets.all(10),
                           child: Container(
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.blueAccent),
                               borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff000000).withOpacity(0.1),
+                              color: Color(0xff555555),
                             ),
                             child: ListTile(
                               title: Text(
@@ -89,13 +88,14 @@ class _TransactionState extends State<Transaction> {
                                 height: 30,
                                 width: 90,
                                 decoration: BoxDecoration(
-                                    color: Colors.lightGreen,
+                                    color: Color(0xff141414),
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Center(
                                   child: Text(
                                     "Invested ₹" + invested.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
+                                      color: Color(0xff14EE80),
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.w400),
                                   ),
