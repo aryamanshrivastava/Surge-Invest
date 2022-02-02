@@ -14,7 +14,7 @@ class _TransactionState extends State<Transaction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff473270),
+      backgroundColor: Color(0xff0473270),
       body: Column(
         children: [
           SizedBox(
@@ -85,8 +85,8 @@ class _TransactionState extends State<Transaction> {
                                 style: TextStyle(color: Colors.white),
                               ),
                               trailing: Container(
-                                height: 30,
-                                width: 90,
+                                height: 35,
+                                width: 95,
                                 decoration: BoxDecoration(
                                     color: Color(0xff141414),
                                     borderRadius: BorderRadius.circular(10)),
@@ -96,7 +96,7 @@ class _TransactionState extends State<Transaction> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: Color(0xff14EE80),
-                                        fontSize: 14.0,
+                                        fontSize: 17.0,
                                         fontWeight: FontWeight.w400),
                                   ),
                                 ),

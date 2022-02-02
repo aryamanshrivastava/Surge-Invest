@@ -27,31 +27,41 @@ class _BottomBarState extends State<BottomBar> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xff0D104E),
-        bottomNavigationBar: ClipRRect(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0), topRight: Radius.circular(40.0), ),
-          child: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home,color: Color(0xff473270),),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.change_circle_outlined,color: Color(0xff473270)),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.lock,color: Color(0xff473270)),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person,color: Color(0xff473270)),
-                label: '',
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            onTap: _onTapped,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Color(0xffE4A951),
+        bottomNavigationBar: Container(
+          color:Color(0xff0473270) ,
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(40.0),
+              topRight: Radius.circular(40.0),
+            ),
+            child: BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
+                    color: Color(0xff473270),
+                  ),
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.change_circle_outlined,
+                      color: Color(0xff473270)),
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.lock, color: Color(0xff473270)),
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person, color: Color(0xff473270)),
+                  label: '',
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              onTap: _onTapped,
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Color(0xffE4A951),
+            ),
           ),
         ),
         body: PageView(
