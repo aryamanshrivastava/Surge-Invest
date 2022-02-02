@@ -34,6 +34,7 @@ class _ProfileState extends State<Profile> {
       backgroundColor: Color(0xff473270),
       body: Column(
         children: [
+          SizedBox(height: 25,),
           Container(
             alignment: Alignment.topLeft,
             height: 60.0,
