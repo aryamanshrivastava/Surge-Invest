@@ -127,13 +127,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  cupertino_icons:
-    dependency: "direct main"
-    description:
-      name: cupertino_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
   dio:
     dependency: transitive
     description:
@@ -254,6 +247,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+  google_nav_bar:
+    dependency: "direct main"
+    description:
+      name: google_nav_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.5"
   http:
     dependency: "direct main"
     description:
@@ -351,7 +351,7 @@ packages:
       name: otp_text_field
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.2"
   package_config:
     dependency: transitive
     description:
@@ -651,13 +651,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  wave:
-    dependency: "direct main"
-    description:
-      name: wave
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   web_socket_channel:
     dependency: transitive
     description:

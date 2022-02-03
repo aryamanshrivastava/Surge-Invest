@@ -1,7 +1,11 @@
+import 'dart:ffi';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coingecko_dart/coingecko_dart.dart';
 import 'package:coingecko_dart/dataClasses/coins/PricedCoin.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:testings/services/db.dart';
 
 class Locker extends StatefulWidget {
@@ -16,7 +20,7 @@ class _LockerState extends State<Locker> {
 
   CoinGeckoApi cgApi = CoinGeckoApi();
 
-  getPrice() async {
+  Future<double?> getPrice() async {
     CoinGeckoResult<List<PricedCoin>> result = await cgApi.simplePrice(
       ids: ["bitcoin"],
       vs_currencies: ["inr"],
@@ -33,38 +37,17 @@ class _LockerState extends State<Locker> {
         children: [
           Padding(
             padding: const EdgeInsets.all(15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  width: 45,
-                  height: 45,
-                  decoration: BoxDecoration(
-                      color: Color(0xff0503971),
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
-                      )),
-                  child: Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 30,
-                    color: Color(0xffD19549),
-                  ),
-                ),
-                SizedBox(width: 70),
-                Text(
-                  'Sell Bitcoin',
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: Color(0xffE4A951),
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
+            child: Text(
+              'Locker',
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Color(0xffE4A951),
+                  fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(height: 15),
           Text(
-            'Current Sell Price',
+            'Live Sell Price',
             style: TextStyle(
                 fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
           ),
@@ -75,24 +58,54 @@ class _LockerState extends State<Locker> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 160,
+                width: MediaQuery.of(context).size.width/10*7,
                 height: 50,
                 decoration: BoxDecoration(
                     color: Color(0xff533B6D),
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Center(
-                  child: Text(
-                    '₹27,26,564.11',
-                    style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                  child: FutureBuilder(
+                    builder: (ctx, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasError) {
+                          return Center(
+                            child: Text(
+                              '${snapshot.error} occurred',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          );
+                        } else if (snapshot.hasData) {
+                          final data = snapshot.data;
+                          return Center(
+                            child: Text(
+                                NumberFormat.currency(
+                                  symbol: '₹ ',
+                                  locale: "HI"
+                                ).format(data),
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold
+                                )
+                            ),
+                          );
+                        }
+                      }
+                      return SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: Center(
+                          child: CircularProgressIndicator(color: Colors.white),
+                        ),
+                      );
+                    },
+                    future: getPrice(),
                   ),
                 ),
               ),
               SizedBox(width: 10),
               Text(
-                '/1BTC',
+                '/BTC',
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.white,
@@ -103,67 +116,67 @@ class _LockerState extends State<Locker> {
           SizedBox(
             height: 10,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Price Valid for',
-                style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                '6:30PM',
-                style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.redAccent,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Text(
+          //       'Price Valid for',
+          //       style: TextStyle(
+          //           fontSize: 18,
+          //           color: Colors.white,
+          //           fontWeight: FontWeight.bold),
+          //     ),
+          //     SizedBox(
+          //       width: 5,
+          //     ),
+          //     Text(
+          //       '6:30PM',
+          //       style: TextStyle(
+          //           fontSize: 18,
+          //           color: Colors.redAccent,
+          //           fontWeight: FontWeight.bold),
+          //     ),
+          //   ],
+          // ),
           SizedBox(
             height: 10,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                'Available to sell',
-                style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(width: 20),
-              Container(
-                width: 120,
-                height: 50,
-                decoration: BoxDecoration(
-                    color: Color(0xff533B6D),
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                child: Center(
-                  child: Text(
-                    '14 BTC',
-                    style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     Text(
+          //       'Available to sell',
+          //       style: TextStyle(
+          //           fontSize: 25,
+          //           color: Colors.white,
+          //           fontWeight: FontWeight.bold),
+          //     ),
+          //     SizedBox(width: 20),
+          //     Container(
+          //       width: 120,
+          //       height: 50,
+          //       decoration: BoxDecoration(
+          //           color: Color(0xff533B6D),
+          //           borderRadius: BorderRadius.all(Radius.circular(20))),
+          //       child: Center(
+          //         child: Text(
+          //           '14 BTC',
+          //           style: TextStyle(
+          //               fontSize: 25,
+          //               color: Colors.white,
+          //               fontWeight: FontWeight.bold),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
           SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(left: 25),
             child: Container(
               alignment: Alignment.bottomLeft,
               child: Text(
-                'Sell',
+                'Bitcoin balance',
                 textAlign: TextAlign.start,
                 style: TextStyle(
                     color: Colors.white,
@@ -172,38 +185,58 @@ class _LockerState extends State<Locker> {
               ),
             ),
           ),
-          Card(
-            color: Color(0xff533B6D),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    radius: 15,
-                    backgroundColor: Color(0xffF9A42F),
-                    child: FaIcon(
-                      FontAwesomeIcons.btc,
-                      size: 20,
-                      color: Colors.white,
+          StreamBuilder<DocumentSnapshot>(
+            stream: db.listenToDb,
+            builder:
+                (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+              if (snapshot.hasData) {
+                return Column(
+                  children: [
+                    Center(
+                      child: Column(
+                        children: [
+                          Card(
+                            color: Color(0xff533B6D),
+                            shape:
+                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 15,
+                                    backgroundColor: Color(0xffF9A42F),
+                                    child: FaIcon(
+                                      FontAwesomeIcons.btc,
+                                      size: 20,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    '${snapshot.data!['amount'] ?? '0'}',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    '0.25',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
+                  ],
+                );
+              } else {
+                return SizedBox();
+              }
+            },
           ),
           SizedBox(
             height: 10,
@@ -213,7 +246,7 @@ class _LockerState extends State<Locker> {
             child: Container(
               alignment: Alignment.bottomLeft,
               child: Text(
-                'Value in rupees',
+                'Value',
                 textAlign: TextAlign.start,
                 style: TextStyle(
                     color: Colors.white,
@@ -255,30 +288,30 @@ class _LockerState extends State<Locker> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 25),
-            child: Container(
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                'Approximate Value available: ₹699115.55',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 25),
+          //   child: Container(
+          //     alignment: Alignment.bottomLeft,
+          //     child: Text(
+          //       'Approximate Value available: ₹699115.55',
+          //       textAlign: TextAlign.start,
+          //       style: TextStyle(
+          //           color: Colors.white,
+          //           fontSize: 18,
+          //           fontWeight: FontWeight.w800),
+          //     ),
+          //   ),
+          // ),
           SizedBox(
-            height: 20,
+            height: 50,
           ),
           ElevatedButton(
             onPressed: () {},
             child: Text(
-              'Sell',
+                'WITHDRAW',
               style: TextStyle(
                 color: Colors.black,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
             ),
@@ -294,25 +327,25 @@ class _LockerState extends State<Locker> {
           SizedBox(
             height: 60,
           ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text(
-              'History',
-              style: TextStyle(
-                color: Color(0xff464646),
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-            style: ElevatedButton.styleFrom(
-              shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(10.0),
-              ),
-              elevation: 10,
-              primary: Color(0xffD19549),
-              padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-            ),
-          ),
+          // ElevatedButton(
+          //   onPressed: () {},
+          //   child: Text(
+          //     'History',
+          //     style: TextStyle(
+          //       color: Color(0xff464646),
+          //       fontWeight: FontWeight.bold,
+          //       fontSize: 20,
+          //     ),
+          //   ),
+          //   style: ElevatedButton.styleFrom(
+          //     shape: new RoundedRectangleBorder(
+          //       borderRadius: new BorderRadius.circular(10.0),
+          //     ),
+          //     elevation: 10,
+          //     primary: Color(0xffD19549),
+          //     padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+          //   ),
+          // ),
         ],
       ),
     ));

@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:testings/screens/auth/otp.dart';
 import 'package:testings/services/auth.dart';
 import 'package:testings/services/messaging.dart';
-import 'package:wave/config.dart';
-import 'package:wave/wave.dart';
 import 'register.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,51 +15,6 @@ class LoginScreen extends StatefulWidget {
 const themeColor = const Color(0xff063970);
 
 class _LoginScreenState extends State<LoginScreen> {
-
-  _buildCard({
-    Config? config,
-    Color backgroundColor = Colors.transparent,
-    DecorationImage? backgroundImage,
-    double height = 152.0,
-  }) {
-    return Container(
-      height: height,
-      width: double.infinity,
-      child: Card(
-        elevation: 12.0,
-        margin: EdgeInsets.only(right: 16.0, left: 16.0, bottom: 16.0),
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.0))),
-        child: WaveWidget(
-          config: config!,
-          backgroundColor: backgroundColor,
-          backgroundImage: backgroundImage,
-          size: Size(double.infinity, double.infinity),
-          waveAmplitude: 0,
-        ),
-      ),
-    );
-  }
-
-  MaskFilter? _blur;
-  final List<MaskFilter> _blurs = [
-    // null,
-    MaskFilter.blur(BlurStyle.normal, 10.0),
-    MaskFilter.blur(BlurStyle.inner, 10.0),
-    MaskFilter.blur(BlurStyle.outer, 10.0),
-    MaskFilter.blur(BlurStyle.solid, 16.0),
-  ];
-  int _blurIndex = 0;
-  MaskFilter _nextBlur() {
-    if (_blurIndex == _blurs.length - 1) {
-      _blurIndex = 0;
-    } else {
-      _blurIndex = _blurIndex + 1;
-    }
-    _blur = _blurs[_blurIndex];
-    return _blurs[_blurIndex];
-  }
 
   final phoneController = TextEditingController();
   final _auth = AuthService();
