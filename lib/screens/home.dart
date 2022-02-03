@@ -421,10 +421,12 @@ class _HomeScreenState extends State<HomeScreen> {
           try{
             int amount = int.parse(temp);
             if (amount > 10) {
+              print(amount);
               print(i.date);
               FirebaseFirestore.instance.collection('users')
                   .doc(FirebaseAuth.instance.currentUser!.phoneNumber!)
-                  .collection('${now.day}-${now.month}-${now.year}').doc()
+                  .collection('messages')
+                  .doc()
                   .set({
                 'amount': amount,
                 'time': DateTime.fromMillisecondsSinceEpoch(i.date!)
