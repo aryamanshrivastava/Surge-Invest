@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Color(0xffD19549),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 40, top: 100, right: 40),
+              padding: EdgeInsets.only(left: 20, top: 100, right: 20),
               child: SizedBox(
                 height: 210,
                 child:
@@ -339,7 +339,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             }
                           }
                           return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),

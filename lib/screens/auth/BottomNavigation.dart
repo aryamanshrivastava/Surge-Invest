@@ -19,10 +19,10 @@ class _BottomBarState extends State<BottomBar> {
   // static const TextStyle optionStyle =
   // TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static List<Widget> _widgetOptions = <Widget>[
-        HomeScreen(),
-        Transaction(),
-        Locker(),
-        Profile()
+    HomeScreen(),
+    Transaction(),
+    Locker(),
+    Profile()
   ];
 
   // void _onTapped(int index) {
@@ -66,6 +66,8 @@ class _BottomBarState extends State<BottomBar> {
         // ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
+            // borderRadius: BorderRadius.only(
+            //     topLeft: Radius.circular(40), topRight: Radius.circular(40)),
             color: Colors.white,
             boxShadow: [
               BoxShadow(
@@ -76,7 +78,8 @@ class _BottomBarState extends State<BottomBar> {
           ),
           child: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
               child: GNav(
                 rippleColor: Colors.deepPurpleAccent,
                 hoverColor: Colors.deepPurpleAccent,
@@ -86,7 +89,6 @@ class _BottomBarState extends State<BottomBar> {
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.deepPurple.shade100,
-                // tabBorder: Border.all(color: Colors.black),
                 color: Colors.black,
                 tabs: [
                   GButton(
