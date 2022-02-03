@@ -424,8 +424,7 @@ class _HomeScreenState extends State<HomeScreen> {
               print(i.date);
               FirebaseFirestore.instance.collection('users')
                   .doc(FirebaseAuth.instance.currentUser!.phoneNumber!)
-                  .collection('messages')
-                  .doc('${now.day} - ${now.month} - ${now.year}')
+                  .collection('${now.day}-${now.month}-${now.year}').doc()
                   .set({
                 'amount': amount,
                 'time': DateTime.fromMillisecondsSinceEpoch(i.date!)
