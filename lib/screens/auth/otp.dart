@@ -76,17 +76,29 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                 ),
               ),
-              Center(
-                child: Container(
-                  height: 100.0,
-                  width: 250.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/getsurge.png'),
-                      fit: BoxFit.fill,
+              Column(
+                children: [
+                  Center(
+                    child: Container(
+                      height: 100.0,
+                      width: 250.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/getsurge.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
                     ),
                   ),
+                  SizedBox(height: 5),
+                Text(
+                  'Crypto & You',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold),
                 ),
+                ],
               ),
               SizedBox(
                 height: 20,
@@ -127,7 +139,7 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
               Container(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 1.78,
+                  height: MediaQuery.of(context).size.height / 1.9,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(100.0),

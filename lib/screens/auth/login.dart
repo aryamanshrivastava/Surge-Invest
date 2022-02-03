@@ -15,7 +15,6 @@ class LoginScreen extends StatefulWidget {
 const themeColor = const Color(0xff063970);
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final phoneController = TextEditingController();
   final _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
@@ -78,30 +77,51 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              Center(
-                child: Container(
-                  height: 250.0,
-                  width: 250.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/app.png'),
-                      fit: BoxFit.fill,
+
+              Column(
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 50),
+                      child: Container(
+                        height: 100.0,
+                        width: 250.0,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/getsurge.png'),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
+                  SizedBox(height: 5),
+                  Text(
+                    'Crypto & You',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Text(
+                  'Welcome Back!',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
-              Text(
-                'Welcome Back!',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold),
-              ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
                   controller: phoneController,
@@ -110,12 +130,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontSize: 20,
                   ),
                   maxLength: 10,
-                  validator: (value){
-                    if(value== null){
+                  validator: (value) {
+                    if (value == null) {
                       return 'Please enter phone number';
-                    } else if(value.length<10 || int.tryParse(value) == null){
+                    } else if (value.length < 10 ||
+                        int.tryParse(value) == null) {
                       return 'Enter valid 10 digit phone number';
-                    } else{
+                    } else {
                       return null;
                     }
                   },
@@ -124,12 +145,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     fillColor: Color(0xff0503971),
                     filled: true,
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
-                      borderSide: const BorderSide(color: Colors.black, width: 2.0),
+                      borderSide:
+                          const BorderSide(color: Colors.black, width: 2.0),
                     ),
                     hintText: 'Phone No.',
                     prefixIcon: const Icon(
@@ -159,10 +182,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => OtpScreen(
-                                phoneNumber: phoneController.text,
-                                registered: true,
-                                auth: _auth,
-                              )));
+                                    phoneNumber: phoneController.text,
+                                    registered: true,
+                                    auth: _auth,
+                                  )));
                     } else {
                       Navigator.push(
                           context,

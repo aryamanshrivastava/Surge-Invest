@@ -35,16 +35,28 @@ class _ProfileState extends State<Profile> {
       body: Column(
         children: [
           SizedBox(height: 25,),
-          Container(
-            alignment: Alignment.topLeft,
-            height: 60.0,
-            width: 150.0,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/getsurge.png'),
-                fit: BoxFit.fill,
+          Column(
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                height: 60.0,
+                width: 150.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/getsurge.png'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
               ),
-            ),
+              SizedBox(height: 5),
+                Text(
+                  'Crypto & You',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold),
+                ),
+            ],
           ),
           SizedBox(
             height: 20,
@@ -229,7 +241,7 @@ class _ProfileState extends State<Profile> {
           ),
           Spacer(),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(18.0),
             child: Row(
               children: [
                 Spacer(),

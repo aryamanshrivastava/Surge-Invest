@@ -7,10 +7,8 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telephony/telephony.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:testings/main.dart';
 import 'package:testings/models/change.dart';
 import 'package:testings/services/db.dart';
-import 'package:testings/services/messaging.dart';
 import 'package:testings/services/razorpay.dart';
 import 'package:testings/services/razorpay_post.dart';
 
@@ -84,8 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Spacer(),
-                                        Icon(
-                                          Icons.account_balance_wallet,
+                                        FaIcon(
+                                          FontAwesomeIcons.creditCard,
                                           size: 30,
                                           color: Color(0xffD19549),
                                         )
