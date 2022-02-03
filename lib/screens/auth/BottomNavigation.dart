@@ -16,8 +16,8 @@ class _BottomBarState extends State<BottomBar> {
   PageController pageController = PageController();
   int _selectedIndex = 0;
 
-  static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
+  // static const TextStyle optionStyle =
+  // TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static List<Widget> _widgetOptions = <Widget>[
         HomeScreen(),
         Transaction(),
@@ -25,12 +25,12 @@ class _BottomBarState extends State<BottomBar> {
         Profile()
   ];
 
-  void _onTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    pageController.jumpToPage(index);
-  }
+  // void _onTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  //   pageController.jumpToPage(index);
+  // }
 
   @override
   Widget build(BuildContext context) {

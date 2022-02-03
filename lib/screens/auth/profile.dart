@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -17,6 +18,7 @@ class _ProfileState extends State<Profile> {
   String phone = FirebaseAuth.instance.currentUser!.phoneNumber!;
   Db db = Db();
   bool sbool = false;
+
   void _signOut() {
     FirebaseAuth.instance.signOut();
   }
@@ -37,16 +39,28 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: 25,
           ),
-          Container(
-            alignment: Alignment.topLeft,
-            height: 60.0,
-            width: 150.0,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/getsurge.png'),
-                fit: BoxFit.fill,
+          Column(
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                height: 60.0,
+                width: 150.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/getsurge.png'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
               ),
-            ),
+              SizedBox(height: 5),
+                Text(
+                  'Crypto & You',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold),
+                ),
+            ],
           ),
           SizedBox(
             height: 20,
@@ -106,16 +120,10 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           SizedBox(height: 40),
-          ElevatedButton(
-            onPressed: _signOut,
-            child: Text(
-              'Logout',
-              style: TextStyle(
-                color: Color(0xff464646),
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
+          ElevatedButton.icon(
+              onPressed: _signOut,
+              icon: Icon(Icons.logout),
+              label: Text('Logout', style: TextStyle(fontWeight: FontWeight.w800),),
             style: ElevatedButton.styleFrom(
               shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(20.0),
@@ -125,9 +133,28 @@ class _ProfileState extends State<Profile> {
               padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
             ),
           ),
+          // ElevatedButton(
+          //   onPressed: _signOut,
+          //   child: Text(
+          //     'Logout',
+          //     style: TextStyle(
+          //       color: Color(0xff464646),
+          //       fontWeight: FontWeight.bold,
+          //       fontSize: 20,
+          //     ),
+          //   ),
+          //   style: ElevatedButton.styleFrom(
+          //     shape: new RoundedRectangleBorder(
+          //       borderRadius: new BorderRadius.circular(20.0),
+          //     ),
+          //     elevation: 10,
+          //     primary: Color(0xffD19549),
+          //     padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+          //   ),
+          // ),
           Spacer(),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(18.0),
             child: Row(
               children: [
                 Spacer(),
