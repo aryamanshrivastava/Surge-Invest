@@ -73,27 +73,46 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            Center(
-              child: Container(
-                height: 250.0,
-                width: 250.0,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/app.png'),
-                    fit: BoxFit.fill,
+            Column(
+              children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: Container(
+                      height: 100.0,
+                      width: 250.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/getsurge.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
+                SizedBox(height: 5),
+                Text(
+                  'Crypto & You',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                'Welcome Back!',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold),
               ),
             ),
-            Text(
-              'Welcome Back!',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold),
-            ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),

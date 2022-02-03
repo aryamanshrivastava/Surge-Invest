@@ -28,7 +28,7 @@ class _BottomBarState extends State<BottomBar> {
       child: Scaffold(
         backgroundColor: Color(0xff0D104E),
         bottomNavigationBar: Container(
-          color:Color(0xff0473270) ,
+          color: Color(0xff0473270),
           child: ClipRRect(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(40.0),

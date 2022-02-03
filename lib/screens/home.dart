@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -85,8 +86,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Spacer(),
-                                        Icon(
-                                          Icons.payment,
+                                        FaIcon(
+                                          FontAwesomeIcons.creditCard,
                                           size: 30,
                                           color: Color(0xffD19549),
                                         )
