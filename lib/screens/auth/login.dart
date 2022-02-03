@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         .get();
                     if (doc.exists) {
                       _auth.logInWIthPhone(phone: phoneController.text);
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => OtpScreen(
