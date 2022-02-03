@@ -34,7 +34,9 @@ class _ProfileState extends State<Profile> {
       backgroundColor: Color(0xff473270),
       body: Column(
         children: [
-          SizedBox(height: 25,),
+          SizedBox(
+            height: 25,
+          ),
           Container(
             alignment: Alignment.topLeft,
             height: 60.0,
@@ -57,52 +59,35 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: 10,
           ),
-          RichText(
-            text: TextSpan(
-              text: 'Hi Investor',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
+          FutureBuilder(
+              future: db.name,
+              builder: (context, snapshot) {
+                return RichText(
+                  text: TextSpan(
+                    text: "Hi, " + snapshot.data.toString(),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold),
+                  ),
+                );
+              }),
           SizedBox(
-            height: 30,
+            height: 10,
           ),
-          GestureDetector(
-            onTap: () {
-              print('Hello');
-            },
-            child: Card(
-              color: Color(0xff543A6D),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              margin: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 17),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Icon(
-                      Icons.edit,
-                      size: 25,
-                      color: Color(0xffB07C52),
+          FutureBuilder(
+              future: db.email,
+              builder: (context, snapshot) {
+                return RichText(
+                  text: TextSpan(
+                    text: snapshot.data.toString(),
+                    style: TextStyle(
+                      color: Colors.white30,
+                      fontSize: 20,
                     ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      'Edit Profile',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
+                  ),
+                );
+              }),
           SizedBox(
             height: 30,
           ),
@@ -117,93 +102,6 @@ class _ProfileState extends State<Profile> {
                     color: Color(0xffD19549),
                     fontSize: 20,
                     fontWeight: FontWeight.w800),
-              ),
-            ),
-          ),
-          Card(
-            color: Color(0xff2C9479),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.monetization_on_rounded,
-                    size: 25,
-                    color: Color(0xffE4A951),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    'Auto Invest ₹',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Spacer(),
-                  Switch(
-                      value: sbool,
-                      onChanged: (bool sb) {
-                        setState(() {
-                          sbool = sb;
-                          print(sbool);
-                        });
-                      }),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          GestureDetector(
-            onTap: () async {
-              var cust = await RazorPayAPIpost()
-                  .createCustomer(await db.name, phone, await db.email);
-              Db().addCustomerId(cust.custId!);
-              var order = await RazorPayAPIpost().createAuthOrder(cust.custId!);
-              print(order.orderId);
-              _razorpay.checkout(await db.name, phone, await db.email,
-                  order.orderId!, cust.custId!);
-            },
-            child: Card(
-              color: Color(0xff2C9479),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              margin: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Icon(
-                      Icons.payment,
-                      size: 25,
-                      color: Color(0xffE4A951),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      'Auto-Pay',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800),
-                    ),
-                    Spacer(),
-                    Icon(
-                      Icons.arrow_right,
-                      size: 25,
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
               ),
             ),
           ),
