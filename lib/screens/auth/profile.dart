@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -17,6 +18,7 @@ class _ProfileState extends State<Profile> {
   String phone = FirebaseAuth.instance.currentUser!.phoneNumber!;
   Db db = Db();
   bool sbool = false;
+
   void _signOut() {
     FirebaseAuth.instance.signOut();
   }
@@ -34,7 +36,9 @@ class _ProfileState extends State<Profile> {
       backgroundColor: Color(0xff473270),
       body: Column(
         children: [
-          SizedBox(height: 25,),
+          SizedBox(
+            height: 25,
+          ),
           Column(
             children: [
               Container(
@@ -78,158 +82,152 @@ class _ProfileState extends State<Profile> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(
-            height: 30,
-          ),
-          GestureDetector(
-            onTap: () {
-              print('Hello');
-            },
-            child: Card(
-              color: Color(0xff543A6D),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              margin: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 17),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Icon(
-                      Icons.edit,
-                      size: 25,
-                      color: Color(0xffB07C52),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      'Edit Profile',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Container(
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                'Transactions',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                    color: Color(0xffD19549),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800),
-              ),
-            ),
-          ),
-          Card(
-            color: Color(0xff2C9479),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.monetization_on_rounded,
-                    size: 25,
-                    color: Color(0xffE4A951),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    'Auto Invest ₹',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Spacer(),
-                  Switch(
-                      value: sbool,
-                      onChanged: (bool sb) {
-                        setState(() {
-                          sbool = sb;
-                          print(sbool);
-                        });
-                      }),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          GestureDetector(
-            onTap: () async {
-              var cust = await RazorPayAPIpost()
-                  .createCustomer(await db.name, phone, await db.email);
-              Db().addCustomerId(cust.custId!);
-              var order = await RazorPayAPIpost().createAuthOrder(cust.custId!);
-              print(order.orderId);
-              _razorpay.checkout(await db.name, phone, await db.email,
-                  order.orderId!, cust.custId!);
-            },
-            child: Card(
-              color: Color(0xff2C9479),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              margin: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Icon(
-                      Icons.payment,
-                      size: 25,
-                      color: Color(0xffE4A951),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      'Auto-Pay',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800),
-                    ),
-                    Spacer(),
-                    Icon(
-                      Icons.arrow_right,
-                      size: 25,
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          // SizedBox(
+          //   height: 30,
+          // ),
+          // GestureDetector(
+          //   onTap: () {
+          //     print('Hello');
+          //   },
+          //   child: Card(
+          //     color: Color(0xff543A6D),
+          //     shape: RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.circular(20)),
+          //     margin: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+          //     child: Padding(
+          //       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 17),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         children: <Widget>[
+          //           Icon(
+          //             Icons.edit,
+          //             size: 25,
+          //             color: Color(0xffB07C52),
+          //           ),
+          //           SizedBox(
+          //             width: 20,
+          //           ),
+          //           Text(
+          //             'Edit Profile',
+          //             style: TextStyle(
+          //                 color: Colors.white,
+          //                 fontSize: 20,
+          //                 fontWeight: FontWeight.w800),
+          //           )
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 30,
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 20),
+          //   child: Container(
+          //     alignment: Alignment.bottomLeft,
+          //     child: Text(
+          //       'Transactions',
+          //       textAlign: TextAlign.start,
+          //       style: TextStyle(
+          //           color: Color(0xffD19549),
+          //           fontSize: 20,
+          //           fontWeight: FontWeight.w800),
+          //     ),
+          //   ),
+          // ),
+          // Card(
+          //   color: Color(0xff2C9479),
+          //   shape:
+          //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          //   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          //   child: Padding(
+          //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.start,
+          //       children: [
+          //         Icon(
+          //           Icons.monetization_on_rounded,
+          //           size: 25,
+          //           color: Color(0xffE4A951),
+          //         ),
+          //         SizedBox(
+          //           width: 20,
+          //         ),
+          //         Text(
+          //           'Auto Invest ₹',
+          //           style: TextStyle(
+          //               color: Colors.black,
+          //               fontSize: 20,
+          //               fontWeight: FontWeight.bold),
+          //         ),
+          //         Spacer(),
+          //         Switch(
+          //             value: sbool,
+          //             onChanged: (bool sb) {
+          //               setState(() {
+          //                 sbool = sb;
+          //                 print(sbool);
+          //               });
+          //             }),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 10,
+          // ),
+          // GestureDetector(
+          //   onTap: () async {
+          //     var cust = await RazorPayAPIpost()
+          //         .createCustomer(await db.name, phone, await db.email);
+          //     Db().addCustomerId(cust.custId!);
+          //     var order = await RazorPayAPIpost().createAuthOrder(cust.custId!);
+          //     print(order.orderId);
+          //     _razorpay.checkout(await db.name, phone, await db.email,
+          //         order.orderId!, cust.custId!);
+          //   },
+          //   child: Card(
+          //     color: Color(0xff2C9479),
+          //     shape: RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.circular(20)),
+          //     margin: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+          //     child: Padding(
+          //       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         children: <Widget>[
+          //           Icon(
+          //             Icons.payment,
+          //             size: 25,
+          //             color: Color(0xffE4A951),
+          //           ),
+          //           SizedBox(
+          //             width: 20,
+          //           ),
+          //           Text(
+          //             'Auto-Pay',
+          //             style: TextStyle(
+          //                 color: Colors.black,
+          //                 fontSize: 20,
+          //                 fontWeight: FontWeight.w800),
+          //           ),
+          //           Spacer(),
+          //           Icon(
+          //             Icons.arrow_right,
+          //             size: 25,
+          //             color: Colors.black,
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
           SizedBox(height: 40),
-          ElevatedButton(
-            onPressed: _signOut,
-            child: Text(
-              'Logout',
-              style: TextStyle(
-                color: Color(0xff464646),
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
+          ElevatedButton.icon(
+              onPressed: _signOut,
+              icon: Icon(Icons.logout),
+              label: Text('Logout', style: TextStyle(fontWeight: FontWeight.w800),),
             style: ElevatedButton.styleFrom(
               shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(20.0),
@@ -239,6 +237,25 @@ class _ProfileState extends State<Profile> {
               padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
             ),
           ),
+          // ElevatedButton(
+          //   onPressed: _signOut,
+          //   child: Text(
+          //     'Logout',
+          //     style: TextStyle(
+          //       color: Color(0xff464646),
+          //       fontWeight: FontWeight.bold,
+          //       fontSize: 20,
+          //     ),
+          //   ),
+          //   style: ElevatedButton.styleFrom(
+          //     shape: new RoundedRectangleBorder(
+          //       borderRadius: new BorderRadius.circular(20.0),
+          //     ),
+          //     elevation: 10,
+          //     primary: Color(0xffD19549),
+          //     padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+          //   ),
+          // ),
           Spacer(),
           Padding(
             padding: const EdgeInsets.all(18.0),
