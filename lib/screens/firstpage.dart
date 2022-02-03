@@ -52,10 +52,40 @@ class _FirstPgState extends State<FirstPg> {
             SizedBox(
               height: 30,
             ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 90),
+            //   child: ElevatedButton(
+            //     onPressed: () {},
+            //     child: Text(
+            //       'Get Started',
+            //       style: TextStyle(
+            //         color: Color(0xff464646),
+            //         fontWeight: FontWeight.bold,
+            //         fontSize: 20,
+            //       ),
+            //     ),
+            //     style: ElevatedButton.styleFrom(
+            //       shape: new RoundedRectangleBorder(
+            //         borderRadius: new BorderRadius.circular(20.0),
+            //       ),
+            //       elevation: 10,
+            //       primary: Color(0xffD19549),
+            //       padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+            //     ),
+            //   ),
+            // ),
+            SizedBox(
+              height: 40,
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 90),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginScreen(phoneController)));
+                },
                 child: Text(
                   'Get Started',
                   style: TextStyle(
@@ -70,35 +100,8 @@ class _FirstPgState extends State<FirstPg> {
                   ),
                   elevation: 10,
                   primary: Color(0xffD19549),
-                  padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => LoginScreen(phoneController)));
-              },
-              child: Text(
-                'Login',
-                style: TextStyle(
-                  color: Color(0xff464646),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(20.0),
-                ),
-                elevation: 10,
-                primary: Color(0xffD19549),
-                padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
               ),
             ),
             SizedBox(
