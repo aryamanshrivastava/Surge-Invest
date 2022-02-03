@@ -17,6 +17,7 @@ const themeColor = const Color(0xff063970);
 class _LoginScreenState extends State<LoginScreen> {
   final phoneController = TextEditingController();
   final _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -30,162 +31,209 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Scaffold(
       backgroundColor: Color(0xff0473270),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              RegisterScreen(phoneController)));
-                },
-                child: Row(
-                  children: [
-                    Container(
-                      width: 45,
-                      height: 45,
-                      decoration: BoxDecoration(
-                          color: Color(0xff0503971),
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(5.0),
-                          )),
-                      child: Icon(
-                        Icons.arrow_back_ios_new,
-                        size: 30,
-                        color: Color(0xffD19549),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                RegisterScreen(phoneController)));
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 45,
+                        height: 45,
+                        decoration: BoxDecoration(
+                            color: Color(0xff0503971),
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5.0),
+                            )),
+                        child: Icon(
+                          Icons.arrow_back_ios_new,
+                          size: 30,
+                          color: Color(0xffD19549),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Sign Up',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Sign Up',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Column(
-              children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 50),
-                    child: Container(
-                      height: 100.0,
-                      width: 250.0,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/getsurge.png'),
-                          fit: BoxFit.fill,
+
+              Column(
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 50),
+                      child: Container(
+                        height: 100.0,
+                        width: 250.0,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/getsurge.png'),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 5),
-                Text(
-                  'Crypto & You',
+                  SizedBox(height: 5),
+                  Text(
+                    'Crypto & You',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Text(
+                  'Welcome Back!',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 25,
+                      fontSize: 35,
                       fontWeight: FontWeight.bold),
                 ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                'Welcome Back!',
-                style: TextStyle(
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: phoneController,
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-              child: TextField(
-                keyboardType: TextInputType.number,
-                controller: phoneController,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-                decoration: InputDecoration(
-                  fillColor: Color(0xff0503971),
-                  filled: true,
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    fontSize: 20,
                   ),
-                  hintText: 'Phone No.',
-                  prefixIcon: const Icon(
-                    Icons.call_outlined,
-                    color: Color(0xffD19549),
+                  maxLength: 10,
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please enter phone number';
+                    } else if (value.length < 10 ||
+                        int.tryParse(value) == null) {
+                      return 'Enter valid 10 digit phone number';
+                    } else {
+                      return null;
+                    }
+                  },
+                  decoration: InputDecoration(
+                    counterText: '',
+                    fillColor: Color(0xff0503971),
+                    filled: true,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide:
+                          const BorderSide(color: Colors.black, width: 2.0),
+                    ),
+                    hintText: 'Phone No.',
+                    prefixIcon: const Icon(
+                      Icons.call_outlined,
+                      color: Color(0xffD19549),
+                    ),
+                    hintStyle: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        color: Colors.white70),
                   ),
-                  hintStyle: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                      color: Colors.white70),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                var doc = await FirebaseFirestore.instance
-                    .collection('users')
-                    .doc('+91' + phoneController.text)
-                    .get();
-                if (doc.exists) {
-                  _auth.logInWIthPhone(phone: phoneController.text);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OtpScreen(
-                                phoneNumber: phoneController.text,
-                                registered: true,
-                                auth: _auth,
-                              )));
-                } else {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              RegisterScreen(phoneController)));
-                }
-              },
-              child: Text(
-                'Login',
-                style: TextStyle(
-                  color: Color(0xff464646),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+              SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    var doc = await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc('+91' + phoneController.text)
+                        .get();
+                    if (doc.exists) {
+                      _auth.logInWIthPhone(phone: phoneController.text);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OtpScreen(
+                                    phoneNumber: phoneController.text,
+                                    registered: true,
+                                    auth: _auth,
+                                  )));
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  RegisterScreen(phoneController)));
+                    }
+                  }
+                },
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    color: Color(0xff464646),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(10.0),
+                  ),
+                  elevation: 10,
+                  primary: Color(0xffD19549),
+                  padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
                 ),
               ),
-              style: ElevatedButton.styleFrom(
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(10.0),
-                ),
-                elevation: 10,
-                primary: Color(0xffD19549),
-                padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-              ),
-            )
-          ],
+              // Align(
+              //   alignment: FractionalOffset.bottomCenter,
+              //   child: _buildCard(
+              //     backgroundColor: Color(0xff0473270),
+              //     config: CustomConfig(
+              //       gradients: [
+              //         [Colors.deepPurple, Color(0xEEF44336)],
+              //         [Colors.deepPurple[800]!, Color(0x77E57373)],
+              //         [Colors.deepPurple, Color(0x66FF9800)],
+              //         [Colors.deepPurple, Color(0x55FFEB3B)]
+              //       ],
+              //       durations: [35000, 19440, 10800, 6000],
+              //       heightPercentages: [0.20, 0.23, 0.25, 0.30],
+              //       blur: _blur,
+              //       gradientBegin: Alignment.bottomLeft,
+              //       gradientEnd: Alignment.topRight,
+              //     ),
+              //   ),
+              // )
+              // Expanded(child: SizedBox()),
+            ],
+          ),
         ),
       ),
     ));
