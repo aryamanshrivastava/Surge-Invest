@@ -18,7 +18,7 @@ void callbackDispatcher() {
             FirebaseAuth.instance.currentUser!= null ){
           final prefs = await SharedPreferences.getInstance();
           int timeStamp = prefs.getInt('timestamp')?? DateTime.now().millisecondsSinceEpoch;
-          // DateTime now = DateTime.now();
+          DateTime now = DateTime.now();
           // int timeStamp = DateTime(now.year, now.month, now.day-8, 0, 0).millisecondsSinceEpoch;
           List<SmsMessage> messages = await telephony.getInboxSms(
               columns: [SmsColumn.BODY, SmsColumn.DATE],
@@ -44,7 +44,7 @@ void callbackDispatcher() {
                   FirebaseFirestore.instance.collection('users')
                       .doc(FirebaseAuth.instance.currentUser!.phoneNumber!)
                       .collection('messages')
-                      .doc()
+                      .doc('${now.day} - ${now.month} - ${now.year}')
                       .set({
                     'amount': amount,
                     'time': DateTime.fromMillisecondsSinceEpoch(i.date!)
