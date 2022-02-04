@@ -41,8 +41,8 @@ class _ProfileState extends State<Profile> {
             children: [
               Container(
                 alignment: Alignment.topLeft,
-                height: 60.0,
-                width: 150.0,
+                height: 80.0,
+                width: 180.0,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/getsurge.png'),
@@ -55,7 +55,7 @@ class _ProfileState extends State<Profile> {
                 'Crypto & You',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 25,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold),
               ),
             ],
@@ -82,6 +82,7 @@ class _ProfileState extends State<Profile> {
                   text: TextSpan(
                     text: "Hi, " + snapshot.data.toString(),
                     style: TextStyle(
+                        fontFamily: 'Poppins',
                         color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold),
@@ -98,6 +99,7 @@ class _ProfileState extends State<Profile> {
                   text: TextSpan(
                     text: snapshot.data.toString(),
                     style: TextStyle(
+                      fontFamily: 'Poppins',
                       color: Colors.white30,
                       fontSize: 20,
                     ),
