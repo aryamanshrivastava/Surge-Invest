@@ -23,8 +23,8 @@ class SurgeApp extends StatelessWidget {
         ProxyProvider0<RP>(update: (_, __) => RP(context)),
       ],
       child: MaterialApp(
-        
         title: 'Surge',
+        theme: ThemeData(fontFamily: 'Poppins'),
         home: AuthWrapper(),
         debugShowCheckedModeBanner: false,
       ),
