@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:testings/services/db.dart';
@@ -122,69 +121,6 @@ class _ProfileState extends State<Profile> {
           //     ),
           //   ),
           // ),
-          GestureDetector(
-            onTap: () {
-              Fluttertoast.showToast(
-                  msg: "Feature Not Supported",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.TOP,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.red.shade400,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-            },
-            child: Card(
-              color: Color(0xff2C9479),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.monetization_on_rounded,
-                      size: 25,
-                      color: Color(0xffE4A951),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Auto Invest ₹10',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'When no spends detected',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                    Switch(
-                        activeColor: Colors.deepPurple,
-                        value: sbool,
-                        onChanged: (bool sb) {
-                          setState(() {
-                            sbool = true;
-                            print(sbool);
-                          });
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          ),
           SizedBox(height: 40),
           ElevatedButton.icon(
             onPressed: _signOut,
