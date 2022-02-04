@@ -15,7 +15,7 @@ class _ProfileState extends State<Profile> {
   late RP _razorpay;
   String phone = FirebaseAuth.instance.currentUser!.phoneNumber!;
   Db db = Db();
-  bool sbool = false;
+  bool sbool = true;
 
   void _signOut() {
     FirebaseAuth.instance.signOut();
@@ -51,22 +51,26 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               SizedBox(height: 5),
-                Text(
-                  'Crypto & You',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold),
-                ),
+              Text(
+                'Crypto & You',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
+              ),
             ],
           ),
           SizedBox(
-            height: 20,
+            height: 50,
           ),
           CircleAvatar(
-            radius: 46,
-            backgroundImage:
-                NetworkImage('https://www.w3schools.com/w3images/avatar2.png'),
+            backgroundColor: Colors.grey[600],
+            radius: 40,
+            child: Icon(
+              Icons.person,
+              size: 60,
+              color: Colors.white,
+            ),
           ),
           SizedBox(
             height: 10,
@@ -119,16 +123,19 @@ class _ProfileState extends State<Profile> {
           // ),
           SizedBox(height: 40),
           ElevatedButton.icon(
-              onPressed: _signOut,
-              icon: Icon(Icons.logout),
-              label: Text('Logout', style: TextStyle(fontWeight: FontWeight.w800),),
+            onPressed: _signOut,
+            icon: Icon(Icons.logout),
+            label: Text(
+              'Logout',
+              style: TextStyle(fontWeight: FontWeight.w800),
+            ),
             style: ElevatedButton.styleFrom(
               shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(20.0),
               ),
               elevation: 10,
               primary: Color(0xffD19549),
-              padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+              padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
             ),
           ),
           // ElevatedButton(
