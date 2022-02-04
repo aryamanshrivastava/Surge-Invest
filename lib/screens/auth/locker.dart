@@ -256,53 +256,86 @@ class _LockerState extends State<Locker> {
                 ),
               ),
             ),
-            Card(
-              color: Color(0xff533B6D),
-              shape:
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      radius: 15,
-                      backgroundColor: Color(0xffF00B85B),
-                      child: FaIcon(
-                        FontAwesomeIcons.rupeeSign,
-                        size: 20,
-                        color: Color(0xff533B6D),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      '699115.55',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
+            StreamBuilder<DocumentSnapshot>(
+              stream: db.listenToDb,
+              builder:
+                  (context, AsyncSnapshot<DocumentSnapshot> snapshot1) {
+                if (snapshot1.hasData) {
+                  return FutureBuilder(
+                    builder: (ctx, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasError) {
+                          return Center(
+                            child: Text(
+                              '${snapshot.error} occurred',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          );
+                        } else if (snapshot.hasData) {
+                          final data = snapshot.data;
+                          return Column(
+                            children: [
+                              Center(
+                                child: Column(
+                                  children: [
+                                    Card(
+                                      color: Color(0xff533B6D),
+                                      shape:
+                                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            CircleAvatar(
+                                              radius: 15,
+                                              backgroundColor: Color(0xffF00B85B),
+                                              child: FaIcon(
+                                                FontAwesomeIcons.rupeeSign,
+                                                size: 20,
+                                                color: Color(0xff533B6D),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Text(
+                                              NumberFormat.currency(
+                                                  symbol: '₹ ',
+                                                  locale: "HI"
+                                              ).format(double.parse(snapshot1.data!['amount']) * double.parse(data.toString() )),
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                      }
+                      return SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: Center(
+                          child: CircularProgressIndicator(color: Colors.white),
+                        ),
+                      );
+                    },
+                    future: getPrice(),
+                  );
+                } else {
+                  return SizedBox();
+                }
+              },
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 25),
-            //   child: Container(
-            //     alignment: Alignment.bottomLeft,
-            //     child: Text(
-            //       'Approximate Value available: ₹699115.55',
-            //       textAlign: TextAlign.start,
-            //       style: TextStyle(
-            //           color: Colors.white,
-            //           fontSize: 18,
-            //           fontWeight: FontWeight.w800),
-            //     ),
-            //   ),
-            // ),
             SizedBox(
               height: 50,
             ),
