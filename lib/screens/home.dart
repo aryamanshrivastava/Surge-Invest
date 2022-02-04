@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 25,
-                                              fontWeight: FontWeight.bold)),
+                                              fontWeight: FontWeight.normal)),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
@@ -226,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                               ),
                                               SizedBox(height: 5),
-                                              Text('Support 13+',
+                                              Text('Supports 13+',
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 15,
@@ -260,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               order.orderId!,
                                               cust.custId!);
                                         },
-                                        child: Text('Setup Auto-Pay',
+                                        child: Text('Verify UPI ID',
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold,

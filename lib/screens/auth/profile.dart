@@ -103,20 +103,20 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: 30,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Container(
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                'Transactions',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                    color: Color(0xffD19549),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 20),
+          //   child: Container(
+          //     alignment: Alignment.bottomLeft,
+          //     child: Text(
+          //       'Transactions',
+          //       textAlign: TextAlign.start,
+          //       style: TextStyle(
+          //           color: Color(0xffD19549),
+          //           fontSize: 20,
+          //           fontWeight: FontWeight.w800),
+          //     ),
+          //   ),
+          // ),
           SizedBox(height: 40),
           ElevatedButton.icon(
               onPressed: _signOut,
