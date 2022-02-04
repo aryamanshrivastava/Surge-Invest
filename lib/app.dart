@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:testings/models/change.dart';
 import 'package:testings/screens/auth/auth_wrapper.dart';
@@ -11,6 +12,9 @@ class SurgeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp
+    ]);
     return MultiProvider(
       providers: [
         StreamProvider.value(value: AuthService().user, initialData: null),

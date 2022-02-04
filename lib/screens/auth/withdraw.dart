@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coingecko_dart/coingecko_dart.dart';
+import 'package:coingecko_dart/dataClasses/coins/PricedCoin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:testings/services/db.dart';
 
 class WithdrawScreen extends StatefulWidget {
   final btcBal;
@@ -12,13 +16,26 @@ class WithdrawScreen extends StatefulWidget {
   _WithdrawScreenState createState() => _WithdrawScreenState();
 }
 
+CoinGeckoApi cgApi = CoinGeckoApi();
+
+Future<double?> getPrice() async {
+  CoinGeckoResult<List<PricedCoin>> result = await cgApi.simplePrice(
+    ids: ["bitcoin"],
+    vs_currencies: ["inr"],
+  );
+  return result.data[0].data["inr"];
+}
+
 FocusNode focusNode = FocusNode();
 TextEditingController textEditingController = TextEditingController();
+double? _inputVal;
 
 class _WithdrawScreenState extends State<WithdrawScreen> {
+  Db db = Db();
   @override
   void initState() {
     textEditingController.text = '0';
+    _inputVal = 0;
     super.initState();
   }
 
@@ -109,6 +126,11 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                                   fontSize: 30,
                                   fontWeight: FontWeight.w700,
                               ),
+                              onChanged: (value){
+                                setState(() {
+                                  _inputVal = double.parse(value);
+                                });
+                              },
                               controller: textEditingController,
                               autofocus: true,
                               decoration: InputDecoration(
@@ -123,10 +145,105 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                         ],
                       ),
                     ),
+                    SizedBox(height: 25,),
                     Padding(
-                      padding: const EdgeInsets.only(top: 100.0),
+                      padding: const EdgeInsets.only(left: 25),
+                      child: Container(
+                        alignment: Alignment.bottomLeft,
+                        child: Text(
+                          'Final value',
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                    ),
+                    StreamBuilder<DocumentSnapshot>(
+                      stream: db.listenToDb,
+                      builder:
+                          (context, AsyncSnapshot<DocumentSnapshot> snapshot1) {
+                        if (snapshot1.hasData) {
+                          return FutureBuilder(
+                            builder: (ctx, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.done) {
+                                if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text(
+                                      '${snapshot.error} occurred',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  );
+                                } else if (snapshot.hasData) {
+                                  final data = snapshot.data;
+                                  return Column(
+                                    children: [
+                                      Center(
+                                        child: Column(
+                                          children: [
+                                            Card(
+                                              color: Color(0xff533B6D),
+                                              shape:
+                                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: 15,
+                                                      backgroundColor: Color(0xffF00B85B),
+                                                      child: FaIcon(
+                                                        FontAwesomeIcons.rupeeSign,
+                                                        size: 20,
+                                                        color: Color(0xff533B6D),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 20,
+                                                    ),
+                                                    Text(
+                                                      NumberFormat.currency(
+                                                          symbol: '₹ ',
+                                                          locale: "HI"
+                                                      ).format(_inputVal! * double.parse(data.toString())),
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 20,
+                                                          fontWeight: FontWeight.bold),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
+                              }
+                              return SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Center(
+                                  child: CircularProgressIndicator(color: Colors.white),
+                                ),
+                              );
+                            },
+                            future: getPrice(),
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 50.0),
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if(double.parse(textEditingController.text)>double.parse(widget.btcBal)){
                             Fluttertoast.showToast(
                                 msg: "Withdraw amount can not be greater than available balance",
@@ -137,18 +254,34 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                                 textColor: Colors.white,
                                 fontSize: 16.0
                             );
+                          } else if(double.parse(textEditingController.text) == 0){
+                            Fluttertoast.showToast(
+                                msg: "Withdraw amount too low",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.TOP,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red.shade400,
+                                textColor: Colors.white,
+                                fontSize: 16.0
+                            );
                           } else{
+                            CoinGeckoResult<List<PricedCoin>> result = await cgApi.simplePrice(
+                              ids: ["bitcoin"],
+                              vs_currencies: ["inr"],
+                            );
+                            double? price = result.data[0].data["inr"];
                             FirebaseFirestore.instance.collection('users')
                                 .doc(FirebaseAuth.instance.currentUser!.phoneNumber!)
                                 .update({
-                              'amount': (double.parse(widget.btcBal)-double.parse(textEditingController.text)).toString(),
+                              'amount': double.parse((double.parse(widget.btcBal)-double.parse(textEditingController.text)).toStringAsFixed(6)).toString(),
                             });
                             FirebaseFirestore.instance.collection('users')
                                 .doc(FirebaseAuth.instance.currentUser!.phoneNumber!).collection('withdraw').doc()
                                 .set({
-                              'amount':
+                              'btc':
                                       double.parse(textEditingController.text)
                                   .toString(),
+                              'amount': _inputVal! * double.parse(price.toString()),
                               'time': DateTime.now()
                             });
                             Navigator.pop(context);
