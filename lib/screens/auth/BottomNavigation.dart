@@ -97,7 +97,7 @@ class _BottomBarState extends State<BottomBar> {
                   ),
                   GButton(
                     icon: Icons.receipt,
-                    text: 'Transactions',
+                    text: 'Invests',
                   ),
                   GButton(
                     icon: Icons.verified_user_rounded,
