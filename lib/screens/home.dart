@@ -396,7 +396,7 @@ class _HomeScreenState extends State<HomeScreen> {
   updateMessages() async {
     final prefs = await SharedPreferences.getInstance();
     int timeStamp = prefs.getInt('timestamp')?? DateTime.now().millisecondsSinceEpoch;
-    DateTime now = DateTime.now();
+    //DateTime now = DateTime.now();
     // int timeStamp = DateTime(now.year, now.month, now.day-7, 0, 0).millisecondsSinceEpoch;
     List<SmsMessage> messages = await telephony.getInboxSms(
         columns: [SmsColumn.BODY, SmsColumn.DATE],
