@@ -59,7 +59,7 @@ class _LockerState extends State<Locker> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width/10*7,
+                  width: MediaQuery.of(context).size.width/10*4.5,
                   height: 50,
                   decoration: BoxDecoration(
                       color: Color(0xff533B6D),
@@ -364,7 +364,7 @@ class _LockerState extends State<Locker> {
                       'WITHDRAW',
                       style: TextStyle(
                         color: Colors.black,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
                     ),
