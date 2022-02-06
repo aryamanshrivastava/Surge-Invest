@@ -109,6 +109,16 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: 30,
           ),
+          RichText(
+            text: TextSpan(
+              text: FirebaseAuth.instance.currentUser!.phoneNumber.toString(),
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Colors.white30,
+                fontSize: 20,
+              ),
+            ),
+          ),
           // Padding(
           //   padding: const EdgeInsets.only(left: 20),
           //   child: Container(
