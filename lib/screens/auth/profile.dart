@@ -107,7 +107,7 @@ class _ProfileState extends State<Profile> {
                 );
               }),
           SizedBox(
-            height: 30,
+            height: 10,
           ),
           RichText(
             text: TextSpan(
