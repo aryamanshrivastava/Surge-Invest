@@ -12,7 +12,7 @@ import 'package:testings/services/db.dart';
 import 'package:testings/services/razorpay.dart';
 import 'package:testings/services/razorpay_post.dart';
 
-import '../main.dart';
+//import '../main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -472,47 +472,56 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  updateMessages() async {
+    updateMessages() async {
     final prefs = await SharedPreferences.getInstance();
-    FirebaseFirestore.instance.collection('users').doc(phone).collection('fg').doc().set(
-        {'time': DateTime.now()});
-    int timeStamp = prefs.getInt('timestamp') ?? DateTime
-        .now()
-        .millisecondsSinceEpoch;
+    int timeStamp =
+        prefs.getInt('timestamp') ?? DateTime.now().millisecondsSinceEpoch;
+    // ignore: unused_local_variable
+    DateTime now = DateTime.now();
+    // int timeStamp = DateTime(now.year, now.month, now.day-7, 0, 0).millisecondsSinceEpoch;
     List<SmsMessage> messages = await telephony.getInboxSms(
         columns: [SmsColumn.BODY, SmsColumn.DATE],
-        filter: SmsFilter.where(SmsColumn.DATE).greaterThanOrEqualTo(
-            timeStamp.toString()),
-        sortOrder: [OrderBy(SmsColumn.DATE, sort: Sort.ASC)]
-    );
+        filter: SmsFilter.where(SmsColumn.DATE)
+            .greaterThanOrEqualTo(timeStamp.toString()),
+        sortOrder: [OrderBy(SmsColumn.DATE, sort: Sort.ASC)]);
     for (var i in messages) {
-      if (i.body.toString().contains(rsRegex) &&
-          i.body.toString().contains(successKeywordsRegex) &&
-          !(i.body.toString().contains(failureKeywordsRegex))) {
-        if (amountRetrieveRegex.firstMatch(i.body.toString())
-            ?.group(0) != null) {
-          String? temp = amountRetrieveRegex
+      if (i.body.toString().contains(new RegExp(r'([Rr]s\.?)')) &&
+          i.body.toString().contains(
+              new RegExp(r'([Ss]ent)|([Pp]aid)|([Dd]ebited)|DEBITED')) &&
+          !(i.body.toString().contains(new RegExp(
+              r'([Ff]ailed)|([Cc]redited)|([Rr]received)|[Rr]azorpay|[Uu]nsuccessful|[Pp]ending')))) {
+        if (RegExp(r'(?<=([Rr]s)\.* *)[0-9]*')
+                .firstMatch(i.body.toString())
+                ?.group(0) !=
+            null) {
+          String? temp = RegExp(r'(?<=([Rr]s))\.? ?[0-9]*')
               .firstMatch(i.body.toString())
               ?.group(0);
           if (temp![0] == ' ' || temp[0] == '.') {
             temp = temp.substring(1);
           }
-          int amount = int.parse(temp);
-          if (amount > 10) {
-            FirebaseFirestore.instance.collection('users')
-                .doc(FirebaseAuth.instance.currentUser!.phoneNumber!)
-                .collection('messages')
-                .doc(i.date!.toString())
-                .set({
-              'amount': amount,
-              'time': DateTime.fromMillisecondsSinceEpoch(i.date!)
-            });
+          print('temp' + i.body.toString());
+          try {
+            int amount = int.parse(temp);
+            if (amount > 10) {
+              print(amount);
+              print(i.date);
+              FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(FirebaseAuth.instance.currentUser!.phoneNumber!)
+                  .collection('messages')
+                  .doc(i.date!.toString())
+                  .set({
+                'amount': amount,
+                'time': DateTime.fromMillisecondsSinceEpoch(i.date!)
+              });
+            }
+          } catch (e) {
+            print('error in regex');
           }
         }
       }
     }
-    prefs.setInt('timestamp', DateTime
-        .now()
-        .millisecondsSinceEpoch);
+    prefs.setInt('timestamp', DateTime.now().millisecondsSinceEpoch);
   }
 }
