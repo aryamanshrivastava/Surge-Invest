@@ -187,7 +187,7 @@ class _ProfileState extends State<Profile> {
                           'https://wa.me/$phoneNumber?text=Help%20me%20with%20this%20issue';
                       await launch(url);
                     }),
-              ],
+              ], 
             ),
           ),
         ],

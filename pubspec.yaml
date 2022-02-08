@@ -41,7 +41,8 @@ dependencies:
   shared_preferences:
   google_nav_bar: ^5.0.5
   fluttertoast: ^8.0.8
-  #whatsapp_unilink: ^2.0.1+1
+  flutter_local_notifications: ^9.2.0
+  firebase_messaging: ^11.2.6
   url_launcher: ^6.0.9
 
 flutter_icons:
