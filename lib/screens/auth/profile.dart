@@ -184,7 +184,7 @@ class _ProfileState extends State<Profile> {
                     onPressed: () async {
                       String phoneNumber = '+919652354388';
                       var url =
-                          'https://wa.me/$phoneNumber?text=Help%20me%20with%20this%20issue';
+                          'https://wa.me/$phoneNumber?text=Hi%20Surge!%20';
                       await launch(url);
                     }),
               ], 
