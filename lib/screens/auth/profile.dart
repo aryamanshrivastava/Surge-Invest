@@ -5,6 +5,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:testings/services/db.dart';
 import 'package:testings/services/razorpay.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -176,12 +177,16 @@ class _ProfileState extends State<Profile> {
               children: [
                 Spacer(),
                 FloatingActionButton(
-                  child: FaIcon(FontAwesomeIcons.whatsapp,
-                      color: Colors.white, size: 30),
-                  backgroundColor: Color(0xff00E676),
-                  foregroundColor: Colors.white,
-                  onPressed: () => {},
-                ),
+                    child: FaIcon(FontAwesomeIcons.whatsapp,
+                        color: Colors.white, size: 30),
+                    backgroundColor: Color(0xff00E676),
+                    foregroundColor: Colors.white,
+                    onPressed: () async {
+                      String phoneNumber = '+919652354388';
+                      var url =
+                          'https://wa.me/$phoneNumber?text=Help%20me%20with%20this%20issue';
+                      await launch(url);
+                    }),
               ],
             ),
           ),
