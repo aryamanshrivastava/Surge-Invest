@@ -145,6 +145,6 @@ class _TransactionState extends State<Transaction> {
           )
         ],
       ),
-    );
+    ));
   }
 }
