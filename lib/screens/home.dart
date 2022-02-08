@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:launch_review/launch_review.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    getVersionData();
     updateMessages();
     super.initState();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -375,7 +378,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               order.orderId!,
                                               cust.custId!);
                                         },
-                                        child: Text('Verify UPI ID',
+                                        child: Text('Setup Auto-Invest',
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold,
@@ -536,7 +539,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-    updateMessages() async {
+  updateMessages() async {
     final prefs = await SharedPreferences.getInstance();
     int timeStamp =
         prefs.getInt('timestamp') ?? DateTime.now().millisecondsSinceEpoch;
@@ -587,5 +590,42 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
     prefs.setInt('timestamp', DateTime.now().millisecondsSinceEpoch);
+  }
+
+  getVersionData() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String localVersion = packageInfo.buildNumber;
+      await FirebaseFirestore.instance.collection('minVersion').doc('android').get()
+          .then((DocumentSnapshot doc) {
+        if(int.parse(localVersion)<int.parse(doc['code'])){
+          buildUpdateDialog(context);
+        }
+      });
+  }
+
+  buildUpdateDialog(BuildContext context){
+    AlertDialog alert = AlertDialog(
+      title: const Text("New version available!"),
+      content: const Text("Please update the app to continue"),
+      actions: [
+        TextButton(
+          child: const Text("UPDATE"),
+          onPressed: () {
+            LaunchReview.launch();
+          },
+        )
+      ],
+    );
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          child: alert,
+          onWillPop: () => Future.value(false),
+        );
+      },
+    );
   }
 }
