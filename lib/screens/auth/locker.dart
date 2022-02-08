@@ -30,8 +30,39 @@ class _LockerState extends State<Locker> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    Future<bool?> _onBackPressed() async {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Do you want to exit?'),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('NO'),
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+                TextButton(
+                  child: Text('YES'),
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                ),
+              ],
+            );
+          });
+    }
+
+    return WillPopScope(
+      onWillPop: () async {
+        bool? result = await _onBackPressed();
+        if (result == null) {
+          result = false;
+        }
+        return result;
+      },
+      child: Scaffold(
       backgroundColor: Color(0xff0473270),
       body: SingleChildScrollView(
         child: Column(
