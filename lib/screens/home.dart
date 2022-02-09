@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -606,10 +607,10 @@ class _HomeScreenState extends State<HomeScreen> {
   buildUpdateDialog(BuildContext context){
     AlertDialog alert = AlertDialog(
       title: const Text("New version available!"),
-      content: const Text("Please update the app to continue"),
+      content: const Text("Please update the app to continue."),
       actions: [
         TextButton(
-          child: const Text("UPDATE"),
+          child: const Text("UPDATE", style: TextStyle(fontWeight: FontWeight.w800),),
           onPressed: () {
             LaunchReview.launch();
           },
@@ -619,6 +620,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     showDialog(
       context: context,
+      barrierColor: Colors.black87,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return WillPopScope(
