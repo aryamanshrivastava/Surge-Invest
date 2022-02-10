@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -27,6 +30,10 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   String? sentCode;
   String? enteredOTP = '';
+  int start = 30;
+  bool wait = false;
+  String buttonName = "Send";
+  // final _auth = AuthService();
   @override
   void initState() {
     widget.auth!.logInWIthPhone(phone: widget.phoneNumber!);
@@ -208,6 +215,56 @@ class _OtpScreenState extends State<OtpScreen> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 90, vertical: 15)),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        ElevatedButton(
+                          onPressed: wait ? null : () async {
+                            setState(() {
+                              startTimer();
+                              start = 30;
+                              wait = true;
+                            });
+
+                          },
+                          child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Didn't receive OTP? Resend",
+                                    style: TextStyle(fontSize: 13, color: Color(0xffE4A951)),
+                                  ),
+                                  TextSpan(
+                                    text:  wait?" $start sec":"",
+                                    style: TextStyle(fontSize: 13, color: Colors.redAccent),
+                                  ),
+                                ],
+                              )),
+                          style: ElevatedButton.styleFrom(
+                              primary: Color(0xff5C4175),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 60, vertical: 5)),
+                        ),
+
+                        // TextButton(
+                        //   onPressed: wait ? null : () async {
+                        //     setState(() {
+                        //       startTimer();
+                        //       start = 30;
+                        //       wait = true;
+                        //     });
+                        //
+                        //   },
+                        //   child: Text(
+                        //     'Resend',
+                        //     style: TextStyle(
+                        //       color: wait ? Colors.white :Color(0xff5C4175),
+                        //       fontSize: 20.0,
+                        //       fontWeight: FontWeight.bold,
+                        //     ),
+                        //   ),
+                        //
+                        // )
                       ],
                     ),
                   )),
@@ -216,5 +273,20 @@ class _OtpScreenState extends State<OtpScreen> {
         ),
       ),
     );
+  }
+  void startTimer() {
+    const onsec = Duration(seconds: 1);
+    Timer _timer = Timer.periodic(onsec, (timer) {
+      if (start == 0) {
+        setState(() {
+          timer.cancel();
+          wait = false;
+        });
+      } else {
+        setState(() {
+          start--;
+        });
+      }
+    });
   }
 }
