@@ -220,7 +220,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         ),
                         ElevatedButton(
                           onPressed: wait ? null : () async {
-                            widget.auth!.logInWIthPhone(phone: widget.phoneNumber!);
+                               widget.auth!.logInWIthPhone(phone: widget.phoneNumber!);
                             setState(() {
                               startTimer();
                               start = 30;
