@@ -1,4 +1,4 @@
-package com.surgeapp;
+package com.surge.app;
 
 import io.flutter.embedding.android.FlutterActivity;
 

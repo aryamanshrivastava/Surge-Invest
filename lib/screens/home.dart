@@ -1,7 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:launch_review/launch_review.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +17,7 @@ import 'package:testings/services/db.dart';
 import 'package:testings/services/razorpay.dart';
 import 'package:testings/services/razorpay_post.dart';
 
-//import '../main.dart';
+import '../main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -30,8 +35,70 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    getVersionData();
     updateMessages();
     super.initState();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channelDescription: channel.description,
+                color: Colors.deepPurpleAccent,
+                playSound: true,
+                icon: '@mipmap/transparent',
+              ),
+            )
+        );
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published!');
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return AlertDialog(
+                title: Text(notification.title!),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(notification.body!)],
+                  ),
+                ),
+              );
+            });
+      }
+    });
+  }
+
+  void showNotification() {
+    flutterLocalNotificationsPlugin.show(
+        0,
+        "Title",
+        "This is notification desc!",
+        NotificationDetails(
+            android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channelDescription: channel.description,
+                importance: Importance.high,
+                color: Colors.deepPurpleAccent,
+                playSound: true,
+                icon: '@mipmap/transparent'
+            )
+        )
+    );
   }
 
   @override
@@ -44,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _razorpay.razorpay
         .on(Razorpay.EVENT_EXTERNAL_WALLET, RP(context).handleExternalWallet);
     Future<bool?> _onBackPressed() async {
+      // showNotification();
       return showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -311,7 +379,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               order.orderId!,
                                               cust.custId!);
                                         },
-                                        child: Text('Verify UPI ID',
+                                        child: Text('Setup Auto-Invest',
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold,
@@ -472,7 +540,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-    updateMessages() async {
+  updateMessages() async {
     final prefs = await SharedPreferences.getInstance();
     int timeStamp =
         prefs.getInt('timestamp') ?? DateTime.now().millisecondsSinceEpoch;
@@ -523,5 +591,43 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
     prefs.setInt('timestamp', DateTime.now().millisecondsSinceEpoch);
+  }
+
+  getVersionData() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String localVersion = packageInfo.buildNumber;
+      await FirebaseFirestore.instance.collection('minVersion').doc('android').get()
+          .then((DocumentSnapshot doc) {
+        if(int.parse(localVersion)<int.parse(doc['code'])){
+          buildUpdateDialog(context);
+        }
+      });
+  }
+
+  buildUpdateDialog(BuildContext context){
+    AlertDialog alert = AlertDialog(
+      title: const Text("New version available!"),
+      content: const Text("Please update the app to continue."),
+      actions: [
+        TextButton(
+          child: const Text("UPDATE", style: TextStyle(fontWeight: FontWeight.w800),),
+          onPressed: () {
+            LaunchReview.launch();
+          },
+        )
+      ],
+    );
+
+    showDialog(
+      context: context,
+      barrierColor: Colors.black87,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          child: alert,
+          onWillPop: () => Future.value(false),
+        );
+      },
+    );
   }
 }
