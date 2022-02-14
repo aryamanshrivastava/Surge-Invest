@@ -63,6 +63,7 @@ class _ProfileState extends State<Profile> {
         }
         return result;
       },
+
       child: Scaffold(
         backgroundColor: Color(0xff473270),
         body: Column(
@@ -94,11 +95,11 @@ class _ProfileState extends State<Profile> {
               ],
             ),
             SizedBox(
-              height: 50,
+              height: 20,
             ),
             CircleAvatar(
               backgroundColor: Colors.grey[600],
-              radius: 40,
+              radius: 30,
               child: Icon(
                 Icons.person,
                 size: 60,
@@ -166,7 +167,41 @@ class _ProfileState extends State<Profile> {
             //     ),
             //   ),
             // ),
-            SizedBox(height: 40),
+            SizedBox(height: 10),
+            ElevatedButton.icon(
+              onPressed: _launchURLTC,
+              icon: Icon(Icons.article_outlined),
+              label: Text(
+                'Terms and conditions',
+                style: TextStyle(fontWeight: FontWeight.w800),
+              ),
+              style: ElevatedButton.styleFrom(
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(20.0),
+                ),
+                elevation: 10,
+                primary:Colors.deepPurpleAccent,
+                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+              ),
+            ),
+            ElevatedButton.icon(
+              onPressed: _launchURLPP,
+              icon: Icon(Icons.privacy_tip_outlined),
+              label: Text(
+                'Privacy Policy',
+                style: TextStyle(fontWeight: FontWeight.w800),
+              ),
+              style: ElevatedButton.styleFrom(
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(20.0),
+                ),
+                elevation: 10,
+                primary: Colors.deepPurpleAccent,
+                padding: EdgeInsets.symmetric(horizontal: 60, vertical: 8),
+              ),
+            ),
+
+
             ElevatedButton.icon(
               onPressed: _signOut,
               icon: Icon(Icons.logout),
@@ -180,18 +215,15 @@ class _ProfileState extends State<Profile> {
                 ),
                 elevation: 10,
                 primary: Color(0xffD19549),
-                padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
+                padding: EdgeInsets.symmetric(horizontal: 60, vertical: 8),
               ),
             ),
-            // ElevatedButton(
+            // ElevatedButton.icon(
             //   onPressed: _signOut,
-            //   child: Text(
+            //   icon: Icon(Icons.logout),
+            //   label: Text(
             //     'Logout',
-            //     style: TextStyle(
-            //       color: Color(0xff464646),
-            //       fontWeight: FontWeight.bold,
-            //       fontSize: 20,
-            //     ),
+            //     style: TextStyle(fontWeight: FontWeight.w800),
             //   ),
             //   style: ElevatedButton.styleFrom(
             //     shape: new RoundedRectangleBorder(
@@ -199,7 +231,7 @@ class _ProfileState extends State<Profile> {
             //     ),
             //     elevation: 10,
             //     primary: Color(0xffD19549),
-            //     padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+            //     padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
             //   ),
             // ),
             Spacer(),
@@ -227,4 +259,12 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
+}
+  void  _launchURLTC() async {
+  const url = 'https://www.getsurgeapp.com/terms-conditions';
+  if (!await launch(url)) throw 'Could not launch $url';
+  }
+void  _launchURLPP() async {
+  const url = 'https://www.getsurgeapp.com/privacy-policy';
+  if (!await launch(url)) throw 'Could not launch $url';
 }
