@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:testings/screens/auth/login.dart';
 
@@ -18,6 +19,12 @@ class _IntroScreenState extends State<IntroScreen> {
     super.dispose();
   }
 
+  _viewedOnce() async {
+    int isViewed = 0;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('viewed', isViewed);
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Container(
@@ -27,27 +34,27 @@ class _IntroScreenState extends State<IntroScreen> {
               Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                child:  PageView(
-                    controller: controller,
-                    children: [
-                      buildPage(
-                        urlImage: 'assets/00.png',
-                      ),
-                      buildPage(
-                        urlImage: 'assets/01.png',
-                      ),
-                      buildPage(
-                        urlImage: 'assets/02.png',
-                      ),
-                      buildPage(
-                        urlImage: 'assets/03.png',
-                      ),
-                      buildPage(
-                        urlImage: 'assets/04.png',
-                      ),
-                    ],
-                  ),
+                child: PageView(
+                  controller: controller,
+                  children: [
+                    buildPage(
+                      urlImage: 'assets/00.png',
+                    ),
+                    buildPage(
+                      urlImage: 'assets/01.png',
+                    ),
+                    buildPage(
+                      urlImage: 'assets/02.png',
+                    ),
+                    buildPage(
+                      urlImage: 'assets/03.png',
+                    ),
+                    buildPage(
+                      urlImage: 'assets/04.png',
+                    ),
+                  ],
                 ),
+              ),
               Positioned(
                 bottom: 10,
                 left: 0,
@@ -83,7 +90,6 @@ class _IntroScreenState extends State<IntroScreen> {
                                   curve: Curves.easeIn),
                             ),
                           ),
-
                           // TextButton(
                           //     onPressed: () => controller.nextPage(
                           //         duration: Duration(milliseconds: 500),
@@ -95,11 +101,14 @@ class _IntroScreenState extends State<IntroScreen> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  LoginScreen(phoneController))),
+                      onPressed: () {
+                        _viewedOnce();
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    LoginScreen(phoneController)));
+                      },
                       child: Text(
                         'SIGN IN',
                         style: TextStyle(
@@ -115,7 +124,8 @@ class _IntroScreenState extends State<IntroScreen> {
                         elevation: 10,
                         primary: Color(0xffD19549),
                         padding: EdgeInsets.symmetric(
-                            horizontal: MediaQuery.of(context).size.width * 0.35,
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.35,
                             vertical:
                                 MediaQuery.of(context).size.height * 0.012),
                       ),
