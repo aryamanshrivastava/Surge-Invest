@@ -81,10 +81,12 @@ void callbackDispatcher() {
 
 const backgroundTask = "backgroundTask";
 final Telephony telephony = Telephony.instance;
-
+int?isViewed;
 Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  isViewed = prefs.getInt('isViewed');
   work.Workmanager().initialize(callbackDispatcher);
   work.Workmanager().registerPeriodicTask(
     "5",
