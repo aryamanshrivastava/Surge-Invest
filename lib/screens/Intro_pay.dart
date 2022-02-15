@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:telephony/telephony.dart';
@@ -31,7 +33,15 @@ class _IntroPayScreenState extends State<IntroPayScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) {
+    _razorpay = Provider.of<RP>(context);
+    _razorpay.razorpay
+        .on(Razorpay.EVENT_PAYMENT_SUCCESS, RP(context).handlePaymentSuccess);
+    _razorpay.razorpay
+        .on(Razorpay.EVENT_PAYMENT_ERROR, RP(context).handlePaymentError);
+    _razorpay.razorpay
+        .on(Razorpay.EVENT_EXTERNAL_WALLET, RP(context).handleExternalWallet);
+    return Scaffold(
         body: Container(
           color: Color(0xff190F25),
           child: Stack(
@@ -153,6 +163,7 @@ class _IntroPayScreenState extends State<IntroPayScreen> {
           ),
         ),
       );
+  }
 
   Widget buildPage({
     required String urlImage,

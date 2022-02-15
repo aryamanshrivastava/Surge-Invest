@@ -31,12 +31,14 @@ class _OtpScreenState extends State<OtpScreen> {
   String? sentCode;
   String? enteredOTP = '';
   int start = 30;
-  bool wait = false;
+  bool wait = true;
   String buttonName = "Send";
   // final _auth = AuthService();
   @override
   void initState() {
     widget.auth!.logInWIthPhone(phone: widget.phoneNumber!);
+    startTimer();
+    wait = true;
     super.initState();
   }
 
@@ -236,12 +238,12 @@ class _OtpScreenState extends State<OtpScreen> {
                               TextSpan(
                                 text: "Didn't receive OTP? Resend",
                                 style: TextStyle(
-                                    fontSize: 13, color: Color(0xffE4A951)),
+                                    fontSize: 13, color: wait? Colors.grey:Colors.white),
                               ),
                               TextSpan(
-                                text: wait ? " $start sec" : "",
+                                text: wait ? " in ${start}s" : "",
                                 style: TextStyle(
-                                    fontSize: 13, color: Colors.redAccent),
+                                    fontSize: 13, color: wait? Colors.grey:Colors.white),
                               ),
                             ],
                           )),

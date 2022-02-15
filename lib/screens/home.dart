@@ -15,6 +15,7 @@ import 'package:testings/models/change.dart';
 import 'package:testings/screens/Intro_pay.dart';
 import 'package:testings/services/db.dart';
 import 'package:testings/services/razorpay.dart';
+import 'package:testings/services/razorpay_post.dart';
 //import 'package:testings/services/razorpay_post.dart';
 
 import '../main.dart';
@@ -29,15 +30,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final telephony = Telephony.instance;
   final ready = BoolChange();
-  late RP _razorpay;
-  String phone = FirebaseAuth.instance.currentUser!.phoneNumber!;
   Db db = Db();
-
   @override
   void initState() {
     getVersionData();
     updateMessages();
-    super.initState();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
@@ -80,36 +77,30 @@ class _HomeScreenState extends State<HomeScreen> {
             });
       }
     });
+    super.initState();
   }
 
-  void showNotification() {
-    flutterLocalNotificationsPlugin.show(
-        0,
-        "Title",
-        "This is notification desc!",
-        NotificationDetails(
-            android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                channelDescription: channel.description,
-                importance: Importance.high,
-                color: Colors.deepPurpleAccent,
-                playSound: true,
-                icon: '@mipmap/transparent'
-            )
-        )
-    );
-  }
+  // void showNotification() {
+  //   flutterLocalNotificationsPlugin.show(
+  //       0,
+  //       "Title",
+  //       "This is notification desc!",
+  //       NotificationDetails(
+  //           android: AndroidNotificationDetails(
+  //               channel.id,
+  //               channel.name,
+  //               channelDescription: channel.description,
+  //               importance: Importance.high,
+  //               color: Colors.deepPurpleAccent,
+  //               playSound: true,
+  //               icon: '@mipmap/transparent'
+  //           )
+  //       )
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
-    _razorpay = Provider.of<RP>(context);
-    _razorpay.razorpay
-        .on(Razorpay.EVENT_PAYMENT_SUCCESS, RP(context).handlePaymentSuccess);
-    _razorpay.razorpay
-        .on(Razorpay.EVENT_PAYMENT_ERROR, RP(context).handlePaymentError);
-    _razorpay.razorpay
-        .on(Razorpay.EVENT_EXTERNAL_WALLET, RP(context).handleExternalWallet);
     Future<bool?> _onBackPressed() async {
       // showNotification();
       return showDialog(

@@ -9,21 +9,6 @@ import 'package:telephony/telephony.dart';
 import 'package:testings/app.dart';
 import 'package:workmanager/workmanager.dart' as work;
 
-const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'high_importance_channel',
-    'High Importance Notifications',
-    description: 'This is one of the important notification',
-    importance: Importance.high,
-    playSound: true
-);
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  print('A bg message just showed up :  ${message.messageId}');
-}
-
 void callbackDispatcher() {
   work.Workmanager().executeTask((task, inputData) async {
     switch (task) {
@@ -79,6 +64,21 @@ void callbackDispatcher() {
   });
 }
 
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+    'high_importance_channel', // id
+    'High Importance Notifications', // title
+    description: 'This channel is used for important notifications.', // description
+    importance: Importance.high,
+    playSound: true);
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+FlutterLocalNotificationsPlugin();
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('A bg message just showed up :  ${message.messageId}');
+}
+
 const backgroundTask = "backgroundTask";
 final Telephony telephony = Telephony.instance;
 int?isViewed;
@@ -96,17 +96,17 @@ Future<void> main() async {
         //networkType: work.NetworkType.connected,
     //)
   );
-
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
+
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,
     sound: true,
   );
-
   runApp(SurgeApp());
 }
