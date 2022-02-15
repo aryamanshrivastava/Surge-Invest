@@ -6,17 +6,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:provider/provider.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telephony/telephony.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:testings/models/change.dart';
 import 'package:testings/screens/Intro_pay.dart';
 import 'package:testings/services/db.dart';
-import 'package:testings/services/razorpay.dart';
-import 'package:testings/services/razorpay_post.dart';
-//import 'package:testings/services/razorpay_post.dart';
 
 import '../main.dart';
 

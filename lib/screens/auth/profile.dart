@@ -181,7 +181,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 elevation: 10,
                 primary:Colors.deepPurpleAccent,
-                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 8),
               ),
             ),
             ElevatedButton.icon(
