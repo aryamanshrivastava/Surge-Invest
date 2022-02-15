@@ -1,17 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:telephony/telephony.dart';
 import 'package:testings/main.dart';
-import 'package:testings/screens/auth/login.dart';
+import 'package:testings/models/change.dart';
+import 'package:testings/services/db.dart';
+import 'package:testings/services/razorpay.dart';
+import 'package:testings/services/razorpay_post.dart';
 
-class IntroScreen extends StatefulWidget {
-  const IntroScreen({Key? key}) : super(key: key);
+class IntroPayScreen extends StatefulWidget {
+  const IntroPayScreen({Key? key}) : super(key: key);
 
   @override
-  State<IntroScreen> createState() => _IntroScreenState();
+  _IntroPayScreenState createState() => _IntroPayScreenState();
 }
 
-class _IntroScreenState extends State<IntroScreen> {
+class _IntroPayScreenState extends State<IntroPayScreen> {
+  final telephony = Telephony.instance;
+  final ready = BoolChange();
+  late RP _razorpay;
+  String phone = FirebaseAuth.instance.currentUser!.phoneNumber!;
+  Db db = Db();
   final controller = PageController();
   final phoneController = TextEditingController();
   @override
@@ -22,8 +32,9 @@ class _IntroScreenState extends State<IntroScreen> {
 
   Future _viewedOnce() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    isViewed= (await prefs.setInt('isViewed', 0)) as int?;
+    isViewed = (await prefs.setInt('isViewed', 0)) as int?;
   }
+
   @override
   void initState() {
     super.initState();
@@ -43,19 +54,28 @@ class _IntroScreenState extends State<IntroScreen> {
                   controller: controller,
                   children: [
                     buildPage(
-                      urlImage: 'assets/00.png',
+                      urlImage: 'assets/000.png',
                     ),
                     buildPage(
-                      urlImage: 'assets/01.png',
+                      urlImage: 'assets/001.png',
                     ),
                     buildPage(
-                      urlImage: 'assets/02.png',
+                      urlImage: 'assets/002.png',
                     ),
                     buildPage(
-                      urlImage: 'assets/03.png',
+                      urlImage: 'assets/003.png',
                     ),
                     buildPage(
-                      urlImage: 'assets/04.png',
+                      urlImage: 'assets/004.png',
+                    ),
+                    buildPage(
+                      urlImage: 'assets/005.png',
+                    ),
+                    buildPage(
+                      urlImage: 'assets/006.png',
+                    ),
+                    buildPage(
+                      urlImage: 'assets/007.png',
                     ),
                   ],
                 ),
@@ -106,16 +126,19 @@ class _IntroScreenState extends State<IntroScreen> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         _viewedOnce();
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    LoginScreen(phoneController)));
+                        var cust = await RazorPayAPIpost().createCustomer(
+                            await db.name, phone, await db.email);
+                        Db().addCustomerId(cust.custId!);
+                        var order = await RazorPayAPIpost()
+                            .createAuthOrder(cust.custId!);
+                        print(order.orderId);
+                        _razorpay.checkout(await db.name, phone, await db.email,
+                            order.orderId!, cust.custId!);
                       },
                       child: Text(
-                        'SIGN IN',
+                        'Setup Auto-Invest',
                         style: TextStyle(
                           color: Color(0xffffffff),
                           fontWeight: FontWeight.w400,

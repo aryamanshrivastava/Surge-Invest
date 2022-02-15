@@ -226,7 +226,6 @@ class _OtpScreenState extends State<OtpScreen> {
                               start = 30;
                               wait = true;
                             });
-
                           },
                           child: RichText(
                               text: TextSpan(
