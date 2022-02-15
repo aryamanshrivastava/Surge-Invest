@@ -380,7 +380,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           elevation: 20,
                                           primary: Color(0xffBD8753),
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: 90, vertical: 15),
+                                              horizontal: 86, vertical: 15),
                                         ),
                                       ),
                                     )
