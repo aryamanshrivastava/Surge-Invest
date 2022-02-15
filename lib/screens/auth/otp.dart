@@ -98,13 +98,13 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                   ),
                   SizedBox(height: 5),
-                Text(
-                  'Crypto & You',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold),
-                ),
+                  Text(
+                    'Crypto & You',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
               SizedBox(
@@ -219,31 +219,39 @@ class _OtpScreenState extends State<OtpScreen> {
                           height: 10,
                         ),
                         ElevatedButton(
-                          onPressed: wait ? null : () async {
-                               widget.auth!.logInWIthPhone(phone: widget.phoneNumber!);
-                            setState(() {
-                              startTimer();
-                              start = 30;
-                              wait = true;
-                            });
-                          },
+                          onPressed: wait
+                              ? null
+                              : () async {
+                                  widget.auth!.logInWIthPhone(
+                                      phone: widget.phoneNumber!);
+                                  setState(() {
+                                    startTimer();
+                                    start = 30;
+                                    wait = true;
+                                  });
+                                },
                           child: RichText(
                               text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: "Didn't receive OTP? Resend",
-                                    style: TextStyle(fontSize: 13, color: Color(0xffE4A951)),
-                                  ),
-                                  TextSpan(
-                                    text:  wait?" $start sec":"",
-                                    style: TextStyle(fontSize: 13, color: Colors.redAccent),
-                                  ),
-                                ],
-                              )),
+                            children: [
+                              TextSpan(
+                                text: "Didn't receive OTP? Resend",
+                                style: TextStyle(
+                                    fontSize: 13, color: Color(0xffE4A951)),
+                              ),
+                              TextSpan(
+                                text: wait ? " $start sec" : "",
+                                style: TextStyle(
+                                    fontSize: 13, color: Colors.redAccent),
+                              ),
+                            ],
+                          )),
                           style: ElevatedButton.styleFrom(
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(25.0),
+                              ),
                               primary: Color(0xff5C4175),
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 60, vertical: 5)),
+                                  horizontal: 20, vertical: 3)),
                         ),
 
                         // TextButton(
@@ -274,6 +282,7 @@ class _OtpScreenState extends State<OtpScreen> {
       ),
     );
   }
+
   void startTimer() {
     const onsec = Duration(seconds: 1);
     // ignore: unused_local_variable

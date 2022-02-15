@@ -90,7 +90,7 @@ class _LockerState extends State<Locker> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width/10*4.5,
+                  width: MediaQuery.of(context).size.width/10*5.2,
                   height: 50,
                   decoration: BoxDecoration(
                       color: Color(0xff533B6D),
