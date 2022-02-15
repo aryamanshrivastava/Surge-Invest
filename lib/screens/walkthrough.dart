@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:testings/main.dart';
+//import 'package:testings/main.dart';
 import 'package:testings/screens/auth/login.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -20,15 +20,16 @@ class _IntroScreenState extends State<IntroScreen> {
     super.dispose();
   }
 
-  Future _viewedOnce() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    isViewed= (await prefs.setInt('isViewed', 0)) as int?;
-  }
-  @override
-  void initState() {
-    super.initState();
-    _viewedOnce();
-  }
+  // Future _viewedOnce() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   isViewed= (await prefs.setInt('isViewed', 0)) as int?;
+
+  // }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //  // _viewedOnce();
+  // }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -107,7 +108,7 @@ class _IntroScreenState extends State<IntroScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        _viewedOnce();
+                       // _viewedOnce();
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:telephony/telephony.dart';
-import 'package:testings/main.dart';
+//import 'package:testings/main.dart';
 import 'package:testings/models/change.dart';
 import 'package:testings/services/db.dart';
 import 'package:testings/services/razorpay.dart';
@@ -28,17 +28,6 @@ class _IntroPayScreenState extends State<IntroPayScreen> {
   void dispose() {
     controller.dispose();
     super.dispose();
-  }
-
-  Future _viewedOnce() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    isViewed = (await prefs.setInt('isViewed', 0)) as int?;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _viewedOnce();
   }
 
   @override
@@ -101,7 +90,7 @@ class _IntroPayScreenState extends State<IntroPayScreen> {
                           Center(
                             child: SmoothPageIndicator(
                               controller: controller,
-                              count: 5,
+                              count: 8,
                               effect: WormEffect(
                                 dotHeight: 10,
                                 dotWidth: 10,
@@ -127,7 +116,6 @@ class _IntroPayScreenState extends State<IntroPayScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        _viewedOnce();
                         var cust = await RazorPayAPIpost().createCustomer(
                             await db.name, phone, await db.email);
                         Db().addCustomerId(cust.custId!);
@@ -153,7 +141,7 @@ class _IntroPayScreenState extends State<IntroPayScreen> {
                         primary: Color(0xffD19549),
                         padding: EdgeInsets.symmetric(
                             horizontal:
-                                MediaQuery.of(context).size.width * 0.35,
+                                MediaQuery.of(context).size.width * 0.25,
                             vertical:
                                 MediaQuery.of(context).size.height * 0.012),
                       ),

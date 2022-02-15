@@ -12,9 +12,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telephony/telephony.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:testings/models/change.dart';
+import 'package:testings/screens/Intro_pay.dart';
 import 'package:testings/services/db.dart';
 import 'package:testings/services/razorpay.dart';
-import 'package:testings/services/razorpay_post.dart';
+//import 'package:testings/services/razorpay_post.dart';
 
 import '../main.dart';
 
@@ -364,19 +365,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                           bottom: 20, top: 10),
                                       child: ElevatedButton(
                                         onPressed: () async {
-                                          var cust = await RazorPayAPIpost()
-                                              .createCustomer(await db.name,
-                                                  phone, await db.email);
-                                          Db().addCustomerId(cust.custId!);
-                                          var order = await RazorPayAPIpost()
-                                              .createAuthOrder(cust.custId!);
-                                          print(order.orderId);
-                                          _razorpay.checkout(
-                                              await db.name,
-                                              phone,
-                                              await db.email,
-                                              order.orderId!,
-                                              cust.custId!);
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => IntroPayScreen()));
+                                          // var cust = await RazorPayAPIpost()
+                                          //     .createCustomer(await db.name,
+                                          //         phone, await db.email);
+                                          // Db().addCustomerId(cust.custId!);
+                                          // var order = await RazorPayAPIpost()
+                                          //     .createAuthOrder(cust.custId!);
+                                          // print(order.orderId);
+                                          // _razorpay.checkout(
+                                          //     await db.name,
+                                          //     phone,
+                                          //     await db.email,
+                                          //     order.orderId!,
+                                          //     cust.custId!);
                                         },
                                         child: Text('Setup Auto-Invest',
                                             style: TextStyle(
