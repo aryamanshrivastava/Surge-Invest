@@ -64,7 +64,8 @@ class _OtpScreenState extends State<OtpScreen> {
                             shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.all(
                               Radius.circular(5.0),
-                            )),
+                            )
+                        ),
                         child: Icon(
                           Icons.arrow_back_ios_new,
                           size: 30,

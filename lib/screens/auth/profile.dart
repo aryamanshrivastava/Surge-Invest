@@ -124,7 +124,7 @@ class _ProfileState extends State<Profile> {
                   );
                 }),
             SizedBox(
-              height: 10,
+              height: 0,
             ),
             FutureBuilder(
                 future: db.email,
@@ -141,11 +141,11 @@ class _ProfileState extends State<Profile> {
                   );
                 }),
             SizedBox(
-              height: 10,
+              height: 0,
             ),
             RichText(
               text: TextSpan(
-                text: FirebaseAuth.instance.currentUser!.phoneNumber.toString(),
+                text: FirebaseAuth.instance.currentUser!.phoneNumber.toString().substring(3),
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   color: Colors.white30,
@@ -167,7 +167,7 @@ class _ProfileState extends State<Profile> {
             //     ),
             //   ),
             // ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: _launchURLTC,
               icon: Icon(Icons.article_outlined),
@@ -200,8 +200,7 @@ class _ProfileState extends State<Profile> {
                 padding: EdgeInsets.symmetric(horizontal: 60, vertical: 8),
               ),
             ),
-
-
+            SizedBox(height: 30),
             ElevatedButton.icon(
               onPressed: _signOut,
               icon: Icon(Icons.logout),
