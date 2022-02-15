@@ -1,5 +1,5 @@
 import 'dart:async';
-
+// ignore: unused_import
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -276,6 +276,7 @@ class _OtpScreenState extends State<OtpScreen> {
   }
   void startTimer() {
     const onsec = Duration(seconds: 1);
+    // ignore: unused_local_variable
     Timer _timer = Timer.periodic(onsec, (timer) {
       if (start == 0) {
         setState(() {

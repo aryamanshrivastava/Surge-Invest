@@ -86,7 +86,7 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  isViewed = prefs.getInt('isViewed');
+  isViewed = prefs.getInt('isViewed')?? 0;
   work.Workmanager().initialize(callbackDispatcher);
   work.Workmanager().registerPeriodicTask(
     "5",

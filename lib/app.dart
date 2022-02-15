@@ -25,7 +25,7 @@ class SurgeApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Surge',
         theme: ThemeData(fontFamily: 'Poppins'),
-        home: isViewed != 0 ? IntroScreen() : AuthWrapper(),
+        home: isViewed == 0 ?  AuthWrapper():IntroScreen(),
         debugShowCheckedModeBanner: false,
       ),
     );
