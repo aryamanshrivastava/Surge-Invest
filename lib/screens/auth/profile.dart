@@ -216,11 +216,9 @@ class _ProfileState extends State<Profile> {
               // ),
               Card(
               color: Color(0xff2C9479),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
