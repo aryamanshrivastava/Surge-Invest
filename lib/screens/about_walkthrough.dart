@@ -121,15 +121,11 @@ class _AboutWalkThroughState extends State<AboutWalkThrough> {
                           curve: Curves.easeIn
                       );
                     } else{
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  LoginScreen(phoneController)));
+                      Navigator.pop(context);
                     }
                   },
                   child: Text(
-                    currentPage<4?'NEXT':'SIGN IN',
+                    currentPage<4?'NEXT':'GOT IT!',
                     style: TextStyle(
                       color: Color(0xffffffff),
                       fontWeight: FontWeight.w400,

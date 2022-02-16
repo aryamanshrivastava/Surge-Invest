@@ -4,6 +4,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:testings/screens/about_walkthrough.dart';
+import 'package:testings/screens/autopay_walkthrough.dart';
 import 'package:testings/services/db.dart';
 import 'package:testings/services/razorpay.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -217,7 +218,7 @@ class _ProfileState extends State<Profile> {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> AboutWalkThrough()));
               }),
               makeCard(Icon(Icons.help_outline, color: Colors.white,), 'Auto Invest guide', (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> AboutWalkThrough()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> AutoPayWalkThrough()));
               }),
               makeCard(Icon(Icons.article_outlined, color: Colors.white,), 'Terms and conditions', _launchURLTC),
               makeCard(Icon(Icons.privacy_tip_outlined, color: Colors.white,), 'Privacy Policy', _launchURLPP),
