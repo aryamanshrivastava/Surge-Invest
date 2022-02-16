@@ -215,43 +215,56 @@ class _ProfileState extends State<Profile> {
               //   ),
               // ),
               Card(
-                color: Color(0xff2C9479),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.monetization_on_rounded,
-                        size: 25,
-                        color: Color(0xffE4A951),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        'Auto Invest ₹',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Spacer(),
-                      Switch(
-                          value: sbool,
-                          onChanged: (bool sb) {
-                            setState(() {
-                              sbool = sb;
-                              print(sbool);
-                            });
-                          }),
-                    ],
-                  ),
+              color: Color(0xff2C9479),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.monetization_on_rounded,
+                      size: 25,
+                      color: Color(0xffE4A951),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Auto Invest ₹10',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          'When no spends detected',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                    Spacer(),
+                    Switch(
+                        activeColor: Colors.deepPurple,
+                        value: sbool,
+                        onChanged: (bool sb) {
+                          setState(() {
+                            sbool = true;
+                            print(sbool);
+                          });
+                        }),
+                  ],
                 ),
               ),
+            ),
               makeCard(
                   Icon(Icons.description, color: Colors.white), 'How it works',
                   () {
