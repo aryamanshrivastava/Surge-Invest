@@ -154,7 +154,7 @@ class _IntroPayScreenState extends State<IntroPayScreen> {
                         style: TextStyle(
                           color: Color(0xffffffff),
                           fontWeight: FontWeight.w400,
-                          fontSize: 23,
+                          fontSize: 20,
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
