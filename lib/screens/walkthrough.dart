@@ -14,6 +14,7 @@ class IntroScreen extends StatefulWidget {
 class _IntroScreenState extends State<IntroScreen> {
   final controller = PageController();
   final phoneController = TextEditingController();
+  int currentPage = 0;
   @override
   void dispose() {
     controller.dispose();
@@ -42,6 +43,11 @@ class _IntroScreenState extends State<IntroScreen> {
                 width: MediaQuery.of(context).size.width,
                 child: PageView(
                   controller: controller,
+                  onPageChanged: (value){
+                    setState(() {
+                      currentPage = value;
+                    });
+                  },
                   children: [
                     buildPage(
                       urlImage: 'assets/00.png',
@@ -108,15 +114,22 @@ class _IntroScreenState extends State<IntroScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                       // _viewedOnce();
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    LoginScreen(phoneController)));
+                        if(currentPage<4){
+                          controller.animateToPage(
+                              currentPage+1,
+                              duration: Duration(milliseconds: 400),
+                              curve: Curves.easeIn
+                          );
+                        } else{
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      LoginScreen(phoneController)));
+                        }
                       },
                       child: Text(
-                        'SIGN IN',
+                        currentPage<4?'NEXT':'SIGN IN',
                         style: TextStyle(
                           color: Color(0xffffffff),
                           fontWeight: FontWeight.w400,
