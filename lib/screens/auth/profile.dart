@@ -64,7 +64,7 @@ class _ProfileState extends State<Profile> {
           title,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
+        subtitle: Text("If no spends are detected in a day", style: TextStyle(color: Colors.white)),
         trailing:
         Switch(
             activeColor: Colors.yellow.shade800,
