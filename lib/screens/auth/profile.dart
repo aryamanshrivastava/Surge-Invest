@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:testings/screens/about_walkthrough.dart';
 import 'package:testings/services/db.dart';
 import 'package:testings/services/razorpay.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -31,7 +32,8 @@ class _ProfileState extends State<Profile> {
         version = packageInfo.version;
       });
     });
-    makeListTile(Icon icon, String title) => ListTile(
+    makeListTile(Icon icon, String title, Function() func) => ListTile(
+      onTap: func,
         contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         leading: Container(
           padding: EdgeInsets.only(right: 12.0),
@@ -48,12 +50,12 @@ class _ProfileState extends State<Profile> {
         trailing:
         Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0));
 
-    makeCard(Icon icon, String title) => Card(
+    makeCard(Icon icon, String title, Function() func) => Card(
       elevation: 8.0,
       margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
       child: Container(
         decoration: BoxDecoration(color: Color(0xff5C4A7F)),
-        child: makeListTile(icon, title),
+        child: makeListTile(icon, title, func),
       ),
     );
 
@@ -211,10 +213,14 @@ class _ProfileState extends State<Profile> {
               //     ),
               //   ),
               // ),
-              makeCard(Icon(Icons.description, color: Colors.white,), 'How it works'),
-              makeCard(Icon(Icons.help_outline, color: Colors.white,), 'Auto Invest guide'),
-              makeCard(Icon(Icons.article_outlined, color: Colors.white,), 'Terms and conditions'),
-              makeCard(Icon(Icons.privacy_tip_outlined, color: Colors.white,), 'Privacy Policy'),
+              makeCard(Icon(Icons.description, color: Colors.white), 'How it works', (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> AboutWalkThrough()));
+              }),
+              makeCard(Icon(Icons.help_outline, color: Colors.white,), 'Auto Invest guide', (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> AboutWalkThrough()));
+              }),
+              makeCard(Icon(Icons.article_outlined, color: Colors.white,), 'Terms and conditions', _launchURLTC),
+              makeCard(Icon(Icons.privacy_tip_outlined, color: Colors.white,), 'Privacy Policy', _launchURLPP),
               SizedBox(
                 height: 40,
               ),
