@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:testings/services/db.dart';
@@ -17,6 +18,7 @@ class _ProfileState extends State<Profile> {
   String phone = FirebaseAuth.instance.currentUser!.phoneNumber!;
   Db db = Db();
   bool sbool = true;
+  String version = 'Loading...';
 
   void _signOut() {
     FirebaseAuth.instance.signOut();
@@ -24,6 +26,37 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      setState(() {
+        version = packageInfo.version;
+      });
+    });
+    makeListTile(Icon icon, String title) => ListTile(
+        contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        leading: Container(
+          padding: EdgeInsets.only(right: 12.0),
+          decoration: new BoxDecoration(
+              border: new Border(
+                  right: new BorderSide(width: 1.0, color: Colors.white24))),
+          child: icon
+        ),
+        title: Text(
+          title,
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
+        trailing:
+        Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0));
+
+    makeCard(Icon icon, String title) => Card(
+      elevation: 8.0,
+      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      child: Container(
+        decoration: BoxDecoration(color: Color(0xff5C4A7F)),
+        child: makeListTile(icon, title),
+      ),
+    );
+
     _razorpay = Provider.of<RP>(context);
     _razorpay.razorpay
         .on(Razorpay.EVENT_PAYMENT_SUCCESS, RP(context).handlePaymentSuccess);
@@ -63,197 +96,232 @@ class _ProfileState extends State<Profile> {
         }
         return result;
       },
-
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+            child: FaIcon(FontAwesomeIcons.whatsapp,
+                color: Colors.white, size: 30),
+            backgroundColor: Color(0xff00E676),
+            foregroundColor: Colors.white,
+            onPressed: () async {
+              String phoneNumber = '+919652354388';
+              var url =
+                  'https://wa.me/$phoneNumber?text=Hi%20Surge!%20';
+              await launch(url);
+            }),
         backgroundColor: Color(0xff473270),
-        body: Column(
-          children: [
-            SizedBox(
-              height: 25,
-            ),
-            Column(
-              children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  height: 80.0,
-                  width: 180.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/getsurge.png'),
-                      fit: BoxFit.fill,
-                    ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 25,
+              ),
+              // Column(
+              //   children: [
+              //     Container(
+              //       alignment: Alignment.topLeft,
+              //       height: 80.0,
+              //       width: 180.0,
+              //       decoration: BoxDecoration(
+              //         image: DecorationImage(
+              //           image: AssetImage('assets/getsurge.png'),
+              //           fit: BoxFit.fill,
+              //         ),
+              //       ),
+              //     ),
+              //     SizedBox(height: 5),
+              //     Text(
+              //       'Crypto & You',
+              //       style: TextStyle(
+              //           color: Colors.white,
+              //           fontSize: 18,
+              //           fontWeight: FontWeight.bold),
+              //     ),
+              //   ],
+              // ),
+              SizedBox(
+                height: 20,
+              ),
+              CircleAvatar(
+                backgroundColor: Colors.grey[600],
+                radius: 30,
+                child: Icon(
+                  Icons.person,
+                  size: 40,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              FutureBuilder(
+                  future: db.name,
+                  builder: (context, snapshot) {
+                    return RichText(
+                      text: TextSpan(
+                        text: snapshot.data.toString(),
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    );
+                  }),
+              SizedBox(
+                height: 0,
+              ),
+              FutureBuilder(
+                  future: db.email,
+                  builder: (context, snapshot) {
+                    return RichText(
+                      text: TextSpan(
+                        text: snapshot.data.toString(),
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Colors.white30,
+                          fontSize: 20,
+                        ),
+                      ),
+                    );
+                  }),
+              RichText(
+                text: TextSpan(
+                  text: FirebaseAuth.instance.currentUser!.phoneNumber.toString().substring(3),
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    color: Colors.white30,
+                    fontSize: 20,
                   ),
                 ),
-                SizedBox(height: 5),
-                Text(
-                  'Crypto & You',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            CircleAvatar(
-              backgroundColor: Colors.grey[600],
-              radius: 30,
-              child: Icon(
-                Icons.person,
-                size: 60,
-                color: Colors.white,
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            FutureBuilder(
-                future: db.name,
-                builder: (context, snapshot) {
-                  return RichText(
-                    text: TextSpan(
-                      text: "Hi, " + snapshot.data.toString(),
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold),
+              SizedBox(
+                height: 20,
+              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 20),
+              //   child: Container(
+              //     alignment: Alignment.bottomLeft,
+              //     child: Text(
+              //       'Transactions',
+              //       textAlign: TextAlign.start,
+              //       style: TextStyle(
+              //           color: Color(0xffD19549),
+              //           fontSize: 20,
+              //           fontWeight: FontWeight.w800),
+              //     ),
+              //   ),
+              // ),
+              makeCard(Icon(Icons.description, color: Colors.white,), 'How it works'),
+              makeCard(Icon(Icons.help_outline, color: Colors.white,), 'Auto Invest guide'),
+              makeCard(Icon(Icons.article_outlined, color: Colors.white,), 'Terms and conditions'),
+              makeCard(Icon(Icons.privacy_tip_outlined, color: Colors.white,), 'Privacy Policy'),
+              SizedBox(
+                height: 40,
+              ),
+              ElevatedButton.icon(
+                onPressed: _signOut,
+                icon: Icon(Icons.logout),
+                label: Text(
+                  'Logout',
+                  style: TextStyle(fontWeight: FontWeight.w800),
+                ),
+                style: ElevatedButton.styleFrom(
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(10.0),
+                  ),
+                  elevation: 10,
+                  primary: Color(0xffD19549),
+                  padding: EdgeInsets.symmetric(horizontal: 60, vertical: 8),
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: Divider(height: 20, color: Colors.grey,),
                     ),
-                  );
-                }),
-            SizedBox(
-              height: 0,
-            ),
-            FutureBuilder(
-                future: db.email,
-                builder: (context, snapshot) {
-                  return RichText(
-                    text: TextSpan(
-                      text: snapshot.data.toString(),
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Colors.white30,
-                        fontSize: 20,
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: Text('v $version', style: TextStyle(color: Colors.grey),),
                     ),
-                  );
-                }),
-            SizedBox(
-              height: 0,
-            ),
-            RichText(
-              text: TextSpan(
-                text: FirebaseAuth.instance.currentUser!.phoneNumber.toString().substring(3),
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color: Colors.white30,
-                  fontSize: 20,
-                ),
+                    Expanded(
+                        child: Divider(height: 20, color: Colors.grey,),
+                    ),
+                  ]
               ),
-            ),
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 20),
-            //   child: Container(
-            //     alignment: Alignment.bottomLeft,
-            //     child: Text(
-            //       'Transactions',
-            //       textAlign: TextAlign.start,
-            //       style: TextStyle(
-            //           color: Color(0xffD19549),
-            //           fontSize: 20,
-            //           fontWeight: FontWeight.w800),
-            //     ),
-            //   ),
-            // ),
-            SizedBox(height: 20),
-            ElevatedButton.icon(
-              onPressed: _launchURLTC,
-              icon: Icon(Icons.article_outlined),
-              label: Text(
-                'Terms and conditions',
-                style: TextStyle(fontWeight: FontWeight.w800),
-              ),
-              style: ElevatedButton.styleFrom(
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(20.0),
-                ),
-                elevation: 10,
-                primary:Colors.deepPurpleAccent,
-                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 8),
-              ),
-            ),
-            ElevatedButton.icon(
-              onPressed: _launchURLPP,
-              icon: Icon(Icons.privacy_tip_outlined),
-              label: Text(
-                'Privacy Policy',
-                style: TextStyle(fontWeight: FontWeight.w800),
-              ),
-              style: ElevatedButton.styleFrom(
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(20.0),
-                ),
-                elevation: 10,
-                primary: Colors.deepPurpleAccent,
-                padding: EdgeInsets.symmetric(horizontal: 60, vertical: 8),
-              ),
-            ),
-            SizedBox(height: 30),
-            ElevatedButton.icon(
-              onPressed: _signOut,
-              icon: Icon(Icons.logout),
-              label: Text(
-                'Logout',
-                style: TextStyle(fontWeight: FontWeight.w800),
-              ),
-              style: ElevatedButton.styleFrom(
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(20.0),
-                ),
-                elevation: 10,
-                primary: Color(0xffD19549),
-                padding: EdgeInsets.symmetric(horizontal: 60, vertical: 8),
-              ),
-            ),
-            // ElevatedButton.icon(
-            //   onPressed: _signOut,
-            //   icon: Icon(Icons.logout),
-            //   label: Text(
-            //     'Logout',
-            //     style: TextStyle(fontWeight: FontWeight.w800),
-            //   ),
-            //   style: ElevatedButton.styleFrom(
-            //     shape: new RoundedRectangleBorder(
-            //       borderRadius: new BorderRadius.circular(20.0),
-            //     ),
-            //     elevation: 10,
-            //     primary: Color(0xffD19549),
-            //     padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
-            //   ),
-            // ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Row(
-                children: [
-                  Spacer(),
-                  FloatingActionButton(
-                      child: FaIcon(FontAwesomeIcons.whatsapp,
-                          color: Colors.white, size: 30),
-                      backgroundColor: Color(0xff00E676),
-                      foregroundColor: Colors.white,
-                      onPressed: () async {
-                        String phoneNumber = '+919652354388';
-                        var url =
-                            'https://wa.me/$phoneNumber?text=Hi%20Surge!%20';
-                        await launch(url);
-                      }),
-                ],
-              ),
-            ),
-          ],
+              // ElevatedButton.icon(
+              //   onPressed: _launchURLTC,
+              //   icon: Icon(Icons.article_outlined),
+              //   label: Text(
+              //     'Terms and conditions',
+              //     style: TextStyle(fontWeight: FontWeight.w800),
+              //   ),
+              //   style: ElevatedButton.styleFrom(
+              //     shape: new RoundedRectangleBorder(
+              //       borderRadius: new BorderRadius.circular(20.0),
+              //     ),
+              //     elevation: 10,
+              //     primary:Colors.deepPurpleAccent,
+              //     padding: EdgeInsets.symmetric(horizontal: 35, vertical: 8),
+              //   ),
+              // ),
+              // ElevatedButton.icon(
+              //   onPressed: _launchURLPP,
+              //   icon: Icon(Icons.privacy_tip_outlined),
+              //   label: Text(
+              //     'Privacy Policy',
+              //     style: TextStyle(fontWeight: FontWeight.w800),
+              //   ),
+              //   style: ElevatedButton.styleFrom(
+              //     shape: new RoundedRectangleBorder(
+              //       borderRadius: new BorderRadius.circular(20.0),
+              //     ),
+              //     elevation: 10,
+              //     primary: Colors.deepPurpleAccent,
+              //     padding: EdgeInsets.symmetric(horizontal: 60, vertical: 8),
+              //   ),
+              // ),
+              SizedBox(height: 30),
+              // ElevatedButton.icon(
+              //   onPressed: _signOut,
+              //   icon: Icon(Icons.logout),
+              //   label: Text(
+              //     'Logout',
+              //     style: TextStyle(fontWeight: FontWeight.w800),
+              //   ),
+              //   style: ElevatedButton.styleFrom(
+              //     shape: new RoundedRectangleBorder(
+              //       borderRadius: new BorderRadius.circular(20.0),
+              //     ),
+              //     elevation: 10,
+              //     primary: Color(0xffD19549),
+              //     padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
+              //   ),
+              // ),
+              // Spacer(),
+              // Padding(
+              //   padding: const EdgeInsets.all(18.0),
+              //   child: Row(
+              //     children: [
+              //       Spacer(),
+              //       FloatingActionButton(
+              //           child: FaIcon(FontAwesomeIcons.whatsapp,
+              //               color: Colors.white, size: 30),
+              //           backgroundColor: Color(0xff00E676),
+              //           foregroundColor: Colors.white,
+              //           onPressed: () async {
+              //             String phoneNumber = '+919652354388';
+              //             var url =
+              //                 'https://wa.me/$phoneNumber?text=Hi%20Surge!%20';
+              //             await launch(url);
+              //           }),
+              //     ],
+              //   ),
+              // ),
+            ],
+          ),
         ),
       ),
     );
