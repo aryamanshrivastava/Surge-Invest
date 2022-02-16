@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -49,6 +50,40 @@ class _ProfileState extends State<Profile> {
         // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
         trailing:
             Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0));
+
+    makeSwitchTile(Icon icon, String title, Function() func) => ListTile(
+        onTap: func,
+        contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        leading: Container(
+            padding: EdgeInsets.only(right: 12.0),
+            decoration: new BoxDecoration(
+                border: new Border(
+                    right: new BorderSide(width: 1.0, color: Colors.white24))),
+            child: icon),
+        title: Text(
+          title,
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
+        trailing:
+        Switch(
+            activeColor: Colors.yellow.shade800,
+            value: sbool,
+            onChanged: (bool sb) {
+              Fluttertoast.showToast(
+                  msg: "Coming soon.",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.TOP,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.black87,
+                  textColor: Colors.white,
+                  fontSize: 16.0
+              );
+              setState(() {
+                sbool = true;
+              });
+            })
+    );
 
     makeCard(Icon icon, String title, Function() func) => Card(
           elevation: 8.0,
@@ -215,54 +250,17 @@ class _ProfileState extends State<Profile> {
               //   ),
               // ),
               Card(
-              color: Color(0xff2C9479),
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.monetization_on_rounded,
-                      size: 25,
-                      color: Color(0xffE4A951),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Auto Invest ₹10',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'When no spends detected',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                    Switch(
-                        activeColor: Colors.deepPurple,
-                        value: sbool,
-                        onChanged: (bool sb) {
-                          setState(() {
-                            sbool = true;
-                            print(sbool);
-                          });
-                        }),
-                  ],
+                elevation: 8.0,
+                margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                child: Container(
+                  decoration: BoxDecoration(color: Color(0xff5C4A7F)),
+                  child: makeSwitchTile(Icon(
+                    Icons.monetization_on_rounded,
+                    size: 25,
+                    color: Color(0xffE4A951),
+                  ), 'Auto Invest ₹10', (){}),
                 ),
               ),
-            ),
               makeCard(
                   Icon(Icons.description, color: Colors.white), 'How it works',
                   () {
@@ -288,7 +286,8 @@ class _ProfileState extends State<Profile> {
                     color: Colors.white,
                   ),
                   'Terms and conditions',
-                  _launchURLTC),
+                  _launchURLTC
+              ),
               makeCard(
                   Icon(
                     Icons.privacy_tip_outlined,
