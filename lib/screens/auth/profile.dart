@@ -34,31 +34,30 @@ class _ProfileState extends State<Profile> {
       });
     });
     makeListTile(Icon icon, String title, Function() func) => ListTile(
-      onTap: func,
+        onTap: func,
         contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         leading: Container(
-          padding: EdgeInsets.only(right: 12.0),
-          decoration: new BoxDecoration(
-              border: new Border(
-                  right: new BorderSide(width: 1.0, color: Colors.white24))),
-          child: icon
-        ),
+            padding: EdgeInsets.only(right: 12.0),
+            decoration: new BoxDecoration(
+                border: new Border(
+                    right: new BorderSide(width: 1.0, color: Colors.white24))),
+            child: icon),
         title: Text(
           title,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
         trailing:
-        Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0));
+            Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0));
 
     makeCard(Icon icon, String title, Function() func) => Card(
-      elevation: 8.0,
-      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-      child: Container(
-        decoration: BoxDecoration(color: Color(0xff5C4A7F)),
-        child: makeListTile(icon, title, func),
-      ),
-    );
+          elevation: 8.0,
+          margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          child: Container(
+            decoration: BoxDecoration(color: Color(0xff5C4A7F)),
+            child: makeListTile(icon, title, func),
+          ),
+        );
 
     _razorpay = Provider.of<RP>(context);
     _razorpay.razorpay
@@ -107,8 +106,7 @@ class _ProfileState extends State<Profile> {
             foregroundColor: Colors.white,
             onPressed: () async {
               String phoneNumber = '+919652354388';
-              var url =
-                  'https://wa.me/$phoneNumber?text=Hi%20Surge!%20';
+              var url = 'https://wa.me/$phoneNumber?text=Hi%20Surge!%20';
               await launch(url);
             }),
         backgroundColor: Color(0xff473270),
@@ -189,7 +187,9 @@ class _ProfileState extends State<Profile> {
                   }),
               RichText(
                 text: TextSpan(
-                  text: FirebaseAuth.instance.currentUser!.phoneNumber.toString().substring(3),
+                  text: FirebaseAuth.instance.currentUser!.phoneNumber
+                      .toString()
+                      .substring(3),
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     color: Colors.white30,
@@ -214,14 +214,77 @@ class _ProfileState extends State<Profile> {
               //     ),
               //   ),
               // ),
-              makeCard(Icon(Icons.description, color: Colors.white), 'How it works', (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> AboutWalkThrough()));
+              Card(
+                color: Color(0xff2C9479),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.monetization_on_rounded,
+                        size: 25,
+                        color: Color(0xffE4A951),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        'Auto Invest ₹',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Spacer(),
+                      Switch(
+                          value: sbool,
+                          onChanged: (bool sb) {
+                            setState(() {
+                              sbool = sb;
+                              print(sbool);
+                            });
+                          }),
+                    ],
+                  ),
+                ),
+              ),
+              makeCard(
+                  Icon(Icons.description, color: Colors.white), 'How it works',
+                  () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AboutWalkThrough()));
               }),
-              makeCard(Icon(Icons.help_outline, color: Colors.white,), 'Auto Invest guide', (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> AutoPayWalkThrough()));
+              makeCard(
+                  Icon(
+                    Icons.help_outline,
+                    color: Colors.white,
+                  ),
+                  'Auto Invest guide', () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AutoPayWalkThrough()));
               }),
-              makeCard(Icon(Icons.article_outlined, color: Colors.white,), 'Terms and conditions', _launchURLTC),
-              makeCard(Icon(Icons.privacy_tip_outlined, color: Colors.white,), 'Privacy Policy', _launchURLPP),
+              makeCard(
+                  Icon(
+                    Icons.article_outlined,
+                    color: Colors.white,
+                  ),
+                  'Terms and conditions',
+                  _launchURLTC),
+              makeCard(
+                  Icon(
+                    Icons.privacy_tip_outlined,
+                    color: Colors.white,
+                  ),
+                  'Privacy Policy',
+                  _launchURLPP),
               SizedBox(
                 height: 40,
               ),
@@ -244,20 +307,28 @@ class _ProfileState extends State<Profile> {
               SizedBox(
                 height: 40,
               ),
-              Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: Divider(height: 20, color: Colors.grey,),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                      child: Text('v $version', style: TextStyle(color: Colors.grey),),
-                    ),
-                    Expanded(
-                        child: Divider(height: 20, color: Colors.grey,),
-                    ),
-                  ]
-              ),
+              Row(children: <Widget>[
+                Expanded(
+                  child: Divider(
+                    height: 20,
+                    color: Colors.grey,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 8.0),
+                  child: Text(
+                    'v $version',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
+                Expanded(
+                  child: Divider(
+                    height: 20,
+                    color: Colors.grey,
+                  ),
+                ),
+              ]),
               // ElevatedButton.icon(
               //   onPressed: _launchURLTC,
               //   icon: Icon(Icons.article_outlined),
@@ -334,11 +405,13 @@ class _ProfileState extends State<Profile> {
     );
   }
 }
-  void  _launchURLTC() async {
+
+void _launchURLTC() async {
   const url = 'https://www.getsurgeapp.com/terms-conditions';
   if (!await launch(url)) throw 'Could not launch $url';
-  }
-void  _launchURLPP() async {
+}
+
+void _launchURLPP() async {
   const url = 'https://www.getsurgeapp.com/privacy-policy';
   if (!await launch(url)) throw 'Could not launch $url';
 }
