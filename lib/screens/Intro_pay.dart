@@ -26,6 +26,7 @@ class _IntroPayScreenState extends State<IntroPayScreen> {
   Db db = Db();
   final controller = PageController();
   final phoneController = TextEditingController();
+  int currentPage = 0;
   @override
   void dispose() {
     controller.dispose();
@@ -51,6 +52,11 @@ class _IntroPayScreenState extends State<IntroPayScreen> {
                 width: MediaQuery.of(context).size.width,
                 child: PageView(
                   controller: controller,
+                  onPageChanged: (value){
+                    setState(() {
+                      currentPage = value;
+                    });
+                  },
                   children: [
                     buildPage(
                       urlImage: 'assets/000.png',
@@ -126,17 +132,25 @@ class _IntroPayScreenState extends State<IntroPayScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        var cust = await RazorPayAPIpost().createCustomer(
-                            await db.name, phone, await db.email);
-                        Db().addCustomerId(cust.custId!);
-                        var order = await RazorPayAPIpost()
-                            .createAuthOrder(cust.custId!);
-                        print(order.orderId);
-                        _razorpay.checkout(await db.name, phone, await db.email,
-                            order.orderId!, cust.custId!);
+                        if(currentPage<7){
+                          controller.animateToPage(
+                              currentPage+1,
+                              duration: Duration(milliseconds: 400),
+                              curve: Curves.easeIn
+                          );
+                        } else{
+                          var cust = await RazorPayAPIpost().createCustomer(
+                              await db.name, phone, await db.email);
+                          Db().addCustomerId(cust.custId!);
+                          var order = await RazorPayAPIpost()
+                              .createAuthOrder(cust.custId!);
+                          print(order.orderId);
+                          _razorpay.checkout(await db.name, phone, await db.email,
+                              order.orderId!, cust.custId!);
+                        }
                       },
                       child: Text(
-                        'Setup Auto-Invest',
+                        currentPage<7?'NEXT':'Setup Auto-Invest',
                         style: TextStyle(
                           color: Color(0xffffffff),
                           fontWeight: FontWeight.w400,
