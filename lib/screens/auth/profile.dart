@@ -65,8 +65,7 @@ class _ProfileState extends State<Profile> {
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
-        trailing:
-        Switch(
+        trailing: Switch(
             activeColor: Colors.yellow.shade800,
             value: sbool,
             onChanged: (bool sb) {
@@ -77,13 +76,11 @@ class _ProfileState extends State<Profile> {
                   timeInSecForIosWeb: 1,
                   backgroundColor: Colors.black87,
                   textColor: Colors.white,
-                  fontSize: 16.0
-              );
+                  fontSize: 16.0);
               setState(() {
                 sbool = true;
               });
-            })
-    );
+            }));
 
     makeCard(Icon icon, String title, Function() func) => Card(
           elevation: 8.0,
@@ -251,14 +248,18 @@ class _ProfileState extends State<Profile> {
               // ),
               Card(
                 elevation: 8.0,
-                margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                margin:
+                    new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                 child: Container(
                   decoration: BoxDecoration(color: Color(0xff5C4A7F)),
-                  child: makeSwitchTile(Icon(
-                    Icons.monetization_on_rounded,
-                    size: 25,
-                    color: Color(0xffE4A951),
-                  ), 'Auto Invest ₹10', (){}),
+                  child: makeSwitchTile(
+                      Icon(
+                        Icons.monetization_on_rounded,
+                        size: 25,
+                        color: Color(0xffE4A951),
+                      ),
+                      'Auto Invest ₹10',
+                      () {}),
                 ),
               ),
               makeCard(
@@ -286,8 +287,7 @@ class _ProfileState extends State<Profile> {
                     color: Colors.white,
                   ),
                   'Terms and conditions',
-                  _launchURLTC
-              ),
+                  _launchURLTC),
               makeCard(
                   Icon(
                     Icons.privacy_tip_outlined,
