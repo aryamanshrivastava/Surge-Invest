@@ -19,23 +19,24 @@ class RP {
     var token = await RazorPayAPIpost().fetchToken(paymentId);
     Db().addToken(token.token!);
     Provider.of<BoolChange>(context, listen: false).ready();
+    Navigator.pop(context);
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Authrorization successful.'),
+          title: Text('Auto-Invest Complete!'),
         );
       },
     );
   }
 
   void handlePaymentError(PaymentFailureResponse response) {
-    print(response.message);
+    Navigator.pop(context);
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Authrorization failed!'),
+          title: Text('Auto-Invest failed!'),
         );
       },
     );
@@ -49,18 +50,13 @@ class RP {
       String customerId) {
     Map<String, dynamic> options = {
       'key': apiKeyId,
-      'amount': 100, //in the smallest currency sub-unit.
-      // 'name': name,
-      'order_id': orderId, // Generate order_id using Orders API
+      'amount': 100,
+      'name': 'Surge',
+      'order_id': orderId,
       'customer_id': customerId,
-      //'description': 'Fine T-Shirt',
-      //'timeout': 60, // in seconds
+      'description': 'Setup Auto-Invest',
+      'timeout': 600,
       'prefill': {'contact': phone, 'email': email},
-      "external": {
-        "wallets": [
-          "paytm",
-        ]
-      },
       "recurring": "1",
     };
     razorpay.open(options);

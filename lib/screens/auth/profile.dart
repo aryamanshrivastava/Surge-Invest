@@ -2,12 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:provider/provider.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:testings/screens/about_walkthrough.dart';
 import 'package:testings/screens/autopay_walkthrough.dart';
 import 'package:testings/services/db.dart';
-import 'package:testings/services/razorpay.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,7 +14,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  late RP _razorpay;
   String phone = FirebaseAuth.instance.currentUser!.phoneNumber!;
   Db db = Db();
   bool sbool = true;
@@ -64,8 +60,9 @@ class _ProfileState extends State<Profile> {
           title,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
-        trailing: Switch(
+        subtitle: Text("If no spends are detected in a day", style: TextStyle(color: Colors.white)),
+        trailing:
+        Switch(
             activeColor: Colors.yellow.shade800,
             value: sbool,
             onChanged: (bool sb) {
@@ -91,13 +88,6 @@ class _ProfileState extends State<Profile> {
           ),
         );
 
-    _razorpay = Provider.of<RP>(context);
-    _razorpay.razorpay
-        .on(Razorpay.EVENT_PAYMENT_SUCCESS, RP(context).handlePaymentSuccess);
-    _razorpay.razorpay
-        .on(Razorpay.EVENT_PAYMENT_ERROR, RP(context).handlePaymentError);
-    _razorpay.razorpay
-        .on(Razorpay.EVENT_EXTERNAL_WALLET, RP(context).handleExternalWallet);
     Future<bool?> _onBackPressed() async {
       return showDialog(
           context: context,
@@ -137,7 +127,7 @@ class _ProfileState extends State<Profile> {
             backgroundColor: Color(0xff00E676),
             foregroundColor: Colors.white,
             onPressed: () async {
-              String phoneNumber = '+919652354388';
+              String phoneNumber = '+919885000923';
               var url = 'https://wa.me/$phoneNumber?text=Hi%20Surge!%20';
               await launch(url);
             }),

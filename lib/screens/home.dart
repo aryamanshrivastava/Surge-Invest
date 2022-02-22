@@ -368,9 +368,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         },
                                         child: Text('Setup Auto-Invest',
                                             style: TextStyle(
-                                              color: Colors.black,
+                                              color: Colors.white,
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 20,
+                                              fontSize: 16,
                                             )),
                                         style: ElevatedButton.styleFrom(
                                           shape: new RoundedRectangleBorder(
@@ -496,7 +496,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: Color(0xff14EE80),
-                                                      fontSize: 17.0,
+                                                      fontSize: 12.0,
                                                       fontWeight:
                                                           FontWeight.w400),
                                                 ),
