@@ -24,6 +24,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final telephony = Telephony.instance;
+  String phone = FirebaseAuth.instance.currentUser!.phoneNumber!;
   final ready = BoolChange();
   Db db = Db();
   @override
@@ -47,8 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 playSound: true,
                 icon: '@mipmap/transparent',
               ),
-            )
-        );
+            ));
       }
     });
 
@@ -351,20 +351,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           bottom: 20, top: 10),
                                       child: ElevatedButton(
                                         onPressed: () async {
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => IntroPayScreen()));
-                                          // var cust = await RazorPayAPIpost()
-                                          //     .createCustomer(await db.name,
-                                          //         phone, await db.email);
-                                          // Db().addCustomerId(cust.custId!);
-                                          // var order = await RazorPayAPIpost()
-                                          //     .createAuthOrder(cust.custId!);
-                                          // print(order.orderId);
-                                          // _razorpay.checkout(
-                                          //     await db.name,
-                                          //     phone,
-                                          //     await db.email,
-                                          //     order.orderId!,
-                                          //     cust.custId!);
+                                           Navigator.push(context, MaterialPageRoute(builder: (context) => IntroPayScreen()));
+                                          
                                         },
                                         child: Text('Setup Auto-Invest',
                                             style: TextStyle(
@@ -583,21 +571,27 @@ class _HomeScreenState extends State<HomeScreen> {
   getVersionData() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String localVersion = packageInfo.buildNumber;
-      await FirebaseFirestore.instance.collection('minVersion').doc('android').get()
-          .then((DocumentSnapshot doc) {
-        if(int.parse(localVersion)<int.parse(doc['code'])){
-          buildUpdateDialog(context);
-        }
-      });
+    await FirebaseFirestore.instance
+        .collection('minVersion')
+        .doc('android')
+        .get()
+        .then((DocumentSnapshot doc) {
+      if (int.parse(localVersion) < int.parse(doc['code'])) {
+        buildUpdateDialog(context);
+      }
+    });
   }
 
-  buildUpdateDialog(BuildContext context){
+  buildUpdateDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       title: const Text("New version available!"),
       content: const Text("Please update the app to continue."),
       actions: [
         TextButton(
-          child: const Text("UPDATE", style: TextStyle(fontWeight: FontWeight.w800),),
+          child: const Text(
+            "UPDATE",
+            style: TextStyle(fontWeight: FontWeight.w800),
+          ),
           onPressed: () {
             LaunchReview.launch();
           },

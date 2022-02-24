@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:testings/screens/auth/otp.dart';
+import 'package:testings/screens/otp.dart';
 import 'package:testings/services/auth.dart';
 
 import 'login.dart';

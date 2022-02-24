@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:testings/models/users.dart';
 import 'package:testings/screens/walkthrough.dart';
 
-import 'BottomNavigation.dart';
+import '../BottomNavigation.dart';
 
 class AuthWrapper extends StatelessWidget {
   const AuthWrapper({

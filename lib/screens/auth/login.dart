@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:testings/screens/auth/otp.dart';
+import 'package:testings/screens/otp.dart';
 import 'package:testings/services/auth.dart';
 import 'package:testings/services/messaging.dart';
 import 'register.dart';
