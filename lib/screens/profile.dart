@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:testings/screens/about_walkthrough.dart';
+//import 'package:testings/screens/about_walkthrough.dart';
 import 'package:testings/screens/autopay_walkthrough.dart';
+import 'package:testings/screens/firstpage.dart';
 import 'package:testings/services/db.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -138,35 +139,12 @@ class _ProfileState extends State<Profile> {
               SizedBox(
                 height: 25,
               ),
-              // Column(
-              //   children: [
-              //     Container(
-              //       alignment: Alignment.topLeft,
-              //       height: 80.0,
-              //       width: 180.0,
-              //       decoration: BoxDecoration(
-              //         image: DecorationImage(
-              //           image: AssetImage('assets/getsurge.png'),
-              //           fit: BoxFit.fill,
-              //         ),
-              //       ),
-              //     ),
-              //     SizedBox(height: 5),
-              //     Text(
-              //       'Crypto & You',
-              //       style: TextStyle(
-              //           color: Colors.white,
-              //           fontSize: 18,
-              //           fontWeight: FontWeight.bold),
-              //     ),
-              //   ],
-              // ),
               SizedBox(
                 height: 20,
               ),
               CircleAvatar(
                 backgroundColor: Colors.grey[600],
-                radius: 30,
+                radius: 50,
                 child: Icon(
                   Icons.person,
                   size: 40,
@@ -258,7 +236,7 @@ class _ProfileState extends State<Profile> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => AboutWalkThrough()));
+                        builder: (context) => FirstPg()));
               }),
               makeCard(
                   Icon(

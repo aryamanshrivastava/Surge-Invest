@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:testings/screens/auth/login.dart';
-import 'package:testings/screens/background.dart';
+
+import 'auth/register.dart';
 
 class FirstPg extends StatefulWidget {
   const FirstPg({Key? key}) : super(key: key);
@@ -13,112 +14,107 @@ class _FirstPgState extends State<FirstPg> {
   final phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Background(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Column(
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 100),
-                      child: Container(
-                        height: 100.0,
-                        width: 250.0,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/getsurge.png'),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    'Crypto & You',
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      backgroundColor: Color(0xff060427),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+            width: size.width * 0.75,
+            height: size.height * 0.5,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/nn.png'),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Flexible(
+              child: RichText(
+                text: TextSpan(
+                    text: 'Invest in the ',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
+                        fontSize: 50,
+                        fontWeight: FontWeight.w500),
+                    children: [
+                      TextSpan(
+                        text: "Future",
+                        style: TextStyle(
+                            color: Colors.yellowAccent,
+                            fontSize: 50,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ]),
               ),
             ),
-            SizedBox(
-              height: 30,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              'Lorem ipsum dolor sit amet. Sit quae totam in iusto enim et eius cumque et enim laborum!.',
+              style: TextStyle(color: Colors.white, fontSize: 25),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 90),
-            //   child: ElevatedButton(
-            //     onPressed: () {},
-            //     child: Text(
-            //       'Get Started',
-            //       style: TextStyle(
-            //         color: Color(0xff464646),
-            //         fontWeight: FontWeight.bold,
-            //         fontSize: 20,
-            //       ),
-            //     ),
-            //     style: ElevatedButton.styleFrom(
-            //       shape: new RoundedRectangleBorder(
-            //         borderRadius: new BorderRadius.circular(20.0),
-            //       ),
-            //       elevation: 10,
-            //       primary: Color(0xffD19549),
-            //       padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-            //     ),
-            //   ),
-            // ),
-            SizedBox(
-              height: 40,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 90),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => LoginScreen(phoneController)));
-                },
-                child: Text(
-                  'Get Started',
-                  style: TextStyle(
-                    color: Color(0xff464646),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(20.0),
-                  ),
-                  elevation: 10,
-                  primary: Color(0xffD19549),
-                  padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+          ),
+          SizedBox(
+            height: 36,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RegisterScreen(phoneController)));
+              },
+              child: Text(
+                'Get Started',
+                style: TextStyle(
+                  color: Color(0xffffffff),
+                  fontWeight: FontWeight.w800,
+                  fontSize: 25,
                 ),
               ),
+              style: ElevatedButton.styleFrom(
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(10.0),
+                ),
+                elevation: 10,
+                primary: Color(0xff9B4BFF),
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.33,
+                    vertical: MediaQuery.of(context).size.height * 0.012),
+              ),
             ),
-            SizedBox(
-              height: 116,
-            ),
-            // Container(
-            //   height: 232.0,
-            //   width: 500.0,
-            //   decoration: BoxDecoration(
-            //     image: DecorationImage(
-            //       image: AssetImage('assets/surgeapp.png'),
-            //       fit: BoxFit.fill,
-            //     ),
-            //   ),
-            // ),
-          ],
-        ),
+          ),
+          Center(
+              child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LoginScreen(phoneController)));
+                  },
+                  child: Text(
+                    'Login',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800),
+                  )))
+        ],
       ),
     );
   }

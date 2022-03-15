@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, unused_field
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:testings/screens/otp.dart';
@@ -6,18 +8,19 @@ import 'package:testings/services/messaging.dart';
 import 'register.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen(TextEditingController phoneController);
-
+  LoginScreen(this.phoneController);
+  final TextEditingController phoneController;
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
+
+final _formKey = GlobalKey<FormState>();
 
 const themeColor = const Color(0xff063970);
 
 class _LoginScreenState extends State<LoginScreen> {
   final phoneController = TextEditingController();
   final _auth = AuthService();
-  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -29,145 +32,77 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Color(0xff0473270),
+      backgroundColor: Color(0xff060427),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(
-            mainAxisSize: MainAxisSize.max,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                RegisterScreen(phoneController)));
-                  },
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                            color: Color(0xff0503971),
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(5.0),
-                            )),
-                        child: Icon(
-                          Icons.arrow_back_ios_new,
-                          size: 30,
-                          color: Color(0xffD19549),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Sign Up',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-
-              Column(
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 50),
-                      child: Container(
-                        height: 100.0,
-                        width: 250.0,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/getsurge.png'),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    'Crypto & You',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Text(
-                  'Welcome Back!',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
               SizedBox(
-                height: 30,
+                height: MediaQuery.of(context).size.height * 0.12,
               ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 50),
+                  child: Text(
+                    'Welcome Back!',
+                    style: TextStyle(color: Colors.white, fontSize: 50),
+                  ),
+                ),
+              ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    "You've been saved",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.15),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
-                  controller: phoneController,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
+                  controller: widget.phoneController,
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                   maxLength: 10,
                   validator: (value) {
                     if (value == null) {
                       return 'Please enter phone number';
                     } else if (value.length < 10 ||
                         int.tryParse(value) == null) {
-                      return 'Enter valid 10 digit phone number';
+                      return 'Enter valid phone number';
                     } else {
                       return null;
                     }
                   },
                   decoration: InputDecoration(
-                    counterText: '',
-                    fillColor: Color(0xff0503971),
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
+                      fillColor: Color(0xff241252),
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      borderSide:
-                          const BorderSide(color: Colors.black, width: 2.0),
-                    ),
-                    hintText: 'Phone No.',
-                    prefixIcon: const Icon(
-                      Icons.call_outlined,
-                      color: Color(0xffD19549),
-                    ),
-                    hintStyle: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
-                        color: Colors.white70),
-                  ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderSide:
+                            const BorderSide(color: Colors.black, width: 2.0),
+                      ),
+                      hintText: 'Phone No.',
+                      prefixIcon: Icon(
+                          Icons.call,
+                          color: Color(0xffD19549),
+                        ),
+                      hintStyle: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                          color: Color(0xffC9C9C9))),
                 ),
-              ),
-              SizedBox(
-                height: 10,
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -196,11 +131,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                 },
                 child: Text(
-                  'Login',
+                  'Send OTP',
                   style: TextStyle(
-                    color: Color(0xff464646),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    color: Color(0xffffffff),
+                    fontWeight: FontWeight.w800,
+                    fontSize: 25,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
@@ -208,31 +143,68 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: new BorderRadius.circular(10.0),
                   ),
                   elevation: 10,
-                  primary: Color(0xffD19549),
-                  padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                  primary: Color(0xff9B4BFF),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.33,
+                      vertical: MediaQuery.of(context).size.height * 0.012),
                 ),
               ),
-              // Align(
-              //   alignment: FractionalOffset.bottomCenter,
-              //   child: _buildCard(
-              //     backgroundColor: Color(0xff0473270),
-              //     config: CustomConfig(
-              //       gradients: [
-              //         [Colors.deepPurple, Color(0xEEF44336)],
-              //         [Colors.deepPurple[800]!, Color(0x77E57373)],
-              //         [Colors.deepPurple, Color(0x66FF9800)],
-              //         [Colors.deepPurple, Color(0x55FFEB3B)]
-              //       ],
-              //       durations: [35000, 19440, 10800, 6000],
-              //       heightPercentages: [0.20, 0.23, 0.25, 0.30],
-              //       blur: _blur,
-              //       gradientBegin: Alignment.bottomLeft,
-              //       gradientEnd: Alignment.topRight,
-              //     ),
-              //   ),
-              // )
-              // Expanded(child: SizedBox()),
+              Center(
+                  child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Need Help?',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w800),
+                      ))),
             ],
+
+            //   ElevatedButton(
+            //     onPressed: () async {
+            //       if (_formKey.currentState!.validate()) {
+            //         var doc = await FirebaseFirestore.instance
+            //             .collection('users')
+            //             .doc('+91' + phoneController.text)
+            //             .get();
+            //         if (doc.exists) {
+            //           _auth.logInWIthPhone(phone: phoneController.text);
+            //           Navigator.pushReplacement(
+            //               context,
+            //               MaterialPageRoute(
+            //                   builder: (context) => OtpScreen(
+            //                         phoneNumber: phoneController.text,
+            //                         registered: true,
+            //                         auth: _auth,
+            //                       )));
+            //         } else {
+            //           Navigator.push(
+            //               context,
+            //               MaterialPageRoute(
+            //                   builder: (context) =>
+            //                       RegisterScreen(phoneController)));
+            //         }
+            //       }
+            //     },
+            //     child: Text(
+            //       'Login',
+            //       style: TextStyle(
+            //         color: Color(0xff464646),
+            //         fontWeight: FontWeight.bold,
+            //         fontSize: 20,
+            //       ),
+            //     ),
+            //     style: ElevatedButton.styleFrom(
+            //       shape: new RoundedRectangleBorder(
+            //         borderRadius: new BorderRadius.circular(10.0),
+            //       ),
+            //       elevation: 10,
+            //       primary: Color(0xffD19549),
+            //       padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+            //     ),
+            //   ),
+            // ],
           ),
         ),
       ),
