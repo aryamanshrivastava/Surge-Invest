@@ -351,8 +351,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           bottom: 20, top: 10),
                                       child: ElevatedButton(
                                         onPressed: () async {
-                                           Navigator.push(context, MaterialPageRoute(builder: (context) => IntroPayScreen()));
-                                          
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      IntroPayScreen()));
                                         },
                                         child: Text('Setup Auto-Invest',
                                             style: TextStyle(

@@ -46,7 +46,7 @@ class _TransactionState extends State<Transaction> {
           return result;
         },
         child: Scaffold(
-          backgroundColor: Color(0xff0473270),
+      backgroundColor: Color(0xff060427),
           body: Column(
             children: [
               SizedBox(
