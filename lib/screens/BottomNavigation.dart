@@ -17,7 +17,7 @@ class _BottomBarState extends State<BottomBar> {
   List pages = [HomeScreen(), Transaction(), Locker(), Profile()];
 
   int currentIndex = 0;
-  void OnTap(int index) {
+  void ontap(int index) {
     setState(() {
       currentIndex = index;
     });
@@ -32,7 +32,7 @@ class _BottomBarState extends State<BottomBar> {
         selectedFontSize: 0,
         type: BottomNavigationBarType.fixed,
         backgroundColor: Color(0xff060427),
-        onTap: OnTap,
+        onTap: ontap,
         currentIndex: currentIndex,
         selectedItemColor: Color(0XFF9B4BFF),
         unselectedItemColor: Colors.white,
@@ -41,15 +41,23 @@ class _BottomBarState extends State<BottomBar> {
         elevation: 0,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined), title: Text("Home")),
+              icon: Icon(Icons.home_outlined),
+               //title: Text("Home"),
+              label: "Home"
+              ),
           BottomNavigationBarItem(
               icon: Icon(Icons.event_note_outlined),
-              title: Text("Transaction")),
+              //title: Text("Transaction")
+              label: "Transaction"
+              ),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_balance_wallet_outlined),
-              title: Text("wallet")),
+              //title: Text("wallet")
+              label: "Wallet"
+              ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings), title: Text("Profile")),
+              icon: Icon(Icons.settings), label: "Profile"
+              ),
         ],
       ),
       body: pages[currentIndex],

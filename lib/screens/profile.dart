@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 //import 'package:testings/screens/about_walkthrough.dart';
 import 'package:testings/screens/autopay_walkthrough.dart';
-import 'package:testings/screens/firstpage.dart';
+//import 'package:testings/screens/firstpage.dart';
 import 'package:testings/services/db.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,6 +22,10 @@ class _ProfileState extends State<Profile> {
 
   void _signOut() {
     FirebaseAuth.instance.signOut();
+  }
+  void launchWhatsapp({@required number, @required message})async{
+    String url = "whatsapp://send?phone=$number&text=$message";
+    await canLaunch(url) ? launch(url): print("Can't open Whatsapp");
   }
 
   @override
@@ -127,11 +131,15 @@ class _ProfileState extends State<Profile> {
                 color: Colors.white, size: 30),
             backgroundColor: Color(0xff00E676),
             foregroundColor: Colors.white,
-            onPressed: () async {
-              String phoneNumber = '+919885000923';
-              var url = 'https://wa.me/$phoneNumber?text=Hi%20Surge!%20';
-              await launch(url);
-            }),
+            onPressed: (){
+              launchWhatsapp(number: "+919131149807", message: "Hi Surge!");
+            }
+            // () async {
+            //   String phoneNumber = '+919131149807';
+            //   String url = "https://wa.me/$phoneNumber?text=Hi%20Surge!%20";
+            //   await canLaunch(url);
+            // }
+            ),
         backgroundColor: Color(0xff473270),
         body: SingleChildScrollView(
           child: Column(
@@ -200,24 +208,10 @@ class _ProfileState extends State<Profile> {
               SizedBox(
                 height: 20,
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 20),
-              //   child: Container(
-              //     alignment: Alignment.bottomLeft,
-              //     child: Text(
-              //       'Transactions',
-              //       textAlign: TextAlign.start,
-              //       style: TextStyle(
-              //           color: Color(0xffD19549),
-              //           fontSize: 20,
-              //           fontWeight: FontWeight.w800),
-              //     ),
-              //   ),
-              // ),
               Card(
                 elevation: 8.0,
                 margin:
-                    new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                     EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                 child: Container(
                   decoration: BoxDecoration(color: Color(0xff5C4A7F)),
                   child: makeSwitchTile(
@@ -230,14 +224,14 @@ class _ProfileState extends State<Profile> {
                       () {}),
                 ),
               ),
-              makeCard(
-                  Icon(Icons.description, color: Colors.white), 'How it works',
-                  () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => FirstPg()));
-              }),
+              // makeCard(
+              //     Icon(Icons.description, color: Colors.white), 'How it works',
+              //     () {
+              //   Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //           builder: (context) => FirstPg()));
+              // }),
               makeCard(
                   Icon(
                     Icons.help_outline,
@@ -276,9 +270,8 @@ class _ProfileState extends State<Profile> {
                 style: ElevatedButton.styleFrom(
                   shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(10.0),
-                  ),
+                  ), backgroundColor: Color(0xffD19549),
                   elevation: 10,
-                  primary: Color(0xffD19549),
                   padding: EdgeInsets.symmetric(horizontal: 60, vertical: 8),
                 ),
               ),
@@ -307,75 +300,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
               ]),
-              // ElevatedButton.icon(
-              //   onPressed: _launchURLTC,
-              //   icon: Icon(Icons.article_outlined),
-              //   label: Text(
-              //     'Terms and conditions',
-              //     style: TextStyle(fontWeight: FontWeight.w800),
-              //   ),
-              //   style: ElevatedButton.styleFrom(
-              //     shape: new RoundedRectangleBorder(
-              //       borderRadius: new BorderRadius.circular(20.0),
-              //     ),
-              //     elevation: 10,
-              //     primary:Colors.deepPurpleAccent,
-              //     padding: EdgeInsets.symmetric(horizontal: 35, vertical: 8),
-              //   ),
-              // ),
-              // ElevatedButton.icon(
-              //   onPressed: _launchURLPP,
-              //   icon: Icon(Icons.privacy_tip_outlined),
-              //   label: Text(
-              //     'Privacy Policy',
-              //     style: TextStyle(fontWeight: FontWeight.w800),
-              //   ),
-              //   style: ElevatedButton.styleFrom(
-              //     shape: new RoundedRectangleBorder(
-              //       borderRadius: new BorderRadius.circular(20.0),
-              //     ),
-              //     elevation: 10,
-              //     primary: Colors.deepPurpleAccent,
-              //     padding: EdgeInsets.symmetric(horizontal: 60, vertical: 8),
-              //   ),
-              // ),
-              SizedBox(height: 30),
-              // ElevatedButton.icon(
-              //   onPressed: _signOut,
-              //   icon: Icon(Icons.logout),
-              //   label: Text(
-              //     'Logout',
-              //     style: TextStyle(fontWeight: FontWeight.w800),
-              //   ),
-              //   style: ElevatedButton.styleFrom(
-              //     shape: new RoundedRectangleBorder(
-              //       borderRadius: new BorderRadius.circular(20.0),
-              //     ),
-              //     elevation: 10,
-              //     primary: Color(0xffD19549),
-              //     padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
-              //   ),
-              // ),
-              // Spacer(),
-              // Padding(
-              //   padding: const EdgeInsets.all(18.0),
-              //   child: Row(
-              //     children: [
-              //       Spacer(),
-              //       FloatingActionButton(
-              //           child: FaIcon(FontAwesomeIcons.whatsapp,
-              //               color: Colors.white, size: 30),
-              //           backgroundColor: Color(0xff00E676),
-              //           foregroundColor: Colors.white,
-              //           onPressed: () async {
-              //             String phoneNumber = '+919652354388';
-              //             var url =
-              //                 'https://wa.me/$phoneNumber?text=Hi%20Surge!%20';
-              //             await launch(url);
-              //           }),
-              //     ],
-              //   ),
-              // ),
+          
             ],
           ),
         ),
@@ -393,3 +318,6 @@ void _launchURLPP() async {
   const url = 'https://www.getsurgeapp.com/privacy-policy';
   if (!await launch(url)) throw 'Could not launch $url';
 }
+
+
+
